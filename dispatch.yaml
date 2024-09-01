@@ -1,0 +1,3 @@
+dispatch:
+  - url: draeternus.fun/
+    service: drfinapi
