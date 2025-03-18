@@ -2,9 +2,12 @@ package api
 
 import (
 	"database/sql"
-	"drfin/transactionstype"
 	"log"
 	"net/http"
+
+	"drfin/categories"
+
+	"github.com/gorilla/mux"
 )
 
 type APIServer struct {
@@ -20,13 +23,21 @@ func NewAPIServer(db *sql.DB, addr string) *APIServer {
 }
 
 func (apis *APIServer) Run() error {
-
 	log.Println("Starting Application DRFIN...")
-	mux := http.NewServeMux()
-	log.Println("Assign handlers...")
-	transactionTypeHandler := transactionstype.NewHandler(apis.db)
-	transactionTypeHandler.RegisterHandler(mux)
+
+	// Initialize the router using gorilla/mux
+	router := mux.NewRouter()
+
+	log.Println("Assigning handlers...")
+	// Initialize the handler for categories
+	categoryHandler := categories.NewHandler(categories.NewService(categories.NewRepository(apis.db)))
+
+	// Register routes with specific methods (GET, POST, PUT, DELETE)
+	categoryHandler.RegisterHandler(router)
+
 	log.Println("DRFIN Application Started...")
-	err := http.ListenAndServe(apis.addr, mux)
+
+	// Start the HTTP server with the specified address and router
+	err := http.ListenAndServe(apis.addr, router)
 	return err
 }

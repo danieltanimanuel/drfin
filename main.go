@@ -33,6 +33,4 @@ func main() {
 		log.Panic(err)
 		return
 	}
-
-	// transactionstype.InitHandlers(mux)
 }

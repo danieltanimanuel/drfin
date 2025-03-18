@@ -1,0 +1,1 @@
+These apps are built with the help of AI and love <3
