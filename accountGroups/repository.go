@@ -1,4 +1,4 @@
-package accountGroups
+package accountgroups
 
 import (
 	"database/sql"
@@ -42,17 +42,17 @@ func (r *Repository) GetAllAccountGroups() ([]AccountGroup, error) {
 	return accountGroups, nil
 }
 
-// GetAccountGroupByID retrieves a single Type by its ID.
+// GetAccountGroupByID retrieves a single AccountGroup by its ID.
 func (r *Repository) GetAccountGroupByID(id int) (*AccountGroup, error) {
 	var c AccountGroup
 	err := r.db.QueryRow(`SELECT id, name FROM account_groups WHERE id = $1`, id).
 		Scan(&c.ID, &c.Name)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, fmt.Errorf("Type with ID %d not found", id)
+			return nil, fmt.Errorf("accountgroup with ID %d not found", id)
 		}
-		log.Printf("Error fetching Type by ID: %v", err)
-		return nil, fmt.Errorf("could not retrieve Type: %v", err)
+		log.Printf("Error fetching AccountGroup by ID: %v", err)
+		return nil, fmt.Errorf("could not retrieve AccountGroup: %v", err)
 	}
 	return &c, nil
 }
@@ -70,24 +70,24 @@ func (r *Repository) CreateAccountGroup(c AccountGroup) (AccountGroup, error) {
 	return c, nil
 }
 
-// UpdateAccountGroup updates an existing Type.
+// UpdateAccountGroup updates an existing AccountGroup.
 func (r *Repository) UpdateAccountGroup(id int, c AccountGroup) (AccountGroup, error) {
 	_, err := r.db.Exec(`UPDATE account_groups SET name = $1 WHERE id = $2`,
 		c.Name, id)
 	if err != nil {
-		log.Printf("Error updating Type: %v", err)
+		log.Printf("Error updating AccountGroup: %v", err)
 		return AccountGroup{}, fmt.Errorf("could not update AccountGroup: %v", err)
 	}
 	c.ID = id
 	return c, nil
 }
 
-// DeleteTransactionType deletes a transaction type by its ID.
+// DeleteTransactionAccountGroup deletes a transaction type by its ID.
 func (r *Repository) DeleteAccountGroup(id int) error {
 	_, err := r.db.Exec(`DELETE FROM account_groups WHERE id = $1`, id)
 	if err != nil {
-		log.Printf("Error deleting Type: %v", err)
-		return fmt.Errorf("could not delete Type: %v", err)
+		log.Printf("Error deleting AccountGroup: %v", err)
+		return fmt.Errorf("could not delete AccountGroup: %v", err)
 	}
 	return nil
 }

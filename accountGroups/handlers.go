@@ -1,4 +1,4 @@
-package accountGroups
+package accountgroups
 
 import (
 	"encoding/json"

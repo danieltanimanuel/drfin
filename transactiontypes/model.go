@@ -1,7 +1,7 @@
-package types
+package transactiontypes
 
 // Type represents the data structure for Type entity.
-type Type struct {
+type TransactionType struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }

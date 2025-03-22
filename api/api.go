@@ -5,7 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"drfin/accountgroups"
 	"drfin/categories"
+	"drfin/transactiontypes"
 
 	"github.com/gorilla/mux"
 )
@@ -29,11 +31,15 @@ func (apis *APIServer) Run() error {
 	router := mux.NewRouter()
 
 	log.Println("Assigning handlers...")
-	// Initialize the handler for categories
+	// Initialize the handler for categories, accountgroups, types
 	categoryHandler := categories.NewHandler(categories.NewService(categories.NewRepository(apis.db)))
+	accountgroupsHandler := accountgroups.NewHandler(accountgroups.NewService(accountgroups.NewRepository(apis.db)))
+	transactiontypesHandler := transactiontypes.NewHandler(transactiontypes.NewService(transactiontypes.NewRepository(apis.db)))
 
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)
+	accountgroupsHandler.RegisterHandler(router)
+	transactiontypesHandler.RegisterHandler(router)
 
 	log.Println("DRFIN Application Started...")
 

@@ -1,4 +1,4 @@
-package accountGroups
+package accountgroups
 
 type Response struct {
 	Status        string         `json:"status"`

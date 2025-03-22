@@ -1,4 +1,4 @@
-package accountGroups
+package accountgroups
 
 // Type represents the data structure for Type entity.
 type AccountGroup struct {

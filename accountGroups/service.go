@@ -1,4 +1,4 @@
-package accountGroups
+package accountgroups
 
 // Service handles the business logic and uses the repository to interact with the database.
 type Service struct {
