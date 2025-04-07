@@ -70,7 +70,7 @@ func (h *Handler) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	createdTransaction, err := h.service.CreateTransaction(t)
 	if err != nil {
 		// http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
-		GenerateNewErrorResponse(w, "Invalid Input data", "Bad Request", fmt.Sprintf("%v", r.Context().Value("requestID")), http.StatusBadRequest)
+		GenerateNewErrorResponse(w, "Invalid Input data", "Bad Request", fmt.Sprintf("%v", err), fmt.Sprintf("%v", r.Context().Value("requestID")), http.StatusBadRequest)
 		return
 	}
 

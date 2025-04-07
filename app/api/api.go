@@ -9,6 +9,7 @@ import (
 	"drfin/app/accountgroups"
 	"drfin/app/accounts"
 	"drfin/app/categories"
+	"drfin/app/gmail"
 	"drfin/app/transactions"
 	"drfin/app/transactiontypes"
 
@@ -82,12 +83,16 @@ func (apis *APIServer) Run() error {
 	transactionsService := transactions.NewService(transactionsRepository, accountsRepository)
 	transactionsHandler := transactions.NewHandler(transactionsService)
 
+	// Initialize Gmail
+	gmailHandler := gmail.NewHandler()
+
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)
 	accountgroupsHandler.RegisterHandler(router)
 	accountsHandler.RegisterHandler(router)
 	transactiontypesHandler.RegisterHandler(router)
 	transactionsHandler.RegisterHandler(router)
+	gmailHandler.RegisterHandler(router)
 
 	log.Println("DRFIN Application Started...")
 

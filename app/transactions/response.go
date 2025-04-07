@@ -18,6 +18,7 @@ type ErrorResponse struct {
 		Code      int    `json:"code"`
 		Status    string `json:"status"`
 		Message   string `json:"message"`
+		Detail    string `json:"detail"`
 		RequestID string `json:"requestId"`
 	} `json:"error"`
 }
@@ -30,11 +31,12 @@ func NewResponse(status, message string, data interface{}) *Response {
 	}
 }
 
-func NewErrorResponse(code int, message, status, requestId string) *ErrorResponse {
+func NewErrorResponse(code int, message, status, detail, requestId string) *ErrorResponse {
 	errorResp := &ErrorResponse{}
 	errorResp.Error.Code = code
 	errorResp.Error.Status = status
 	errorResp.Error.Message = message
+	errorResp.Error.Detail = detail
 	errorResp.Error.RequestID = requestId
 	return errorResp
 }
@@ -69,8 +71,8 @@ func GenerateNewSuccessResponse(w http.ResponseWriter, data interface{}, statusC
 	writeJSONResponse(w, response, http.StatusOK)
 }
 
-func GenerateNewErrorResponse(w http.ResponseWriter, status, message, requestId string, code int) {
-	response := NewErrorResponse(code, message, status, requestId)
+func GenerateNewErrorResponse(w http.ResponseWriter, status, message, detail, requestId string, code int) {
+	response := NewErrorResponse(code, message, status, detail, requestId)
 	writeJSONResponse(w, response, http.StatusBadGateway)
 }
 
