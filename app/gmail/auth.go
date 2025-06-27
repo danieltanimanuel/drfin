@@ -1,13 +1,16 @@
 package gmail
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"net/http"
 
+	"github.com/PuerkitoBio/goquery"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -81,25 +84,77 @@ func authO2() {
 		log.Fatalf("Unable to create Gmail service: %v", err)
 	}
 
-	// List the messages in the user's inbox
-	r, err := srv.Users.Messages.List("me").MaxResults(10).Do()
+	// Assuming 'srv' is your Gmail service and you have the message ID of the older message.
+	messageId := "196152a4ef35e1fa" // Replace with the message ID you want to filter by
+
+	// Get the message to retrieve its date
+	msg, err := srv.Users.Messages.Get("me", messageId).Do()
 	if err != nil {
-		log.Fatalf("Unable to retrieve messages: %v", err)
+		log.Fatalf("Unable to get message: %v", err)
 	}
 
-	// Print the subject of the last 10 emails
-	if len(r.Messages) == 0 {
-		fmt.Println("No messages found.")
-	} else {
-		fmt.Println("Messages:")
-		for _, msg := range r.Messages {
-			message, err := srv.Users.Messages.Get("me", msg.Id).Do()
-			if err != nil {
-				log.Fatalf("Unable to get message: %v", err)
+	// Extract the date in a format suitable for the query, here we use the "InternalDate" field
+	timestamp := msg.InternalDate // This is in milliseconds, convert to seconds
+
+	// Use the "after" operator to get messages newer than the specified timestamp
+	query := fmt.Sprintf("after:%d", (timestamp / 1000)) // divide by 1000 to convert to seconds
+	log.Printf("%s", query)
+
+	// Get the newer messages using the query
+	messages, err := srv.Users.Messages.List("me").MaxResults(10).Do()
+	if err != nil {
+		log.Fatalf("Unable to list messages: %v", err)
+	}
+
+	for _, msg := range messages.Messages {
+		message, err := srv.Users.Messages.Get("me", msg.Id).Do()
+		if err != nil {
+			log.Fatalf("Unable to get message: %v", err)
+		}
+		tmp := message.InternalDate / 1000
+		for _, header := range message.Payload.Headers {
+			if header.Name == "Subject" {
+				fmt.Printf("%d - %s - %s\n", tmp, msg.Id, header.Value)
 			}
-			for _, header := range message.Payload.Headers {
-				if header.Name == "Subject" {
-					fmt.Printf("- %s\n", header.Value)
+		}
+		// Check for the body in the parts array
+		var body string
+		if msg.Id == "1965804f844ba06d" {
+			for _, part := range message.Payload.Parts {
+				// Check for the body if it's text or html part
+				log.Printf("Testis : %s", part.MimeType)
+				if part.MimeType == "text/plain" || part.MimeType == "text/html" {
+					body += part.Body.Data
+				}
+
+				// If the part is base64url encoded, decode it
+				if part.Body.Size > 0 {
+					decoded, err := base64.URLEncoding.DecodeString(part.Body.Data)
+					if err != nil {
+						log.Fatalf("Error decoding body: %v", err)
+					}
+					body = string(decoded)
+					// Load the HTML content into goquery
+					doc, err := goquery.NewDocumentFromReader(strings.NewReader(body))
+					if err != nil {
+						log.Fatal("Error loading HTML: ", err)
+					}
+
+					doc.Find("table[style='width:100%']").Each(func(i int, table *goquery.Selection) {
+						// Iterate over each row in the table
+						table.Find("tr").Each(func(i int, tr *goquery.Selection) {
+							// Extract the text of each <td> element in the row
+							cells := tr.Find("td").Map(func(i int, td *goquery.Selection) string {
+								fmt.Print(td.Each())
+								return strings.TrimSpace(td.Text())
+							})
+
+							// Print the row if it has content
+							if len(cells) > 0 {
+								fmt.Println(cells)
+							}
+						})
+					})
 				}
 			}
 		}

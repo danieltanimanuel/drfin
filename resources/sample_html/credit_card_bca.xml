@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="id" translate="no">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- So that mobile will display zoomed in -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- enable media queries for windows phone 8 -->
+  <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
+  <meta name="google" content="notranslate">
+  <title>e-info BCA</title>
+
+ <style type="text/css">
+ <!--responsive-->
+
+
+body {
+margin: 0;
+padding: 0;
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+font-family: Calibri, Geneva, sans-serif;
+}
+
+
+a img{ border: 0; margin: 0; padding: 0; outline: none;}
+img{border: 0; margin: 0; padding: 0; outline: none;}
+
+.ExternalClass {
+  width: 100%;
+}
+
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+  line-height: 100%;
+}
+
+.ReadMsgBody {
+  width: 100%;
+  background-color: #ebebeb;
+}
+
+
+.img-responsive {
+    height: auto;
+    width: 100%;
+}
+.yshortcuts a {
+  border-bottom: none !important;
+}
+
+@media screen and (max-width: 610px) {
+  .force-row,
+  .container {
+    width: 100% !important;
+    max-width: 100% !important; margin-top: 12px !important;
+        padding-left: 0px;padding-right: 0px;
+  }
+   h2 {font-size:18px;}
+}
+@media screen and (max-width: 360px) {
+  .container-padding {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+
+  }
+}
+.ios-footer a {
+  color: #aaaaaa !important;
+  text-decoration: underline;
+}
+
+ <!--responsive-->
+  .header,
+.title,
+.subtitle,
+.footer-text {
+ font-family: Calibri, Geneva, sans-serif;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 12px;
+  color: #DF4726;
+}
+
+.footer-text {
+  font-size: 12px;
+  line-height: 16px;
+  color: #aaaaaa;
+}
+.footer-text a {
+  color: #aaaaaa;
+}
+
+.container {
+  width: 662;
+  max-width: 100%;
+}
+
+
+
+code {
+  background-color: #FFF;
+  padding: 0 4px;
+ font-family: Calibri, Geneva, sans-serif;
+  font-size: 12px;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid #9edfe8;
+}
+
+.hr {
+  height: 1px;
+  border-bottom: 1px solid #9edfe8;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374550;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 600;
+        color:#2C2E2F; line-height: 65px;
+  text-align: left;
+}
+.subtitle span {
+  font-weight: 400;
+  color: #999999;
+}
+
+.body-text {
+  font-family: Calibri, Geneva, sans-serif;
+  font-size: 14px;
+  line-height: 65px;
+  text-align: left;
+  color: #333333;
+  margin-left:20px;
+}
+
+.col {
+  font-family: Calibri, Geneva, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+  color: #333333;
+  width: 100%;
+}
+ul {font-family: Calibri, Geneva, sans-serif;}
+p {font-family: Calibri, Geneva, sans-serif; }
+
+
+</style>
+</head>
+
+
+
+
+<body style="margin:0; padding:0;" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<!-- 100% background wrapper (grey background) -->
+
+
+
+<!-- OPENING 600px container (white background) -->
+<table border="0" width="662" cellpadding="0" cellspacing="0" class="container" align="center" style=" border-collapse: collapse; border-bottom: solid #eaeaea 1px;border-top: solid #eaeaea 1px;border-left: solid #eaeaea 1px;border-right: solid #eaeaea 1px;">
+<tbody><tr>
+<td style="padding-left: 12px;padding-right: 12px; padding-top: 12px;padding-bottom: 12px;background-color: #ffffff;">
+ <!-- OPENING 600px container (white background) -->
+
+    <!--/inner container -->
+    <table width="637" height="298" border="0" cellpadding="0" cellspacing="0" align="left" class="force-row">
+
+
+
+      <!--/TEXT -->
+      <tbody><tr>
+        <td valign="top" style="font-family: Calibri, Geneva, sans-serif;">
+
+          <p>Yth. Pemegang Kartu Kredit BCA</p>
+
+          <p>Terima kasih telah bertransaksi menggunakan Kartu Kredit BCA:</p>
+
+
+                        <strong>
+                        <table style="width:100%">
+                                <tbody><tr>
+                                        <td style="width:30%">No Customer</td>
+                                        <td style="width:2%">:</td>
+                                        <td>0000000018608381</td>
+                                </tr>
+                                <tr>
+                                        <td>No Kartu</td>
+                                        <td>:</td>
+                                        <td>455633XXXX2115</td>
+                                </tr>
+                                <tr>
+                                        <td>Merchant / ATM</td>
+                                        <td>:</td>
+                                        <td>SHOPEE</td>
+                                </tr>
+                                <tr>
+                                        <td>Jenis Transaksi</td>
+                                        <td>:</td>
+                                        <td>E-COMMERCE</td>
+                                </tr>
+                                <tr>
+                                        <td>Otentikasi</td>
+                                        <td>:</td>
+                                        <td>TRANSAKSI DENGAN OTP</td>
+                                </tr>
+                                <tr>
+                                        <td>Pada tanggal</td>
+                                        <td>:</td>
+                                        <td>21-04-2025 18:03:48 WIB</td>
+                                </tr>
+                                <tr>
+                                        <td>Sejumlah</td>
+                                        <td>:</td>
+                                        <td>Rp34.800,00</td>
+                                </tr>
+                        </tbody></table>
+                        </strong>
+
+
+                  <p>Update nomor handphone dan alamat email untuk keamanan dan kenyamanan transaksi Kartu Kredit BCA Anda. Temukan tips keamanan transaksi pada website Bank BCA.</p>
+
+                  <p>Selalu jaga keamanan Kartu Kredit BCA Anda. Apabila hilang dan belum terblokir, maka transaksi yang terjadi adalah <strong>tanggung jawab Pemegang Kartu</strong>.</p>
+
+                  <img src="https://www.bca.co.id/-/media/Images/e-info2023/2023-notif-slice1.jpg" width="100%" class="img-responsive" alt="BCA" style="display: block;">
+
+                  <p>Notifikasi ini dikirim otomatis oleh sistem. Mohon tidak membalas/me-reply email ini.</p>
+
+
+        </td>
+      </tr>
+      <!--/TEXT -->
+
+
+
+      <!--/SOSMED & CARDS -->
+      <tr>
+        <td valign="top" style="font-family: Calibri, Geneva, sans-serif;">
+          <table border="0" width="662" cellpadding="0" cellspacing="0" class="container" align="center">
+            <tbody><tr>
+              <td>
+                <img src="https://pustaka.bca.co.id/images/e-info-2024/2024-notif-ojk.jpg" width="100%" class="img-responsive" alt="BCA" style="display: block;">
+              </td>
+
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+      <!--/SOSMED & CARDS -->
+
+    </tbody></table>
+    <!--/inner container -->
+
+
+
+ <!-- CLOSING 600px container (white background) -->
+</td>
+</tr>
+</tbody></table>
+<!-- CLOSING 600px container (white background) -->
+
+<!-- DISCLAIMER-->
+<table align="center" style="border: 0; outline: none; background-color: Gainsboro;">
+  <tbody><tr>
+    <td class="container-padding footer-text" width="688" align="left">
+
+      <center><font color="#888888" size="2"><br>BCA tidak pernah memberi kuasa pihak manapun untuk mengambil Kartu Kredit BCA Anda. <br>Segera hubungi Halo BCA 1500888 apabila Anda mengalami Penipuan tersebut.</font></center>
+
+
+      <center><font color="#888888" size="1"><br>E-info newsletter ini adalah fasilitas bagi Pemegang Kartu Kredit BCA</font></center>
+      <center><font color="#888888" size="1">Semua Informasi dan data yang terdapat dalam e-Info adalah bersifat pribadi dan rahasia. Semua konsekuensi dari penyalahgunaan informasi dan data yang terdapat dalam e-Info sebagai 
+akibat dari kelalaian Pemegang Kartu akan menjadi tanggung jawab penuh dari Pemegang Kartu. Dengan ini, Pemegang Kartu Kredit BCA melepaskan PT Bank Central Asia, Tbk. dari segala bentuk tuduhan dan tuntutan hukum yang diajukan oleh pihak manapun dalam hal penyalahgunaan informasi dan data yang terdapat dalam e-Info.</font></center>
+
+    </td>
+  </tr>
+</tbody></table>
+<!-- DISCLAIMER-->
+
+
+</body></html>
