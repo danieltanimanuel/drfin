@@ -61,7 +61,7 @@ func (h *Handler) GetAllTransactions(w http.ResponseWriter, r *http.Request) {
 // }
 
 func (h *Handler) CreateTransaction(w http.ResponseWriter, r *http.Request) {
-	var t Transaction
+	var t CreateTransactionDTO
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
 		http.Error(w, fmt.Sprintf("Invalid request body: %v", err), http.StatusBadRequest)
 		return

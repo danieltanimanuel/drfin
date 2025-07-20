@@ -57,6 +57,21 @@ func (r *Repository) GetCategoryByID(id int) (*Category, error) {
 	return &c, nil
 }
 
+// GetCategoryByName retrieves a single category by its Name.
+func (r *Repository) GetCategoryByName(name string) (*Category, error) {
+	var c Category
+	err := r.db.QueryRow(`SELECT id, name FROM categories WHERE name = $1`, name).
+		Scan(&c.ID, &c.Name)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("category with name %d not found", name)
+		}
+		log.Printf("Error fetching category by name: %v", err)
+		return nil, fmt.Errorf("could not retrieve category: %v", err)
+	}
+	return &c, nil
+}
+
 // CreateCategory inserts a new category into the database.
 func (r *Repository) CreateCategory(c Category) (Category, error) {
 	var categoryID int

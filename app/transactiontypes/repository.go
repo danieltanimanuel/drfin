@@ -57,6 +57,21 @@ func (r *Repository) GetTransactionTypeByID(id int) (*TransactionType, error) {
 	return &c, nil
 }
 
+// GetTypeByName retrieves a single Type by its Name.
+func (r *Repository) GetTransactionTypeByName(name string) (*TransactionType, error) {
+	var c TransactionType
+	err := r.db.QueryRow(`SELECT id, name FROM transaction_types WHERE name = $1`, name).
+		Scan(&c.ID, &c.Name)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("Type with Name %s not found", name)
+		}
+		log.Printf("Error fetching Type by Name: %v", err)
+		return nil, fmt.Errorf("could not retrieve Type: %v", err)
+	}
+	return &c, nil
+}
+
 // CreateType inserts a new Type into the database.
 func (r *Repository) CreateTransactionType(c TransactionType) (TransactionType, error) {
 	var TransactionTypeID int

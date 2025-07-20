@@ -13,7 +13,7 @@ type Transaction struct {
 	CategoryID    int        `json:"category_id"`
 	AccountID     int        `json:"account_id"`
 	AccountDestID *int       `json:"account_dest_id"`
-	Amount        float64    `json:"amount"`
+	Amount        *big.Float `json:"amount"`
 	Description   string     `json:"description"`
 	Status        string     `json:"status"`
 	Source        string     `json:"source"`
@@ -37,6 +37,18 @@ type TransactionDTO struct {
 	InsertedAt    time.Time       `json:"inserted_at"`
 	LastUpdatedAt time.Time       `json:"last_updated_at"`
 	ConfirmedAt   *time.Time      `json:"confirmed_at"`
+}
+
+type CreateTransactionDTO struct {
+	TradeDate   time.Time  `json:"trade_date"`
+	Type        string     `json:"type"`
+	Category    string     `json:"category"`
+	Account     string     `json:"account_id"`
+	AccountDest string     `json:"account_dest_id"`
+	Amount      *big.Float `json:"amount"` //Why *?
+	Description string     `json:"description"`
+	Status      string     `json:"status"`
+	Source      string     `json:"source"`
 }
 
 type TransactionType struct {

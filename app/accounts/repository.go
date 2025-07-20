@@ -5,6 +5,7 @@ import (
 	"drfin/app/accountgroups"
 	"fmt"
 	"log"
+	"math/big"
 )
 
 type Repository struct {
@@ -47,7 +48,7 @@ func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
 	return accounts, nil
 }
 
-func (r *Repository) AddAccountBalance(tx *sql.Tx, accountID int, amount float64) error {
+func (r *Repository) AddAccountBalance(tx *sql.Tx, accountID int, amount *big.Float) error {
 	query := `
 		UPDATE accounts
 		SET balance = balance + $1
@@ -57,7 +58,7 @@ func (r *Repository) AddAccountBalance(tx *sql.Tx, accountID int, amount float64
 	return r.updateAccountBalance(tx, query, accountID, amount)
 }
 
-func (r *Repository) SubstractAccountBalance(tx *sql.Tx, accountID int, amount float64) error {
+func (r *Repository) SubstractAccountBalance(tx *sql.Tx, accountID int, amount *big.Float) error {
 	query := `
 		UPDATE accounts
 		SET balance = balance - $1
@@ -67,9 +68,9 @@ func (r *Repository) SubstractAccountBalance(tx *sql.Tx, accountID int, amount f
 	return r.updateAccountBalance(tx, query, accountID, amount)
 }
 
-func (r *Repository) updateAccountBalance(tx *sql.Tx, query string, accountID int, amount float64) error {
+func (r *Repository) updateAccountBalance(tx *sql.Tx, query string, accountID int, amount *big.Float) error {
 	var newBalance float64
-	err := tx.QueryRow(query, amount, accountID).Scan(&newBalance)
+	err := tx.QueryRow(query, amount.Text('f', 2), accountID).Scan(&newBalance)
 	if err != nil {
 		log.Printf("failed to update account balance: %v", err)
 		return fmt.Errorf("failed to update account balance: %v", err)
@@ -77,19 +78,19 @@ func (r *Repository) updateAccountBalance(tx *sql.Tx, query string, accountID in
 	return nil
 }
 
-// func (r *Repository) GetAccountGroupByID(id int) (*Account, error) {
-// 	var c Account
-// 	err := r.db.QueryRow(`SELECT id, name FROM accounts WHERE id = $1`, id).
-// 		Scan(&c.ID, &c.Name)
-// 	if err != nil {
-// 		if err == sql.ErrNoRows {
-// 			return nil, fmt.Errorf("accounts with ID %d not found", id)
-// 		}
-// 		log.Printf("Error fetching Account by ID: %v", err)
-// 		return nil, fmt.Errorf("could not retrieve Account: %v", err)
-// 	}
-// 	return &c, nil
-// }
+func (r *Repository) GetAccountByName(name string) (*Account, error) {
+	var c Account
+	err := r.db.QueryRow(`SELECT id, name FROM accounts WHERE name = $1`, name).
+		Scan(&c.ID, &c.Name)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("accounts with name %s not found", name)
+		}
+		log.Printf("Error fetching Account by name: %v", err)
+		return nil, fmt.Errorf("could not retrieve Account: %v", err)
+	}
+	return &c, nil
+}
 
 // func (r *Repository) CreateAccountGroup(c AccountGroup) (AccountGroup, error) {
 // 	var AccountGroupID int

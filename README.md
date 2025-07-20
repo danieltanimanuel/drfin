@@ -6,3 +6,10 @@ TO-DOs:
     a. how to read the email?
     b. how to know which email already read by apps?
     c. logic to know if that is expense, income, or transfer
+3. Read Email Transaction
+    a. Credit Card BCA (Done)
+    b. Debit BCA
+    c. Go-Pay
+    d. ShopeePay
+    e. Ovo
+    f. Blu

@@ -80,11 +80,13 @@ func (apis *APIServer) Run() error {
 
 	// Initialize Transactions
 	transactionsRepository := transactions.NewRepository(apis.db)
-	transactionsService := transactions.NewService(transactionsRepository, accountsRepository)
+	transactionsService := transactions.NewService(transactionsRepository, accountsRepository, transactiontypesRepository, categoryRepository)
 	transactionsHandler := transactions.NewHandler(transactionsService)
 
 	// Initialize Gmail
-	gmailHandler := gmail.NewHandler()
+	gmailService := gmail.NewService(transactionsService)
+	gmailAuth := gmail.NewAuth(gmailService)
+	gmailHandler := gmail.NewHandler(gmailAuth)
 
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)

@@ -2,19 +2,25 @@ package transactions
 
 import (
 	"drfin/app/accounts"
+	"drfin/app/categories"
+	"drfin/app/transactiontypes"
 	"fmt"
 	"log"
 )
 
 type Service struct {
-	Repository  *Repository
-	AccountRepo *accounts.Repository
+	Repository          *Repository
+	AccountRepo         *accounts.Repository
+	TransactionTypeRepo *transactiontypes.Repository
+	CategoryRepo        *categories.Repository
 }
 
-func NewService(repository *Repository, accountRepo *accounts.Repository) *Service {
+func NewService(repository *Repository, accountRepo *accounts.Repository, transactionTypeRepo *transactiontypes.Repository, categoryRepo *categories.Repository) *Service {
 	return &Service{
-		Repository:  repository,
-		AccountRepo: accountRepo,
+		Repository:          repository,
+		AccountRepo:         accountRepo,
+		TransactionTypeRepo: transactionTypeRepo,
+		CategoryRepo:        categoryRepo,
 	}
 }
 
@@ -36,7 +42,7 @@ func (s *Service) GetTransactionByID(id int) (*Transaction, error) {
 	return transaction, nil
 }
 
-func (s *Service) CreateTransaction(t Transaction) (Transaction, error) {
+func (s *Service) CreateTransaction(t CreateTransactionDTO) (Transaction, error) {
 	// Start a new transaction
 	tx, err := s.Repository.db.Begin()
 	if err != nil {
@@ -52,8 +58,49 @@ func (s *Service) CreateTransaction(t Transaction) (Transaction, error) {
 		}
 	}()
 
+	// Inquiry necessary ID (type, account, category)
+	transactiontype, txErr := s.TransactionTypeRepo.GetTransactionTypeByName(t.Type)
+	if txErr != nil {
+		return Transaction{}, fmt.Errorf("could not inquiry transaction types due to error : %v", txErr)
+	}
+	category, txErr := s.CategoryRepo.GetCategoryByName(t.Category)
+	if txErr != nil {
+		return Transaction{}, fmt.Errorf("could not inquiry category due to error : %v", txErr)
+	}
+	account, txErr := s.AccountRepo.GetAccountByName(t.Account)
+	if txErr != nil {
+		return Transaction{}, fmt.Errorf("could not inquiry account due to error : %v", txErr)
+	}
+	// If Expense, accountDestID nil, else get the accountDestID from database
+	var accountDestID *int
+	accountDestID = nil
+	if transactiontype.ID != 1 {
+		accountDest, txErr := s.AccountRepo.GetAccountByName(t.Category)
+		if txErr != nil {
+			return Transaction{}, fmt.Errorf("could not inquiry account due to error : %v", txErr)
+		}
+		accountDestID = &accountDest.ID
+	}
+	// Status to "Waiting" if coming from email, else "Confirmed"
+	status := "Waiting"
+	if t.Source != "Email" {
+		status = "Confirmed"
+	}
+
+	inputTransaction := &Transaction{
+		TradeDate:     t.TradeDate,
+		TypeID:        transactiontype.ID,
+		CategoryID:    category.ID,
+		AccountID:     account.ID,
+		AccountDestID: accountDestID,
+		Amount:        t.Amount,
+		Description:   t.Description,
+		Status:        status,
+		Source:        t.Source,
+	}
+
 	// Create Transaction
-	createdTransaction, txErr := s.Repository.CreateTransaction(tx, t)
+	createdTransaction, txErr := s.Repository.CreateTransaction(tx, *inputTransaction)
 	if txErr != nil {
 		return Transaction{}, fmt.Errorf("could not create transaction: %v", txErr)
 	}

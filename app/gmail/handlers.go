@@ -7,10 +7,13 @@ import (
 )
 
 type Handler struct {
+	auth *Auth
 }
 
-func NewHandler() *Handler {
-	return &Handler{}
+func NewHandler(auth *Auth) *Handler {
+	return &Handler{
+		auth: auth,
+	}
 }
 
 func (h *Handler) RegisterHandler(r *mux.Router) {
@@ -18,5 +21,5 @@ func (h *Handler) RegisterHandler(r *mux.Router) {
 }
 
 func (h *Handler) scanEmail(w http.ResponseWriter, r *http.Request) {
-	authO2()
+	h.auth.authO2()
 }

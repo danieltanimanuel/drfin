@@ -76,8 +76,10 @@ func (r *Repository) CreateTransaction(tx *sql.Tx, t Transaction) (Transaction, 
 	if t.Source == "Manual" {
 		query = queryInsertTransactionManual
 	}
+	// Convert amount big.float to float64
+	amount := t.Amount.Text('f', 2)
 	err := tx.QueryRow(query,
-		t.ParentID, t.TradeDate, t.TypeID, t.CategoryID, t.AccountID, t.AccountDestID, t.Amount, t.Description, t.Status, t.Source).
+		t.ParentID, t.TradeDate, t.TypeID, t.CategoryID, t.AccountID, t.AccountDestID, amount, t.Description, t.Status, t.Source).
 		Scan(&transactionID)
 	if err != nil {
 		log.Printf("Error inserting transaction: %v", err)
