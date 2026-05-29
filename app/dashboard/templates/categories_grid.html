@@ -1,0 +1,24 @@
+<div class="category-summary">
+  <h3>Category Summary (Expense)</h3>
+
+  <div class="date-filter">
+    <label>From:</label>
+    <input type="date" id="date-from" value="{{.CurrentMonthStart}}">
+
+    <label>To:</label>
+    <input type="date" id="date-to" value="{{.CurrentMonthEnd}}">
+
+    <button type="button" onclick="applyDateFilter()">Apply</button>
+  </div>
+
+  <ul>
+    {{range .Items}}
+      <li class="category-row">
+        <span class="cat-name">{{.CategoryName}}</span>
+        <span class="cat-amount">
+          Rp. {{formatNumber .TotalAmount}}
+        </span>
+      </li>
+    {{end}}
+  </ul>
+</div>

@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"encoding/json"
+	"html/template"
 	"log"
 	"net/http"
 
@@ -9,11 +10,16 @@ import (
 )
 
 type Handler struct {
-	service *Service
+	service  *Service
+	renderer Renderer
 }
 
-func NewHandler(service *Service) *Handler {
-	return &Handler{service: service}
+type Renderer interface {
+	Render(w http.ResponseWriter, templatePath string, templateName string,data interface{}) error
+}
+
+func NewHandler(service *Service, r Renderer) *Handler {
+	return &Handler{service: service, renderer: r}
 }
 
 func (h *Handler) RegisterHandler(router *mux.Router) {
@@ -24,25 +30,54 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
 	// router.HandleFunc("/accounts/{id}", h.DeleteAccountGroup).Methods("DELETE")
 }
 
+
+
 // GetTransactionAccountGroups handles GET requests to retrieve all transaction accountgroups
 func (h *Handler) GetAllAcounts(w http.ResponseWriter, r *http.Request) {
 	accounts, err := h.service.GetAllAccounts()
 	if err != nil {
-		http.Error(w, "Failed to retrieve AccountGroups", http.StatusInternalServerError)
-		log.Printf("Error retrieving AccountGroups: %v", err)
+		http.Error(w, "Failed to retrieve accounts", http.StatusInternalServerError)
 		return
 	}
 
+	jsonData, err := json.Marshal(accounts)
+    if err != nil {
+        http.Error(w, "Failed to encode accounts", http.StatusInternalServerError)
+        return
+    }
+
+	data := AccountPage{
+        Accounts:     accounts,
+        AccountsJSON: template.JS(jsonData), // mark safe for template
+    }
+
+
+	// Decide template based on HTMX header
+	var templateName string
+	if r.Header.Get("HX-Request") == "true" {
+		templateName = "list_partial.html"
+	} else {
+		templateName = "list_full.html"
+	}
+	templatePath := "accounts/templates/"
+
+	log.Println(accounts)
+	err = h.renderer.Render(w, templatePath, templateName, data)
+	if err != nil {
+		log.Printf("Template execution error: %v", err)
+    	http.Error(w, "Something error :(", http.StatusInternalServerError)
+	}
+
 	// Send the response wrapped in a success response format
-	response := NewSuccessResponse(accounts)
+	// response := NewSuccessResponse(accounts)
 
 	// Send JSON response
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
-		log.Printf("Error encoding response: %v", err)
-	}
+	// w.Header().Set("Content-Type", "application/json")
+	// w.WriteHeader(http.StatusOK)
+	// if err := json.NewEncoder(w).Encode(response); err != nil {
+	// 	http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	// 	log.Printf("Error encoding response: %v", err)
+	// }
 }
 
 // func (h *Handler) CreateAccountGroup(w http.ResponseWriter, r *http.Request) {

@@ -9,7 +9,17 @@ TO-DOs:
 3. Read Email Transaction
     a. Credit Card BCA (Done)
     b. Debit BCA
+        - Top up Flazz (Done)
+        - QRIS Payment (Done)
+        - Transfer to BCA Account 
+            a) Beneficiary Account is ours
+            b) Beneficiary Account is not ours
     c. Go-Pay
     d. ShopeePay
     e. Ovo
     f. Blu
+        - Top up Flazz (Done)
+        - Transfer to BCA Account 
+            a) Beneficiary Account is Tahapan Gold 0840945740 (Done)
+            b) Beneficiary Account is not ours
+        - QRIS sample 27 Agt 2025 12:03:16 

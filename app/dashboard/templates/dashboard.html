@@ -1,0 +1,142 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/transaction-grid.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="main-grid">
+            <div id="accounts-grid" class="account-list"></div>
+            <div id="pie-grid" class="pie-chart"></div>
+            <div id="categories-grid" class="categories-list"></div>
+            <div id="transactions-grid" class="transaction-list"></div>
+        </div>
+    </div>
+    <div id="modal-overlay" class="modal-overlay" style="display:none;">
+      <div class="modal">
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+  <script>
+    async function loadGrids() {
+      // Load accounts
+      document.getElementById("accounts-grid").innerHTML =
+        await (await fetch("/dashboard/accounts")).text();
+
+      // Load pie data -> draw chart
+      const pieData = await (await fetch("/dashboard/pie")).json();
+      renderPieChart(pieData);
+
+      document.getElementById("categories-grid").innerHTML =
+        await (await fetch("/dashboard/categories")).text();
+
+      // Load transactions
+      document.getElementById("transactions-grid").innerHTML =
+        await (await fetch("/dashboard/transactions")).text();
+    }
+
+    function renderPieChart(accounts) {
+      const ctx = document.createElement("canvas");
+      document.getElementById("pie-grid").appendChild(ctx);
+
+      const labels = accounts.map(a => a.name);
+      const balances = accounts.map(a => parseFloat(a.balance));
+
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: balances,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(255, 206, 86, 0.7)',
+              'rgba(75, 192, 192, 0.7)',
+              'rgba(153, 102, 255, 0.7)',
+              'rgba(255, 159, 64, 0.7)'
+            ]
+          }]
+        },
+        options: { responsive: true }
+      });
+    }
+
+    loadGrids();
+    
+    // Open modal when Edit button clicked
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("edit-btn")) {
+        const id = e.target.dataset.id;
+        openEditModal(id);
+      }
+    });
+
+    async function openEditModal(id) {
+      const response = await fetch(`/dashboard/transactions/${id}/edit`);
+      const html = await response.text();
+
+      document.getElementById("modal-content").innerHTML = html;
+      document.getElementById("modal-overlay").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal-overlay").style.display = "none";
+      document.getElementById("modal-content").innerHTML = "";
+    }
+
+    async function reloadDashboardSections() {
+
+      // reload transactions
+      const txnHtml = await (await fetch("/dashboard/transactions")).text();
+      document.getElementById("transactions-grid").innerHTML = txnHtml;
+
+      // reload category summary
+      const categoryHtml = await (await fetch("/dashboard/categories")).text();
+      document.getElementById("categories-grid").innerHTML = categoryHtml;
+    }
+
+    // ✅ STEP 6 — Handle Save Submit (THIS is step 6)
+    document.addEventListener("submit", async function (e) {
+      if (e.target.id === "edit-form") {
+        e.preventDefault();
+
+        const form = e.target;
+        const id = form.dataset.id;
+        const category = form.querySelector("select[name='category']").value;
+
+        await fetch(`/dashboard/transactions/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            category: category
+          })
+        });
+
+        closeModal();
+
+        // Reload full transactions grid
+        await reloadDashboardSections();
+      }
+    });
+
+    async function applyDateFilter() {
+      const from = document.getElementById("date-from").value;
+      const to   = document.getElementById("date-to").value;
+
+      const html = await (await fetch(
+        `/dashboard/categories?from=${from}&to=${to}`
+      )).text();
+
+      document.getElementById("categories-grid").innerHTML = html;
+    }
+  </script>
+</body>
+</html>

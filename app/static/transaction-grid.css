@@ -1,0 +1,91 @@
+.transaction-table {
+  width: 100%;
+  table-layout: fixed;   /* 🔥 important */
+  border-collapse: collapse;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e0e0e0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-table th {
+  text-align: left;
+  font-weight: 600;
+  background-color: #f8f8f8;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.amount-col {
+  text-align: right;
+}
+
+.income {
+  color: #2e7d32; /* green */
+  font-weight: 600;
+}
+
+.expense {
+  color: #c62828; /* red */
+  font-weight: 600;
+}
+
+.transaction-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.transaction-table th:nth-child(1),
+.transaction-table td:nth-child(1) {
+  width: 15%;   /* Category */
+}
+
+.transaction-table th:nth-child(2),
+.transaction-table td:nth-child(2) {
+  width: 15%;   /* Account */
+}
+
+.transaction-table th:nth-child(3),
+.transaction-table td:nth-child(3) {
+  width: 15%;   /* Destination */
+}
+
+.transaction-table th:nth-child(4),
+.transaction-table td:nth-child(4) {
+  width: 30%;   /* Description */
+}
+
+.transaction-table th:nth-child(5),
+.transaction-table td:nth-child(5) {
+  width: 15%;   /* Amount */
+}
+
+.transaction-table th:nth-child(6),
+.transaction-table td:nth-child(6) {
+  width: 10%;   /* Edit button */
+}
+
+.category {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.category-unknown {
+  background-color: #fdecea;   /* soft red */
+  color: #b71c1c;
+}
+
+.category-known {
+  background-color: #f1f1f1;
+  color: #333;
+}

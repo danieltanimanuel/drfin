@@ -1,0 +1,19 @@
+<div class="account-list">
+    <h2>Accounts</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Balance</th></tr>
+      </thead>
+      <tbody>
+        {{range .}}
+          <tr>
+            <td>{{.Name}}</td>
+            <td style="text-align:right;">Rp. {{formatNumber .Balance}}</td>
+          </tr>
+        {{else}}
+          <tr><td colspan="2">No accounts found</td></tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+      

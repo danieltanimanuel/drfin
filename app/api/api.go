@@ -3,19 +3,26 @@ package api
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"log"
 	"net/http"
 
 	"drfin/app/accountgroups"
 	"drfin/app/accounts"
 	"drfin/app/categories"
+	"drfin/app/dashboard"
 	"drfin/app/gmail"
+	"drfin/app/lastemail"
+	"drfin/app/processedgmail"
+	"drfin/app/shared/renderer"
 	"drfin/app/transactions"
 	"drfin/app/transactiontypes"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )
+
+var tmplFS embed.FS
 
 type APIServer struct {
 	db   *sql.DB
@@ -57,6 +64,8 @@ func (apis *APIServer) Run() error {
 	router := mux.NewRouter()
 	router.Use(DRFINHandler)
 
+	rend := renderer.NewRenderer("./app")
+
 	log.Println("Assigning handlers...")
 	// Initialize categories
 	categoryRepository := categories.NewRepository(apis.db)
@@ -76,17 +85,24 @@ func (apis *APIServer) Run() error {
 	// Initialize Accounts
 	accountsRepository := accounts.NewRepository(apis.db)
 	accountsService := accounts.NewService(accountsRepository)
-	accountsHandler := accounts.NewHandler(accountsService)
+	accountsHandler := accounts.NewHandler(accountsService, rend)
 
 	// Initialize Transactions
 	transactionsRepository := transactions.NewRepository(apis.db)
 	transactionsService := transactions.NewService(transactionsRepository, accountsRepository, transactiontypesRepository, categoryRepository)
 	transactionsHandler := transactions.NewHandler(transactionsService)
 
+	// Initialize last email
+	lastEmailRepository := lastemail.NewRepository(apis.db)
+
+	// Initialize processed gmail
+	processedGmailRepository := processedgmail.NewRepository(apis.db)
+
 	// Initialize Gmail
-	gmailService := gmail.NewService(transactionsService)
-	gmailAuth := gmail.NewAuth(gmailService)
-	gmailHandler := gmail.NewHandler(gmailAuth)
+	gmailService := gmail.NewService(transactionsService, accountsService, lastEmailRepository, processedGmailRepository)
+	gmailHandler := gmail.NewHandler(gmailService)
+
+	dashboardHandler := dashboard.NewHandler(accountsService, transactionsService, categoryService, rend)
 
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)
@@ -95,7 +111,12 @@ func (apis *APIServer) Run() error {
 	transactiontypesHandler.RegisterHandler(router)
 	transactionsHandler.RegisterHandler(router)
 	gmailHandler.RegisterHandler(router)
+	dashboardHandler.RegisterHandler(router)
 
+	// Serve static files via router
+	router.PathPrefix("/static/").Handler(
+		http.StripPrefix("/static/", http.FileServer(http.Dir("app/static"))),
+	)
 	log.Println("DRFIN Application Started...")
 
 	// Start the HTTP server with the specified address and router

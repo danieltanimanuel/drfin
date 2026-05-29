@@ -1,18 +1,21 @@
 package gmail
 
 import (
+	"context"
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
 
 type Handler struct {
-	auth *Auth
+	service *Service
 }
 
-func NewHandler(auth *Auth) *Handler {
+func NewHandler(service *Service) *Handler {
 	return &Handler{
-		auth: auth,
+		service: service,
 	}
 }
 
@@ -21,5 +24,18 @@ func (h *Handler) RegisterHandler(r *mux.Router) {
 }
 
 func (h *Handler) scanEmail(w http.ResponseWriter, r *http.Request) {
-	h.auth.authO2()
+	ctx, cancel := context.WithTimeout(r.Context(), 15*time.Minute)
+	defer cancel()
+
+	if err := h.service.syncMail(ctx); err != nil {
+		http.Error(
+			w,
+			fmt.Sprintf("email sync failed: %v", err),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Email sync completed"))
 }

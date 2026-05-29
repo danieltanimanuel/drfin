@@ -52,3 +52,7 @@ create table accounts
 	FOREIGN KEY (account_group_id) REFERENCES account_groups(id)
 );
 
+create table owned_account(
+	account_label varchar(30) PRIMARY KEY,
+	account_number varchar(20) NOT NULL
+);

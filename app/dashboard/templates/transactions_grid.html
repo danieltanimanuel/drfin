@@ -1,0 +1,63 @@
+<div class="transaction-list">
+  {{range .}}
+    <div class="day-section">
+      <div class="day-header">
+        <span class="day-date">{{formatDate .Date }}</span>
+        <div class="day-totals">
+          <span class="day-income">
+            Income: Rp. {{formatNumber .IncomeTotal}}
+          </span>
+          <span class="day-expense">
+            Expense: Rp. {{formatNumber .ExpenseTotal}}
+          </span>
+        </div>
+      </div>
+
+      <table class="transaction-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Account</th>
+            <th>Destination</th>
+            <th>Description</th>
+            <th class="amount-col">Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .Transactions}}
+            <tr id="txn-{{.ID}}">
+              <td class="text-left">
+                <span class="category-badge
+                  {{if eq .Category.Name "Unknown"}}
+                    category-unknown
+                  {{else}}
+                    category-known
+                  {{end}}">
+                  {{.Category.Name}}
+                </span>
+              </td>
+              <td class="text-left">{{.Account.Name}}</td>
+              <td class="text-left">{{.AccountDest.Name}}</td>
+              <td class="text-left">{{.Description}}</td>
+
+              <td class="text-right {{if eq .Type.Name "Expense"}}expense{{else}}income{{end}}">
+                Rp. {{formatNumber .Amount}}
+              </td>
+
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-id="{{.ID}}">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          {{end}}
+        </tbody>
+      </table>
+
+    </div>
+  {{end}}
+</div>

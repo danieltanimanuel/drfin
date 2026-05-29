@@ -39,6 +39,13 @@ type TransactionDTO struct {
 	ConfirmedAt   *time.Time      `json:"confirmed_at"`
 }
 
+type DailyTransactionsDTO struct {
+	Date         time.Time
+	IncomeTotal  *big.Float
+	ExpenseTotal *big.Float
+	Transactions []TransactionDTO
+}
+
 type CreateTransactionDTO struct {
 	TradeDate   time.Time  `json:"trade_date"`
 	Type        string     `json:"type"`
@@ -49,6 +56,34 @@ type CreateTransactionDTO struct {
 	Description string     `json:"description"`
 	Status      string     `json:"status"`
 	Source      string     `json:"source"`
+}
+
+// ✅ Enhancement:
+// Using pointers lets you distinguish:
+// nil → field not updated
+// value → field updated
+type UpdateTransactionDTO struct {
+	TradeDate   *time.Time `json:"trade_date,omitempty"`
+	Type        *string    `json:"type,omitempty"`
+	Category    *string    `json:"category,omitempty"`
+	Account     *string    `json:"account_id,omitempty"`
+	AccountDest *string    `json:"account_dest_id,omitempty"`
+	Amount      *big.Float `json:"amount,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	Status      *string    `json:"status,omitempty"`
+	Source      *string    `json:"source,omitempty"`
+}
+
+// Internal DB DTO (ID-based, repository-facing)
+type UpdateTransactionDBDTO struct {
+	TradeDate     *time.Time
+	TypeID        *int
+	CategoryID    *int
+	AccountID     *int
+	AccountDestID *int
+	Amount        *big.Float
+	Description   *string
+	Status        *string
 }
 
 type TransactionType struct {
@@ -64,4 +99,9 @@ type Category struct {
 type Account struct {
 	ID   *int    `json:"id"`
 	Name *string `json:"name"`
+}
+
+type CategoryAggregate struct {
+	CategoryName string
+	TotalAmount  *big.Float
 }

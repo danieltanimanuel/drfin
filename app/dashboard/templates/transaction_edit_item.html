@@ -1,0 +1,33 @@
+<h3>Edit Transaction #{{.Transaction.ID}}</h3>
+
+<div class="txn-summary">
+  <p><strong>Description:</strong> {{.Transaction.Description}}</p>
+  <p><strong>Amount:</strong> Rp. {{formatNumber .Transaction.Amount}}</p>
+  <p><strong>Category:</strong> {{.Transaction.Category.Name}}</p>
+  <p><strong>Account:</strong> {{.Transaction.Account.Name}}</p>
+  {{if .Transaction.AccountDest}}
+    <p><strong>Destination:</strong> {{.Transaction.AccountDest.Name}}</p>
+  {{end}}
+  <p><strong>Type:</strong> {{.Transaction.Type.Name}}</p>
+  <p><strong>Date:</strong> {{formatDate .Transaction.TradeDate}}</p>
+</div>
+
+<hr/>
+
+<form id="edit-form" data-id="{{.Transaction.ID}}">
+
+  <label>Category</label>
+  <select name="category">
+    {{range .Categories}}
+      <option value="{{.Name}}"
+        {{if eq .ID $.Transaction.Category.ID}}selected{{end}}>
+        {{.Name}}
+      </option>
+    {{end}}
+  </select>
+
+  <br/><br/>
+
+  <button type="submit">Save</button>
+  <button type="button" onclick="closeModal()">Cancel</button>
+</form>

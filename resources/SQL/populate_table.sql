@@ -13,6 +13,7 @@ insert into categories values (5,'Debts',NOW());
 insert into categories values (6,'Misc',NOW());
 insert into categories values (7,'Fee',NOW());
 insert into categories values (8,'Salary',NOW());
+insert into categories values (9,'Unknown',NOW());
 
 insert into accounts values (1, 'Cash', 0, 1, 'O',NOW(),null);
 insert into accounts values (2, 'Tahapan Gold', 0, 2, 'O',NOW(),null);
@@ -31,3 +32,9 @@ insert into account_groups values (5, 'E-Wallet',NOW());
 insert into account_groups values (6, 'Debt',NOW());
 insert into account_groups values (7, 'Loan',NOW());
 insert into account_groups values (8, 'Saving',NOW());
+
+
+insert into owned_account values ('BCA Tahapan Gold IDR/Forex','0840945740');
+insert into owned_account values ('BCA Tahapan Gold IDR','2060524290');
+insert into owned_account values ('BCA Tahapan Xpresi IDR','0840945740');
+insert into owned_account values ('BLU BY BCA DIGITAL','005493616619');

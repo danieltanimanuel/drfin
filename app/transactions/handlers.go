@@ -1,10 +1,13 @@
 package transactions
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -20,107 +23,105 @@ func NewHandler(service *Service) *Handler {
 func (h *Handler) RegisterHandler(r *mux.Router) {
 	r.HandleFunc("/transactions", h.GetAllTransactions).Methods("GET")
 	r.HandleFunc("/transactions", h.CreateTransaction).Methods("POST")
+
+	// Enhancement: Use RESTful path param instead of query param (?id=)
+	// This works better with HTMX hx-put / hx-delete
+	r.HandleFunc("/transactions/{id}", h.UpdateTransaction).Methods("PUT", "PATCH")
 }
 
 func (h *Handler) GetAllTransactions(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[Inquiry] New Request All Transactions")
 
-	transactions, err := h.service.GetAllTransactions()
+	// Add request-scoped timeout to prevent long-running DB queries
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+
+	transactions, err := h.service.GetAllTransactions(ctx)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Could not fetch transactions: %v", err), http.StatusInternalServerError)
+		http.Error(
+			w,
+			fmt.Sprintf("Could not fetch transactions: %v", err),
+			http.StatusInternalServerError,
+		)
 		return
 	}
 
 	GenerateNewCreatedResponse(w, transactions, http.StatusOK)
-
-	log.Printf("[Inquiry] Request All Transactions")
 }
 
-// func (h *Handler) GetTransactionByID(w http.ResponseWriter, r *http.Request) {
-// 	idStr := r.URL.Query().Get("id")
-// 	id, err := strconv.Atoi(idStr)
-// 	if err != nil || id <= 0 {
-// 		http.Error(w, "Invalid transaction ID", http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	transaction, err := h.service.GetTransactionByID(id)
-// 	if err != nil {
-// 		http.Error(w, fmt.Sprintf("Could not fetch transaction with ID %d: %v", id, err), http.StatusNotFound)
-// 		return
-// 	}
-
-// 	response := NewSuccessResponse([]Transaction{*transaction})
-
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.WriteHeader(http.StatusOK)
-// 	if err := json.NewEncoder(w).Encode(response); err != nil {
-// 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
-// 		log.Printf("Error encoding response: %v", err)
-// 	}
-// }
-
 func (h *Handler) CreateTransaction(w http.ResponseWriter, r *http.Request) {
+	// Decode body first, then apply timeout only for business logic
 	var t CreateTransactionDTO
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
 		http.Error(w, fmt.Sprintf("Invalid request body: %v", err), http.StatusBadRequest)
 		return
 	}
 
-	createdTransaction, err := h.service.CreateTransaction(t)
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+
+	createdTransaction, err := h.service.CreateTransaction(ctx, t)
 	if err != nil {
-		// http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
-		GenerateNewErrorResponse(w, "Invalid Input data", "Bad Request", fmt.Sprintf("%v", err), fmt.Sprintf("%v", r.Context().Value("requestID")), http.StatusBadRequest)
+		GenerateNewErrorResponse(
+			w,
+			"Invalid Input data",
+			"Bad Request",
+			err.Error(),
+			fmt.Sprintf("%v", r.Context().Value("requestID")),
+			http.StatusBadRequest,
+		)
 		return
 	}
 
 	GenerateNewCreatedResponse(w, createdTransaction, http.StatusOK)
 }
 
-// func (h *Handler) UpdateTransaction(w http.ResponseWriter, r *http.Request) {
-// 	idStr := r.URL.Query().Get("id")
-// 	id, err := strconv.Atoi(idStr)
-// 	if err != nil || id <= 0 {
-// 		http.Error(w, "Invalid transaction ID", http.StatusBadRequest)
-// 		return
-// 	}
+func (h *Handler) UpdateTransaction(w http.ResponseWriter, r *http.Request) {
+	log.Printf("[Update] Transaction request")
 
-// 	var t Transaction
-// 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
-// 		http.Error(w, fmt.Sprintf("Invalid request body: %v", err), http.StatusBadRequest)
-// 		return
-// 	}
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
 
-// 	updatedTransaction, err := h.service.UpdateTransaction(id, t)
-// 	if err != nil {
-// 		http.Error(w, fmt.Sprintf("Could not update transaction: %v", err), http.StatusInternalServerError)
-// 		return
-// 	}
+	// Enhancement: Path params are safer & cleaner than query params
+	idStr := mux.Vars(r)["id"]
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id <= 0 {
+		GenerateNewErrorResponse(
+			w,
+			"Invalid transaction ID",
+			"Bad Request",
+			fmt.Sprintf("invalid id: %v", idStr),
+			fmt.Sprintf("%v", r.Context().Value("requestID")),
+			http.StatusBadRequest,
+		)
+		return
+	}
 
-// 	response := NewSuccessResponse([]Transaction{updatedTransaction})
+	var dto UpdateTransactionDTO
+	if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
+		GenerateNewErrorResponse(
+			w,
+			"Invalid request body",
+			"Bad Request",
+			err.Error(),
+			fmt.Sprintf("%v", r.Context().Value("requestID")),
+			http.StatusBadRequest,
+		)
+		return
+	}
 
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.WriteHeader(http.StatusOK)
-// 	if err := json.NewEncoder(w).Encode(response); err != nil {
-// 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
-// 		log.Printf("Error encoding response: %v", err)
-// 	}
-// }
+	updated, err := h.service.UpdateTransaction(ctx, id, dto)
+	if err != nil {
+		GenerateNewErrorResponse(
+			w,
+			"Failed to update transaction",
+			"Internal Server Error",
+			err.Error(),
+			fmt.Sprintf("%v", r.Context().Value("requestID")),
+			http.StatusInternalServerError,
+		)
+		return
+	}
 
-// func (h *Handler) DeleteTransaction(w http.ResponseWriter, r *http.Request) {
-// 	idStr := r.URL.Query().Get("id")
-// 	id, err := strconv.Atoi(idStr)
-// 	if err != nil || id <= 0 {
-// 		http.Error(w, "Invalid transaction ID", http.StatusBadRequest)
-// 		return
-// 	}
-
-// 	err = h.service.DeleteTransaction(id)
-// 	if err != nil {
-// 		http.Error(w, fmt.Sprintf("Could not delete transaction: %v", err), http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.WriteHeader(http.StatusNoContent) // HTTP 204 No Content
-// }
+	GenerateNewCreatedResponse(w, updated, http.StatusOK)
+}

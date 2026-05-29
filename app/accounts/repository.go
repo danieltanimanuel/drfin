@@ -16,6 +16,25 @@ func NewRepository(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }
 
+func parseBigFloat(value interface{}) (*big.Float, error) {
+	var str string
+
+	switch v := value.(type) {
+	case string:
+		str = v
+	case []byte:
+		str = string(v)
+	default:
+		return nil, nil // or return an error if you prefer strict handling
+	}
+
+	f, _, err := big.ParseFloat(str, 10, 256, big.ToNearestEven)
+	if err != nil {
+		return nil, err
+	}
+	return f, nil
+}
+
 func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
 	rows, err := r.db.Query(`
 		SELECT a.id, a.name, a.balance, a.account_group_id, a.status, a.inserted_at, a.closed_at,
@@ -33,11 +52,17 @@ func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
 	for rows.Next() {
 		var account AccountDTO
 		var accountGroup accountgroups.AccountGroup
-		if err := rows.Scan(&account.ID, &account.Name, &account.Balance, &accountGroup.ID, &account.Status, &account.InsertedAt, &account.ClosedAt, &accountGroup.Name); err != nil {
+		var balance []byte // raw DB value
+		if err := rows.Scan(&account.ID, &account.Name, &balance, &accountGroup.ID, &account.Status, &account.InsertedAt, &account.ClosedAt, &accountGroup.Name); err != nil {
 			log.Printf("Error scanning row: %v", err)
 			return nil, fmt.Errorf("could not scan row: %v", err)
 		}
 		account.AccountGroup = accountGroup
+		account.Balance, _, err = new(big.Float).Parse(string(balance), 10)
+		if err != nil {
+			log.Printf("Error parsing balance: %v", err)
+			return nil, fmt.Errorf("could not parse balance: %v", err)
+		}
 		accounts = append(accounts, account)
 	}
 	if err := rows.Err(); err != nil {
@@ -90,6 +115,20 @@ func (r *Repository) GetAccountByName(name string) (*Account, error) {
 		return nil, fmt.Errorf("could not retrieve Account: %v", err)
 	}
 	return &c, nil
+}
+
+func (r *Repository) GetAccountByAccountNumber(accountNumber string) (*AccountDTO, error) {
+	var account AccountDTO
+	err := r.db.QueryRow(`SELECT name, account_number FROM accounts WHERE account_number = $1`, accountNumber).
+		Scan(&account.Name, &account.AccountNumber)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, err
+		}
+		log.Printf("Error fetching Account by account_number: %v", err)
+		return nil, fmt.Errorf("could not retrieve account_number: %v", err)
+	}
+	return &account, nil
 }
 
 // func (r *Repository) CreateAccountGroup(c AccountGroup) (AccountGroup, error) {

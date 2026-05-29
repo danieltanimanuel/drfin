@@ -12,6 +12,10 @@ func (s *Service) GetAllAccounts() ([]AccountDTO, error) {
 	return s.repository.GetAllAccounts()
 }
 
+func (s *Service) GetAccountByAccountNumber(accountNumber string) (*AccountDTO, error) {
+	return s.repository.GetAccountByAccountNumber(accountNumber)
+}
+
 // GetTransactionAccountGroupByID fetches a transaction type by its ID.
 // func (s *Service) GetAccountGroupByID(id int) (*AccountDTO, error) {
 // 	return s.repository.GetAccountGroupByID(id)

@@ -2,6 +2,7 @@ package categories
 
 import (
 	"database/sql"
+	"drfin/app/shared/logdr"
 	"fmt"
 	"log"
 )
@@ -18,7 +19,7 @@ func NewRepository(db *sql.DB) *Repository {
 
 // GetAllCategories retrieves all categories from the database.
 func (r *Repository) GetAllCategories() ([]Category, error) {
-	rows, err := r.db.Query(`SELECT id, name FROM categories ORDER BY id ASC`)
+	rows, err := r.db.Query(`SELECT id, name FROM categories ORDER BY name ASC`)
 	if err != nil {
 		log.Printf("Error fetching categories: %v", err)
 		return nil, fmt.Errorf("could not retrieve categories: %v", err)
@@ -69,6 +70,7 @@ func (r *Repository) GetCategoryByName(name string) (*Category, error) {
 		log.Printf("Error fetching category by name: %v", err)
 		return nil, fmt.Errorf("could not retrieve category: %v", err)
 	}
+	logdr.Info("Category", "Category", c)
 	return &c, nil
 }
 
