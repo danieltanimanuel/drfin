@@ -39,8 +39,16 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
 	router.HandleFunc("/dashboard/pie", h.PieGrid)
 	router.HandleFunc("/dashboard/categories", h.GetExpenseCategoryAggregates)
 	router.HandleFunc("/dashboard/transactions", h.TransactionsGrid)
+	router.HandleFunc(
+		"/dashboard/transactions/new",
+		h.CreateTransactionForm,
+	).Methods("GET")
 	router.HandleFunc("/dashboard/transactions/{id}/edit", h.EditTransactionForm)
 	router.HandleFunc("/dashboard/transactions/{id}", h.UpdateTransactionCategory).Methods("PUT")
+	router.HandleFunc(
+		"/dashboard/transactions/{id}",
+		h.DeleteTransaction,
+	).Methods("DELETE")
 }
 
 // ----------------------
@@ -163,9 +171,16 @@ func (h *Handler) EditTransactionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	accounts, err := h.accountService.GetAllAccounts()
+	if err != nil {
+		http.Error(w, "Failed to load accounts", http.StatusInternalServerError)
+		return
+	}
+
 	data := EditTransactionView{
 		Transaction: txn,
 		Categories:  categories,
+		Accounts:    accounts,
 	}
 
 	err = h.renderer.Render(
@@ -189,6 +204,7 @@ func (h *Handler) UpdateTransactionCategory(w http.ResponseWriter, r *http.Reque
 
 	var payload struct {
 		Category string `json:"category"`
+		Account  string `json:"account"`
 	}
 
 	err = json.NewDecoder(r.Body).Decode(&payload)
@@ -204,6 +220,7 @@ func (h *Handler) UpdateTransactionCategory(w http.ResponseWriter, r *http.Reque
 
 	dto := transactions.UpdateTransactionDTO{
 		Category: &category,
+		Account:  &payload.Account,
 	}
 
 	_, err = h.transactionService.UpdateTransaction(ctx, id, dto)
@@ -283,4 +300,58 @@ func (h *Handler) GetExpenseCategoryAggregates(w http.ResponseWriter, r *http.Re
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 	}
+}
+
+func (h *Handler) CreateTransactionForm(
+	w http.ResponseWriter,
+	r *http.Request,
+) {
+	categories, err := h.categoryService.GetAllCategories()
+	if err != nil {
+		http.Error(w, "failed categories", 500)
+		return
+	}
+
+	accounts, err := h.accountService.GetAllAccounts()
+	if err != nil {
+		http.Error(w, "failed accounts", 500)
+		return
+	}
+
+	data := CreateTransactionView{
+		Categories: categories,
+		Accounts:   accounts,
+	}
+
+	err = h.renderer.Render(
+		w,
+		"dashboard/templates/",
+		"transaction_create.html",
+		data,
+	)
+
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+}
+
+func (h *Handler) DeleteTransaction(w http.ResponseWriter, r *http.Request) {
+
+	idStr := mux.Vars(r)["id"]
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id <= 0 {
+		http.Error(w, "invalid id", http.StatusBadRequest)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+
+	err = h.transactionService.DeleteTransaction(ctx, id)
+	if err != nil {
+		http.Error(w, "failed to delete", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }

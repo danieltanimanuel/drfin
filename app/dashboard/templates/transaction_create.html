@@ -1,0 +1,71 @@
+<h2>New Transaction</h2>
+
+<form id="create-form">
+
+  <label>Trade Date</label>
+  <input type="datetime-local" name="trade_date" required />
+
+  <label>Type</label>
+  <select name="type" id="txn-type">
+    <option value="Expense">Expense</option>
+    <option value="Income">Income</option>
+    <option value="Transfer">Transfer</option>
+  </select>
+
+  <label>Category</label>
+  <select name="category">
+    {{ range .Categories }}
+      <option value="{{ .Name }}">
+        {{ .Name }}
+      </option>
+    {{ end }}
+  </select>
+
+  <label>Account</label>
+  <select name="account">
+    {{ range .Accounts }}
+      <option value="{{ .Name }}">
+        {{ .Name }}
+      </option>
+    {{ end }}
+  </select>
+
+  <div id="dest-account-wrapper" style="display:none;">
+    <label>Destination Account</label>
+
+    <select name="account_dest">
+      {{ range .Accounts }}
+        <option value="{{ .Name }}">
+          {{ .Name }}
+        </option>
+      {{ end }}
+    </select>
+  </div>
+
+  <label>Amount</label>
+  <input type="number" step="0.01" name="amount" required />
+
+  <label>Description</label>
+  <textarea name="description"></textarea>
+
+  <button type="submit">Save</button>
+  <button type="button" onclick="closeModal()">
+    Cancel
+  </button>
+
+</form>
+
+<script>
+  document
+    .getElementById("txn-type")
+    .addEventListener("change", function () {
+
+      const wrapper =
+        document.getElementById("dest-account-wrapper");
+
+      wrapper.style.display =
+        this.value === "Transfer"
+          ? "block"
+          : "none";
+    });
+</script>

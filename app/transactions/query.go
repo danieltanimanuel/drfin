@@ -21,7 +21,7 @@ const (
         LEFT JOIN 
             categories c ON t.category_id = c.id
         ORDER BY 
-            t.id ASC
+            t.id DESC
     `
     queryGetTransactionByID = 
     `

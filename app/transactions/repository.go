@@ -38,6 +38,8 @@ func (r *Repository) GetAllTransactions(
 	for rows.Next() {
 		var transaction TransactionDTO
 		var amount []byte
+		var accountDestID sql.NullInt64
+		var accountDestName sql.NullString
 
 		if err := rows.Scan(
 			&transaction.ID,
@@ -46,7 +48,7 @@ func (r *Repository) GetAllTransactions(
 			&transaction.Type.ID,
 			&transaction.Category.ID,
 			&transaction.Account.ID,
-			&transaction.AccountDest.ID,
+			&accountDestID,
 			&amount,
 			&transaction.Description,
 			&transaction.Status,
@@ -57,14 +59,23 @@ func (r *Repository) GetAllTransactions(
 			&transaction.Category.Name,
 			&transaction.Type.Name,
 			&transaction.Account.Name,
-			&transaction.AccountDest.Name,
+			&accountDestName,
 		); err != nil {
 			log.Printf("Error scanning row: %v", err)
 			return nil, fmt.Errorf("could not scan row: %w", err)
 		}
 
+		if accountDestID.Valid {
+			transaction.AccountDest.ID = int(accountDestID.Int64)
+		}
+
+		if accountDestName.Valid {
+			transaction.AccountDest.Name = accountDestName.String
+		}
+
 		transaction.Amount, _, err =
 			new(big.Float).Parse(string(amount), 10)
+
 		if err != nil {
 			log.Printf("Error parsing amount: %v", err)
 			return nil, fmt.Errorf("could not parse amount: %w", err)
@@ -138,6 +149,8 @@ func (r *Repository) GetTransactionByIDDTO(
 
 	var transaction TransactionDTO
 	var amount []byte
+	var accountDestID sql.NullInt64
+	var accountDestName sql.NullString
 
 	err := r.db.QueryRowContext(ctx, queryGetTransactionByID, id).Scan(
 		&transaction.ID,
@@ -146,7 +159,7 @@ func (r *Repository) GetTransactionByIDDTO(
 		&transaction.Type.ID,
 		&transaction.Category.ID,
 		&transaction.Account.ID,
-		&transaction.AccountDest.ID,
+		&accountDestID,
 		&amount,
 		&transaction.Description,
 		&transaction.Status,
@@ -157,8 +170,16 @@ func (r *Repository) GetTransactionByIDDTO(
 		&transaction.Category.Name,
 		&transaction.Type.Name,
 		&transaction.Account.Name,
-		&transaction.AccountDest.Name,
+		&accountDestName,
 	)
+
+	if accountDestID.Valid {
+		transaction.AccountDest.ID = int(accountDestID.Int64)
+	}
+
+	if accountDestName.Valid {
+		transaction.AccountDest.Name = accountDestName.String
+	}
 
 	if err != nil {
 		if err == sql.ErrNoRows {

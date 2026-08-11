@@ -97,8 +97,8 @@ type Category struct {
 }
 
 type Account struct {
-	ID   *int    `json:"id"`
-	Name *string `json:"name"`
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type CategoryAggregate struct {

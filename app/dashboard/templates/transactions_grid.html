@@ -16,17 +16,20 @@
       <table class="transaction-table">
         <thead>
           <tr>
+            <th>Type</th>
             <th>Category</th>
             <th>Account</th>
             <th>Destination</th>
             <th>Description</th>
             <th class="amount-col">Amount</th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {{range .Transactions}}
             <tr id="txn-{{.ID}}">
+              <td class="text-left" >{{.Type.Name}}</td>
               <td class="text-left">
                 <span class="category-badge
                   {{if eq .Category.Name "Unknown"}}
@@ -41,7 +44,7 @@
               <td class="text-left">{{.AccountDest.Name}}</td>
               <td class="text-left">{{.Description}}</td>
 
-              <td class="text-right {{if eq .Type.Name "Expense"}}expense{{else}}income{{end}}">
+              <td class="text-right {{if eq .Type.Name "Expense"}}expense{{else if eq .Type.Name "Transfer"}}transfer{{else}}income{{end}}">
                 Rp. {{formatNumber .Amount}}
               </td>
 
@@ -51,6 +54,16 @@
                   class="edit-btn"
                   data-id="{{.ID}}">
                   Edit
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="delete-btn"
+                  data-id="{{ .ID }}"
+                  title="Delete"
+                >
+                  🗑
                 </button>
               </td>
             </tr>

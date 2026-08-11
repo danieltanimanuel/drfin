@@ -117,7 +117,7 @@ func parseBLUXML(htmlContent string) ([]GmailDetailTransaction, error) {
 		logdr.Error("Error loading HTML", err)
 		return []GmailDetailTransaction{}, err
 	}
-	logdr.Info("Doc", htmlContent)
+	// logdr.Info("Doc", htmlContent)
 	var detailTransactions []GmailDetailTransaction
 	doc.Find("div").Each(func(i int, s *goquery.Selection) {
 		text := strings.TrimSpace(s.Text())

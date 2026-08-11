@@ -35,6 +35,11 @@
   font-weight: 600;
 }
 
+.transfer {
+  color: #5f6368; /* grey */
+  font-weight: 600;
+}
+
 .expense {
   color: #c62828; /* red */
   font-weight: 600;
@@ -45,34 +50,28 @@
 }
 
 .transaction-table th:nth-child(1),
-.transaction-table td:nth-child(1) {
-  width: 15%;   /* Category */
-}
+.transaction-table td:nth-child(1) { width: 12%; }
 
 .transaction-table th:nth-child(2),
-.transaction-table td:nth-child(2) {
-  width: 15%;   /* Account */
-}
+.transaction-table td:nth-child(2) { width: 12%; }
 
 .transaction-table th:nth-child(3),
-.transaction-table td:nth-child(3) {
-  width: 15%;   /* Destination */
-}
+.transaction-table td:nth-child(3) { width: 12%; }
 
 .transaction-table th:nth-child(4),
-.transaction-table td:nth-child(4) {
-  width: 30%;   /* Description */
-}
+.transaction-table td:nth-child(4) { width: 12%; }
 
 .transaction-table th:nth-child(5),
-.transaction-table td:nth-child(5) {
-  width: 15%;   /* Amount */
-}
+.transaction-table td:nth-child(5) { width: 28%; }
 
 .transaction-table th:nth-child(6),
-.transaction-table td:nth-child(6) {
-  width: 10%;   /* Edit button */
-}
+.transaction-table td:nth-child(6) { width: 12%; }
+
+.transaction-table th:nth-child(7),
+.transaction-table td:nth-child(7) { width: 6%; }
+
+.transaction-table th:nth-child(8),
+.transaction-table td:nth-child(8) { width: 6%; }
 
 .category {
   padding: 4px 8px;

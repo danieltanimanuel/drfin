@@ -54,6 +54,24 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 		}
 		return s.saveTransaction(ctx, dto)
 
+	case "Credit Card & Paylater - BCA":
+		amount, ok := ParseAmount(mapData["Total Payment"], EmailTitleTransaksiBCA)
+		if !ok {
+			return fmt.Errorf("%f invalid number format", amount)
+		}
+		dto := &transactions.CreateTransactionDTO{
+			TradeDate:   tradeDate,
+			Type:        "Transfer",
+			Category:    "Unknown",
+			Account:     "Tahapan Gold",
+			AccountDest: "CC BCA",
+			Amount:      amount,
+			Description: mapData["Card No. / Customer No."] + " " + mapData["Name"],
+			Status:      "Waiting",
+			Source:      "Email",
+		}
+		return s.saveTransaction(ctx, dto)
+	
 	case "Flazz Top Up":
 		amount, ok := ParseAmount(mapData["Top Up Amount"], EmailTitleTransaksiBCA)
 		if !ok {

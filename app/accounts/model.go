@@ -11,22 +11,24 @@ import (
 type Account struct {
 	ID             int          `json:"id"`
 	Name           string       `json:"name"`
-	AccountNumber  string       `json:account_number`
+	AccountNumber  string       `json:"account_number"`
 	Balance        *big.Float   `json:"balance"`
 	AccountGroupID int          `json:"account_group_id"`
 	Status         string       `json:"status"`
 	InsertedAt     time.Time    `json:"inserted_at"`
 	ClosedAt       sql.NullTime `json:"closed_at"`
+	CreditLimit    *big.Float   `json:"credit_limit"`
 }
 type AccountDTO struct {
 	ID            int                        `json:"id"`
 	Name          string                     `json:"name"`
-	AccountNumber string                     `json:account_number`
+	AccountNumber string                     `json:"account_number"`
 	Balance       *big.Float                 `json:"balance"`
 	AccountGroup  accountgroups.AccountGroup `json:"account_group"`
 	Status        string                     `json:"status"`
 	InsertedAt    time.Time                  `json:"inserted_at"`
 	ClosedAt      sql.NullTime               `json:"closed_at"`
+	CreditLimit   *big.Float                 `json:"credit_limit"`
 }
 
 type AccountPage struct {

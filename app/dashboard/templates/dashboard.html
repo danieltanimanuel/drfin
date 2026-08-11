@@ -14,6 +14,11 @@
             <div id="pie-grid" class="pie-chart"></div>
             <div id="categories-grid" class="categories-list"></div>
             <div id="transactions-grid" class="transaction-list"></div>
+            <div class="transaction-toolbar">
+            <button id="new-transaction-btn">
+              + New Transaction
+            </button>
+          </div>
         </div>
     </div>
     <div id="modal-overlay" class="modal-overlay" style="display:none;">
@@ -68,6 +73,26 @@
     }
 
     loadGrids();
+
+    document
+    .getElementById("new-transaction-btn")
+    .addEventListener("click", function () {
+      console.log("clicked");
+      openCreateModal();
+    });
+
+    async function openCreateModal() {
+
+      const response = await fetch(
+        "/dashboard/transactions/new"
+      );
+
+      const html = await response.text();
+
+      document.getElementById("modal-content").innerHTML = html;
+
+      document.getElementById("modal-overlay").style.display = "flex";
+    }
     
     // Open modal when Edit button clicked
     document.addEventListener("click", function (e) {
@@ -99,6 +124,11 @@
       // reload category summary
       const categoryHtml = await (await fetch("/dashboard/categories")).text();
       document.getElementById("categories-grid").innerHTML = categoryHtml;
+
+      
+      document.getElementById("accounts-grid").innerHTML =
+        await (await fetch("/dashboard/accounts")).text();
+
     }
 
     // ✅ STEP 6 — Handle Save Submit (THIS is step 6)
@@ -109,6 +139,7 @@
         const form = e.target;
         const id = form.dataset.id;
         const category = form.querySelector("select[name='category']").value;
+        const account = form.querySelector("select[name='account']").value;
 
         await fetch(`/dashboard/transactions/${id}`, {
           method: "PUT",
@@ -116,13 +147,55 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            category: category
+            category: category,   
+            account: account
           })
         });
 
         closeModal();
 
         // Reload full transactions grid
+        await reloadDashboardSections();
+      }
+    });
+
+    document.addEventListener("submit", async function (e) {
+
+      if (e.target.id === "create-form") {
+
+        e.preventDefault();
+
+        const form = e.target;
+
+        const tradeDate = form.trade_date.value;
+
+        const payload = {
+          trade_date: new Date(tradeDate).toISOString(),
+          type: form.type.value,
+          category: form.category.value,
+          account_id: form.account.value,
+          account_dest_id: form.account_dest?.value || "",
+          amount: form.amount.value,
+          description: form.description.value,
+          status: "CONFIRMED",
+          source: "MANUAL"
+        };
+
+        const response = await fetch("/transactions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          alert("Failed to create transaction");
+          return;
+        }
+
+        closeModal();
+
         await reloadDashboardSections();
       }
     });
@@ -137,6 +210,31 @@
 
       document.getElementById("categories-grid").innerHTML = html;
     }
+
+    document.addEventListener("click", async function (e) {
+
+      if (e.target.classList.contains("delete-btn")) {
+
+        const id = e.target.dataset.id;
+
+        const confirmed = confirm(
+          "Delete this transaction?"
+        );
+
+        if (!confirmed) return;
+
+        const response = await fetch(`/dashboard/transactions/${id}`, {
+          method: "DELETE"
+        });
+
+        if (!response.ok) {
+          alert("Failed to delete");
+          return;
+        }
+
+        await reloadDashboardSections();
+      }
+    });
   </script>
 </body>
 </html>

@@ -226,7 +226,7 @@ func (s *Service) reverseBalance(
 			t.Amount,
 		)
 
-	default: // Transfer
+	case 3: // Transfer
 		if err := s.AccountRepo.AddAccountBalance(
 			tx,
 			t.AccountID,
@@ -239,7 +239,11 @@ func (s *Service) reverseBalance(
 			*t.AccountDestID,
 			t.Amount,
 		)
+		
+	default:
+		return fmt.Errorf("unknown transaction type: %d", t.TypeID)
 	}
+	
 }
 
 func (s *Service) applyBalance(

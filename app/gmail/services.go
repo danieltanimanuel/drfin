@@ -183,9 +183,9 @@ func (s *Service) syncMail(ctx context.Context) error {
 	}
 
 	logdr.Info("Sync finished")
-	logdr.Info("Total checked:", totalChecked)
-	logdr.Info("Total processed:", totalProcessed)
-	logdr.Info("New checkpoint internal_date:", safeInternalDate)
+	logdr.Info("Total checked:" + strconv.Itoa(totalChecked))
+	logdr.Info("Total processed:" + strconv.Itoa(totalProcessed))
+	logdr.Info("New checkpoint internal_date:" + strconv.Itoa(int(safeInternalDate)))
 
 	// 5. Advance checkpoint ONLY to last safe success
 	if safeInternalDate > lastInternalDate {

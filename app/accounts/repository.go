@@ -37,7 +37,7 @@ func parseBigFloat(value interface{}) (*big.Float, error) {
 
 func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
 	rows, err := r.db.Query(`
-		SELECT a.id, a.name, a.balance, a.account_group_id, a.status, a.inserted_at, a.closed_at,
+		SELECT a.id, a.name, a.balance, a.account_group_id, a.status, a.inserted_at, a.closed_at, a.credit_limit,
 				 ag.name
 		FROM accounts a
 		LEFT JOIN account_groups ag ON a.account_group_id = ag.id
@@ -52,16 +52,22 @@ func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
 	for rows.Next() {
 		var account AccountDTO
 		var accountGroup accountgroups.AccountGroup
-		var balance []byte // raw DB value
-		if err := rows.Scan(&account.ID, &account.Name, &balance, &accountGroup.ID, &account.Status, &account.InsertedAt, &account.ClosedAt, &accountGroup.Name); err != nil {
+		var balance, creditLimit []byte
+		if err := rows.Scan(&account.ID, &account.Name, &balance, &accountGroup.ID, &account.Status, &account.InsertedAt, &account.ClosedAt, &creditLimit, &accountGroup.Name); err != nil {
 			log.Printf("Error scanning row: %v", err)
 			return nil, fmt.Errorf("could not scan row: %v", err)
 		}
 		account.AccountGroup = accountGroup
 		account.Balance, _, err = new(big.Float).Parse(string(balance), 10)
 		if err != nil {
-			log.Printf("Error parsing balance: %v", err)
 			return nil, fmt.Errorf("could not parse balance: %v", err)
+		}
+
+		if creditLimit != nil {
+			account.CreditLimit, _, err = new(big.Float).Parse(string(creditLimit), 10)
+			if err != nil {
+				return nil, fmt.Errorf("could not parse credit limit: %v", err)
+			}
 		}
 		accounts = append(accounts, account)
 	}
