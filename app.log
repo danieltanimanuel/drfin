@@ -27031,3 +27031,507 @@
 {"time":"2026-08-10T23:07:58.511751+07:00","level":"INFO","msg":"Request ID: 65613d2a-1155-4a7b-bdde-36ee11664606"}
 {"time":"2026-08-10T23:07:58.5432858+07:00","level":"INFO","msg":"Request ID: 9e13325f-8483-4642-849d-365cc70ce3ab"}
 {"time":"2026-08-10T23:07:58.5545917+07:00","level":"INFO","msg":"Request ID: 3a272aad-c6ff-4854-8b87-9ac020600b2f"}
+{"time":"2026-08-12T06:03:04.4037983+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T06:03:04.4037983+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T06:03:04.4037983+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T06:03:04.4037983+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T06:09:47.5171563+07:00","level":"INFO","msg":"Request ID: d1b1d10d-3090-4f1f-b4b2-d3097a8cf42d"}
+{"time":"2026-08-12T06:09:47.5176724+07:00","level":"INFO","msg":"[Update] Transaction request"}
+{"time":"2026-08-12T06:09:47.740066+07:00","level":"INFO","msg":"DBDTO Category","ID":null,"caller":"services.go:348"}
+{"time":"2026-08-12T06:09:55.862421+07:00","level":"INFO","msg":"Request ID: 5e12b615-6017-4f65-af92-ad9cb0e43063"}
+{"time":"2026-08-12T06:09:55.9047038+07:00","level":"INFO","msg":"checkpoint internal_date:","lastinternaldate":1786366133000,"caller":"services.go:79"}
+{"time":"2026-08-12T06:09:55.9052298+07:00","level":"INFO","msg":"Fetch email with query : ","Query":"after:2026/08/10 before:2026/08/13","caller":"services.go:89"}
+{"time":"2026-08-12T06:09:57.0246062+07:00","level":"INFO","msg":"msg list length : ","length":24,"caller":"services.go:96"}
+{"time":"2026-08-12T06:09:57.0246062+07:00","level":"INFO","msg":"Fetching each messages...","caller":"services.go:100"}
+{"time":"2026-08-12T06:09:57.2899243+07:00","level":"INFO","msg":"Progress bar 1/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:57.686909+07:00","level":"INFO","msg":"Progress bar 2/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:57.994381+07:00","level":"INFO","msg":"Progress bar 3/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:58.7756084+07:00","level":"INFO","msg":"Progress bar 4/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:59.0278563+07:00","level":"INFO","msg":"Progress bar 5/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:59.2637549+07:00","level":"INFO","msg":"Progress bar 6/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:59.5779456+07:00","level":"INFO","msg":"Progress bar 7/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:09:59.8832908+07:00","level":"INFO","msg":"Progress bar 8/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:00.1774141+07:00","level":"INFO","msg":"Progress bar 9/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:00.953978+07:00","level":"INFO","msg":"Progress bar 10/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:01.2119472+07:00","level":"INFO","msg":"Progress bar 11/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:01.5008145+07:00","level":"INFO","msg":"Progress bar 12/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:01.8028582+07:00","level":"INFO","msg":"Progress bar 13/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:02.0349274+07:00","level":"INFO","msg":"Progress bar 14/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:02.2684525+07:00","level":"INFO","msg":"Progress bar 15/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:02.5253373+07:00","level":"INFO","msg":"Progress bar 16/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:02.7624433+07:00","level":"INFO","msg":"Progress bar 17/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:03.0070698+07:00","level":"INFO","msg":"Progress bar 18/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:03.7528666+07:00","level":"INFO","msg":"Progress bar 19/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:04.0102311+07:00","level":"INFO","msg":"Progress bar 20/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:04.2747436+07:00","level":"INFO","msg":"Progress bar 21/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:04.5722295+07:00","level":"INFO","msg":"Progress bar 22/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:04.8219337+07:00","level":"INFO","msg":"Progress bar 23/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:05.1021695+07:00","level":"INFO","msg":"Progress bar 24/24","caller":"services.go:107"}
+{"time":"2026-08-12T06:10:05.1021695+07:00","level":"INFO","msg":"Sorting...","caller":"services.go:110"}
+{"time":"2026-08-12T06:10:05.1413857+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Ruth Nurul: \"Baptis Ibu Yeni dan pasangan Fransiko dan Felicia\"","Email ID":"19fe9a8fb8ad8c3d","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.1413857+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Your receipt from Apple.","Email ID":"19fe9bf69cc4f2b1","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.1413857+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"🏨 Staycation Hemat! Diskon Hotel s.d. 30%","Email ID":"19feab662fd348ee","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Hidup Seimbang Dimulai dari Perencanaan yang Tepat! 🤗","Email ID":"19feabf4a98e40d1","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Internet Transaction Journal","Email ID":"19feacb2796b710e","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Hanya sampai besok ⏰","Email ID":"19feaf5a8bc67135","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Credit Card Transaction Notification","Email ID":"19feb7bea2e04f57","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Transaksimu Pakai blu Berhasil","Email ID":"19feb7cf0cc3cf94","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.142431+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Internet Transaction Journal","Email ID":"19feb8ed03fb1038","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.1429531+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Transaksimu Pakai blu Berhasil","Email ID":"19febb756c4b6d99","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.1429531+07:00","level":"INFO","msg":"Skip this email because of internal date","Email Title":"Transaksimu Pakai blu Berhasil","Email ID":"19febb80afa8a129","caller":"services.go:129"}
+{"time":"2026-08-12T06:10:05.1429531+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"📈 Rupiah Menguat ke Bawah 17.800, Didorong Sentimen Gubernur BI & Turunnya Ekspektasi Rate Hike The Fed","Email ID":"19febd4fb4a8a17e","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.1434562+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Easy self-care you can start today","Email ID":"19fec0856cdb1a3d","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.143472+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Ruth Nurul: \"Musti sesion 2 nih, Mertua Menantu\"","Email ID":"19fecb956e703b4d","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.143472+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Pesanan Selesai: “(20pcs) klip kabel tempel 3M...”","Email ID":"19fecece2dcdae0d","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.143472+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Pesanan Selesai: “Vention IBA Kabel Lan RJ45...”","Email ID":"19fed5d2e301c3a6","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.1522714+07:00","level":"INFO","msg":"Processing this email","19fef1cf1fb0039e":"Internet Transaction Journal","caller":"services.go:151"}
+{"time":"2026-08-12T06:10:05.1522714+07:00","level":"WARN","msg":"1","caller":"services.go:152"}
+{"time":"2026-08-12T06:10:05.1548451+07:00","level":"INFO","msg":"Detail Transactions","detailTransactions":[{"key":"Status","value":"Successful"},{"key":"Transaction Date","value":"11 Aug 2026 11:37:54"},{"key":"Transaction Type","value":"QRIS Payment"},{"key":"Payment to","value":"Niche's Snack & Ice Cream"},{"key":"Merchant Location","value":"TANGERANG, 15810, ID"},{"key":"Acquirer","value":"GOPAY"},{"key":"Merchant PAN","value":"9360091438221618813"},{"key":"Terminal ID","value":"A01"},{"key":"Source of Fund","value":"TAHAPAN - 0840****40"},{"key":"Customer PAN","value":"9360001410031456493"},{"key":"Total Payment","value":"IDR 12,000.00"},{"key":"RRN","value":"429281264"},{"key":"Reference No.","value":"9527120260811113751203QRS0985135605"}],"caller":"extractor.go:262"}
+{"time":"2026-08-12T06:10:05.1553603+07:00","level":"INFO","msg":"Creating transaction..  ","caller":"services.go:163"}
+{"time":"2026-08-12T06:10:05.1553603+07:00","level":"INFO","msg":"Internet Transaction Journal","caller":"services.go:209"}
+{"time":"2026-08-12T06:10:05.1650617+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:10:05.1681864+07:00","level":"INFO","msg":"{0 0 2026-08-11 11:37:54 +0000 UTC 1 9 2 <nil> 12000 Niche's Snack & Ice Cream Waiting Email 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}"}
+{"time":"2026-08-12T06:10:05.2157376+07:00","level":"INFO","msg":"Processing this email","19fef56828e90a33":"Transaksimu Pakai blu Berhasil","caller":"services.go:151"}
+{"time":"2026-08-12T06:10:05.2162529+07:00","level":"WARN","msg":"1","caller":"services.go:152"}
+{"time":"2026-08-12T06:10:05.2172844+07:00","level":"INFO","msg":"SUKSESTAMA COFFEE 1","caller":"extractor.go:179"}
+{"time":"2026-08-12T06:10:05.2172844+07:00","level":"INFO","msg":"TANGERANG KOT.","caller":"extractor.go:180"}
+{"time":"2026-08-12T06:10:05.2172844+07:00","level":"INFO","msg":"Detail Transactions","detailTransactions":[{"key":"Total","value":"Daniel Imanuel SutantobluAccountSUKSESTAMA COFFEE 1TANGERANG KOT."},{"key":"Beneficiary Full","value":"SUKSESTAMA COFFEE 1 TANGERANG KOT."},{"key":"Beneficiary","value":""},{"key":"Nominal Tagihan","value":"Rp38.000,00"},{"key":"Tgl & Jam Transaksi","value":"11 Agt 2026 12:40:49 WIB"},{"key":"Tipe Transaksi","value":"QRIS"}],"caller":"extractor.go:197"}
+{"time":"2026-08-12T06:10:05.2172844+07:00","level":"INFO","msg":"Creating transaction..  ","caller":"services.go:163"}
+{"time":"2026-08-12T06:10:05.2172844+07:00","level":"INFO","msg":"Transaksimu Pakai blu Berhasil","caller":"services.go:209"}
+{"time":"2026-08-12T06:10:05.2177882+07:00","level":"INFO","msg":"log detail transactions","detailTransactions":{"title":"Transaksimu Pakai blu Berhasil","detail_transaction":[{"key":"Total","value":"Daniel Imanuel SutantobluAccountSUKSESTAMA COFFEE 1TANGERANG KOT."},{"key":"Beneficiary Full","value":"SUKSESTAMA COFFEE 1 TANGERANG KOT."},{"key":"Beneficiary","value":""},{"key":"Nominal Tagihan","value":"Rp38.000,00"},{"key":"Tgl & Jam Transaksi","value":"11 Agt 2026 12:40:49 WIB"},{"key":"Tipe Transaksi","value":"QRIS"}]},"caller":"blu.go:20"}
+{"time":"2026-08-12T06:10:05.2189705+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:10:05.2195318+07:00","level":"INFO","msg":"{0 0 2026-08-11 12:40:49 +0000 UTC 1 9 7 <nil> 38000 SUKSESTAMA COFFEE 1 TANGERANG KOT. Waiting Email 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}"}
+{"time":"2026-08-12T06:10:05.2214669+07:00","level":"INFO","msg":"Processing this email","19fef6034e26ac5b":"Transaksimu Pakai blu Berhasil","caller":"services.go:151"}
+{"time":"2026-08-12T06:10:05.2214669+07:00","level":"WARN","msg":"1","caller":"services.go:152"}
+{"time":"2026-08-12T06:10:05.2230236+07:00","level":"INFO","msg":"WEIJI BSD","caller":"extractor.go:179"}
+{"time":"2026-08-12T06:10:05.2230236+07:00","level":"INFO","msg":"TANGERANG","caller":"extractor.go:180"}
+{"time":"2026-08-12T06:10:05.2230236+07:00","level":"INFO","msg":"Detail Transactions","detailTransactions":[{"key":"Total","value":"Daniel Imanuel SutantobluAccountWEIJI BSDTANGERANG"},{"key":"Beneficiary Full","value":"WEIJI BSD TANGERANG"},{"key":"Beneficiary","value":""},{"key":"Nominal Tagihan","value":"Rp11.000,00"},{"key":"Tgl & Jam Transaksi","value":"11 Agt 2026 12:51:25 WIB"},{"key":"Tipe Transaksi","value":"QRIS"}],"caller":"extractor.go:197"}
+{"time":"2026-08-12T06:10:05.2230236+07:00","level":"INFO","msg":"Creating transaction..  ","caller":"services.go:163"}
+{"time":"2026-08-12T06:10:05.2235407+07:00","level":"INFO","msg":"Transaksimu Pakai blu Berhasil","caller":"services.go:209"}
+{"time":"2026-08-12T06:10:05.2235407+07:00","level":"INFO","msg":"log detail transactions","detailTransactions":{"title":"Transaksimu Pakai blu Berhasil","detail_transaction":[{"key":"Total","value":"Daniel Imanuel SutantobluAccountWEIJI BSDTANGERANG"},{"key":"Beneficiary Full","value":"WEIJI BSD TANGERANG"},{"key":"Beneficiary","value":""},{"key":"Nominal Tagihan","value":"Rp11.000,00"},{"key":"Tgl & Jam Transaksi","value":"11 Agt 2026 12:51:25 WIB"},{"key":"Tipe Transaksi","value":"QRIS"}]},"caller":"blu.go:20"}
+{"time":"2026-08-12T06:10:05.2246903+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:10:05.2252113+07:00","level":"INFO","msg":"{0 0 2026-08-11 12:51:25 +0000 UTC 1 9 7 <nil> 11000 WEIJI BSD TANGERANG Waiting Email 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}"}
+{"time":"2026-08-12T06:10:05.2279+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Hari ini TERAKHIR! 🚨","Email ID":"19fef7e96ce47d36","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.2279+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Bibit Weekly – Ekonomi Indonesia 2Q26 Tumbuh di Atas Ekspektasi","Email ID":"19ff05571b60fc80","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.2279+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"Electronic Statement Kartu Kredit BCA","Email ID":"19ff0b59fdd379a5","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.2279+07:00","level":"INFO","msg":"Skip this email because its not in the listed title","Email Title":"🚗 Penjualan Otomotif Solid pada Juli 2026: Mobil +33% YoY & Motor +8% YoY","Email ID":"19ff1937e4c9bf5b","caller":"services.go:135"}
+{"time":"2026-08-12T06:10:05.2284785+07:00","level":"INFO","msg":"Processing this email","19ff24571142ab7c":"Credit Card Transaction Notification","caller":"services.go:151"}
+{"time":"2026-08-12T06:10:05.2284785+07:00","level":"WARN","msg":"1","caller":"services.go:152"}
+{"time":"2026-08-12T06:10:05.2290027+07:00","level":"INFO","msg":"Creating transaction..  ","caller":"services.go:163"}
+{"time":"2026-08-12T06:10:05.2295353+07:00","level":"INFO","msg":"Credit Card Transaction Notification","caller":"services.go:209"}
+{"time":"2026-08-12T06:10:05.2295353+07:00","level":"INFO","msg":"log detail transactions","detailTransactions":{"title":"Credit Card Transaction Notification","detail_transaction":[{"key":"Nomor Customer","value":"0000000018608381"},{"key":"Nomor Kartu","value":"455633XXXX2115"},{"key":"Merchant / ATM","value":"Grab* 84f73d7cdd365e12"},{"key":"Jenis Transaksi","value":"E-COMMERCE"},{"key":"Otentikasi","value":"TRANSAKSI TANPA OTP"},{"key":"Pada Tanggal","value":"12-08-2026 02:20:52 WIB"},{"key":"Sejumlah","value":"Rp9.000,00"}]},"caller":"credit_card_bca.go:11"}
+{"time":"2026-08-12T06:10:05.230867+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:10:05.230867+07:00","level":"INFO","msg":"{0 0 2026-08-12 02:20:52 +0000 UTC 1 9 4 <nil> 9000 Grab* 84f73d7cdd365e12 Waiting Email 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}"}
+{"time":"2026-08-12T06:10:05.2333529+07:00","level":"INFO","msg":"Sync finished","caller":"services.go:185"}
+{"time":"2026-08-12T06:10:05.2333529+07:00","level":"INFO","msg":"Total checked:24","caller":"services.go:186"}
+{"time":"2026-08-12T06:10:05.2333529+07:00","level":"INFO","msg":"Total processed:4","caller":"services.go:187"}
+{"time":"2026-08-12T06:10:05.2333529+07:00","level":"INFO","msg":"New checkpoint internal_date:1786476063000","caller":"services.go:188"}
+{"time":"2026-08-12T06:10:05.2338694+07:00","level":"INFO","msg":"internaldate","!BADKEY":1786476063000,"caller":"repository.go:60"}
+{"time":"2026-08-12T06:10:56.6985068+07:00","level":"INFO","msg":"Request ID: f7093c7e-33b1-4e89-a4b1-8c3e254c687c"}
+{"time":"2026-08-12T06:10:56.7012974+07:00","level":"INFO","msg":"Request ID: ed47c4e0-46cc-44f3-b396-5f32d1c15bb9"}
+{"time":"2026-08-12T06:10:56.8755965+07:00","level":"INFO","msg":"Request ID: 4d19a0a7-6509-4ef5-9b5a-c5e9b5538eb5"}
+{"time":"2026-08-12T06:10:56.8761218+07:00","level":"INFO","msg":"Request ID: a3867e54-5e53-4232-ab37-452686dfc72c"}
+{"time":"2026-08-12T06:10:56.948615+07:00","level":"INFO","msg":"Request ID: cb7695f1-18f2-4012-b8c2-b6c9001db41e"}
+{"time":"2026-08-12T06:10:57.0304237+07:00","level":"INFO","msg":"Request ID: c312ffa6-2ddf-4e67-b486-e452a3bd39aa"}
+{"time":"2026-08-12T06:10:57.0603878+07:00","level":"INFO","msg":"Request ID: 390c97e2-c414-49f5-a415-8e4d6cefcb8e"}
+{"time":"2026-08-12T06:10:57.0814227+07:00","level":"INFO","msg":"Request ID: ecf96bf3-f856-48bf-8dab-e1783ba6cdfd"}
+{"time":"2026-08-12T06:11:33.1821413+07:00","level":"INFO","msg":"Request ID: 7ac45761-7a98-412c-8f76-4e29af6793f5"}
+{"time":"2026-08-12T06:11:36.0413435+07:00","level":"INFO","msg":"Request ID: 7d009b79-c246-4823-b654-85b717ab389c"}
+{"time":"2026-08-12T06:11:36.042522+07:00","level":"INFO","msg":"Category","Category":{"id":15,"name":"Makan"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:11:36.042522+07:00","level":"INFO","msg":"DBDTO Category","ID":15,"caller":"services.go:348"}
+{"time":"2026-08-12T06:11:36.0532137+07:00","level":"INFO","msg":"Request ID: ac50a90b-66c8-40dc-a983-e383e970fb18"}
+{"time":"2026-08-12T06:11:36.1434404+07:00","level":"INFO","msg":"Request ID: ab0f1fab-2d55-48e0-a76a-f52e13aad42f"}
+{"time":"2026-08-12T06:11:36.3132732+07:00","level":"INFO","msg":"Request ID: eab9467d-64f1-47c4-b6d1-79a90c114272"}
+{"time":"2026-08-12T06:11:40.2626865+07:00","level":"INFO","msg":"Request ID: 05d564fa-6b3f-4ff5-82f6-c83861e1da93"}
+{"time":"2026-08-12T06:11:44.4035459+07:00","level":"INFO","msg":"Request ID: 2cff44aa-0a3b-4a64-8b0e-ea70bf0a5034"}
+{"time":"2026-08-12T06:11:48.0257897+07:00","level":"INFO","msg":"Request ID: 91c93f2f-1dd4-4a90-82bc-72a12574679b"}
+{"time":"2026-08-12T06:11:48.0269333+07:00","level":"INFO","msg":"Category","Category":{"id":16,"name":"Entertainment"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:11:48.0269333+07:00","level":"INFO","msg":"DBDTO Category","ID":16,"caller":"services.go:348"}
+{"time":"2026-08-12T06:11:48.0764771+07:00","level":"INFO","msg":"Request ID: 1ca90b98-a0b9-4018-9807-4836e4a2a15a"}
+{"time":"2026-08-12T06:11:48.1478789+07:00","level":"INFO","msg":"Request ID: 3ceca6e1-b55a-40ee-b01c-e9d96703b88e"}
+{"time":"2026-08-12T06:11:48.3695808+07:00","level":"INFO","msg":"Request ID: 15403fa8-12c8-4cf0-a948-e75afbcc50e8"}
+{"time":"2026-08-12T06:11:49.2657493+07:00","level":"INFO","msg":"Request ID: dd04ec72-9f05-4e75-b918-aa27f21cd92f"}
+{"time":"2026-08-12T06:11:50.9294384+07:00","level":"INFO","msg":"Request ID: 07c6de0e-ec00-4bc8-9f91-45cacd0d0109"}
+{"time":"2026-08-12T06:11:50.9305177+07:00","level":"INFO","msg":"Category","Category":{"id":16,"name":"Entertainment"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:11:50.9305177+07:00","level":"INFO","msg":"DBDTO Category","ID":16,"caller":"services.go:348"}
+{"time":"2026-08-12T06:11:50.942439+07:00","level":"INFO","msg":"Request ID: 61b8521d-d467-4140-8144-2805cd12759c"}
+{"time":"2026-08-12T06:11:51.0139073+07:00","level":"INFO","msg":"Request ID: 56142bcf-a033-4263-9e48-b5b71c44281d"}
+{"time":"2026-08-12T06:11:51.1590387+07:00","level":"INFO","msg":"Request ID: 622e492e-05d9-438e-8d0f-8f1a845d6303"}
+{"time":"2026-08-12T06:11:53.1675419+07:00","level":"INFO","msg":"Request ID: 6621f5cb-8445-4a49-8fc1-64c2042ae211"}
+{"time":"2026-08-12T06:12:02.4927413+07:00","level":"INFO","msg":"Request ID: e50211eb-479f-4679-9f47-61d4c8af6568"}
+{"time":"2026-08-12T06:12:03.7322355+07:00","level":"INFO","msg":"Request ID: a3df35ac-58f4-4540-b016-e0257f99ff96"}
+{"time":"2026-08-12T06:12:03.7340136+07:00","level":"INFO","msg":"Category","Category":{"id":16,"name":"Entertainment"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:12:03.7340136+07:00","level":"INFO","msg":"DBDTO Category","ID":16,"caller":"services.go:348"}
+{"time":"2026-08-12T06:12:03.7833355+07:00","level":"INFO","msg":"Request ID: 6cb4ca62-bcd4-41dd-9e8e-00c030cd7fe4"}
+{"time":"2026-08-12T06:12:03.8622049+07:00","level":"INFO","msg":"Request ID: 5f5f294e-8230-4b9a-a6a3-0a7e92396636"}
+{"time":"2026-08-12T06:12:04.0276963+07:00","level":"INFO","msg":"Request ID: e7d3cf9a-455b-49bf-b26d-c4dc7a7b7c43"}
+{"time":"2026-08-12T06:12:21.0190656+07:00","level":"INFO","msg":"Request ID: 74236e05-873c-40e6-8b37-3a1f854f99e6"}
+{"time":"2026-08-12T06:12:24.4662635+07:00","level":"INFO","msg":"Request ID: e2844eb7-25a4-4838-940c-837e0f3d7777"}
+{"time":"2026-08-12T06:12:24.4674139+07:00","level":"INFO","msg":"Category","Category":{"id":18,"name":"Occasional"},"caller":"repository.go:73"}
+{"time":"2026-08-12T06:12:24.4674139+07:00","level":"INFO","msg":"DBDTO Category","ID":18,"caller":"services.go:348"}
+{"time":"2026-08-12T06:12:24.5162125+07:00","level":"INFO","msg":"Request ID: 3b0f1b5e-4ab4-4260-869c-93ba9db5f2d7"}
+{"time":"2026-08-12T06:12:24.5880016+07:00","level":"INFO","msg":"Request ID: 419ea859-377d-4e20-89cb-742baba15ea5"}
+{"time":"2026-08-12T06:12:24.7286208+07:00","level":"INFO","msg":"Request ID: 47b3bb31-e3d3-4da6-8ef0-491ef2de6b71"}
+{"time":"2026-08-12T06:12:28.7744156+07:00","level":"INFO","msg":"Request ID: 17c2c71d-f7b1-41ac-8e6f-a788c7affd04"}
+{"time":"2026-08-12T06:23:05.6362365+07:00","level":"INFO","msg":"Request ID: b26adc50-c1f5-4684-a513-ae57feefac3a"}
+{"time":"2026-08-12T06:23:13.9906117+07:00","level":"INFO","msg":"Request ID: 5008ab54-2419-4a1e-be0b-bf586971251e"}
+{"time":"2026-08-12T07:20:39.0751758+07:00","level":"INFO","msg":"Request ID: 05bb5244-3bc8-41ce-8b53-6dd97e23ce5e"}
+{"time":"2026-08-12T07:20:39.1202914+07:00","level":"INFO","msg":"Request ID: 8d2e8fbb-b45c-4896-b986-ffb3d5eef5bb"}
+{"time":"2026-08-12T07:20:39.122295+07:00","level":"INFO","msg":"Request ID: 5d8315b8-ba9b-421f-af21-15bbea8d238a"}
+{"time":"2026-08-12T07:20:39.2004426+07:00","level":"INFO","msg":"Request ID: 7e2d5621-bc0e-4930-a73b-8a3520050f05"}
+{"time":"2026-08-12T07:20:39.2617427+07:00","level":"INFO","msg":"Request ID: 62032534-fe74-4bc2-886a-0a99d8cb4463"}
+{"time":"2026-08-12T07:20:39.2806636+07:00","level":"INFO","msg":"Request ID: 7f7ff73f-e5cf-4c90-9b6b-14e5290f180f"}
+{"time":"2026-08-12T07:20:39.2960242+07:00","level":"INFO","msg":"Request ID: 7b4a36e5-cf2f-49d3-b8a1-31693411c821"}
+{"time":"2026-08-12T07:20:40.9729451+07:00","level":"INFO","msg":"Request ID: 13c46095-f5d9-4b70-9986-be35b67e452b"}
+{"time":"2026-08-12T07:20:40.9773183+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).EditTransactionForm (handlers.go:193)"}
+{"time":"2026-08-12T07:20:48.9090419+07:00","level":"INFO","msg":"Request ID: b27a3d7a-ed01-4202-b36b-971396302b1c"}
+{"time":"2026-08-12T07:20:49.0020399+07:00","level":"INFO","msg":"Request ID: be454dba-1919-4626-886c-ef4f4edb6cc0"}
+{"time":"2026-08-12T07:20:49.0814868+07:00","level":"INFO","msg":"Request ID: f2435d5f-b8cb-44fe-ac43-02607839a49f"}
+{"time":"2026-08-12T07:20:49.1037337+07:00","level":"INFO","msg":"Request ID: 9f1bb96d-aa90-4ce0-bd4b-4c5602166273"}
+{"time":"2026-08-12T07:20:49.1230945+07:00","level":"INFO","msg":"Request ID: 734761e6-8174-472c-8c4d-4732f6c6b0d4"}
+{"time":"2026-08-12T07:20:50.7454406+07:00","level":"INFO","msg":"Request ID: e979d288-0e1c-45bd-a9a4-b0402043cf0e"}
+{"time":"2026-08-12T07:20:50.748479+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).EditTransactionForm (handlers.go:193)"}
+{"time":"2026-08-12T07:22:03.3401151+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T07:22:03.3406337+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T07:22:03.3406337+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T07:22:03.341154+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T07:22:06.613592+07:00","level":"INFO","msg":"Request ID: 13a454fb-f376-48e4-addf-140c5cef5f63"}
+{"time":"2026-08-12T07:22:06.6903786+07:00","level":"INFO","msg":"Request ID: f3006715-0fb5-4ac8-90b5-6fe38da3521a"}
+{"time":"2026-08-12T07:22:06.8605278+07:00","level":"INFO","msg":"Request ID: c9f8dd02-9536-4ed2-89f3-b4d97a4f0661"}
+{"time":"2026-08-12T07:22:06.8734837+07:00","level":"INFO","msg":"Request ID: 23f79b88-c6fe-4bce-8905-75fc0a35a21f"}
+{"time":"2026-08-12T07:22:06.8977813+07:00","level":"INFO","msg":"Request ID: 21d5d04e-285e-49de-8c6e-c838f911b376"}
+{"time":"2026-08-12T07:22:06.9151562+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63325: runtime error: invalid memory address or nil pointer dereference\ngoroutine 23 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0xe2f680?, 0x1599f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0xa3dfe9?, {0x1055a88?, 0xc00038f180?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0x10559e0?, {0x1055a88?, 0xc00038f180?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc000209020, {0x1054e00, 0xc00027e380}, 0xc00029d8f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0x10559e0?, {0x1054e00?, 0xc00027e380?}, 0x1049f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x1054e00, 0xc00027e380}, 0xc0003d88c0)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003d8780?, {0x1054e00?, 0xc00027e380?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc00015a480, {0x1054e00, 0xc00027e380}, 0xc0003d8640)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000286030?}, {0x1054e00?, 0xc00027e380?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc000169290, {0x10559e0, 0xc0002438c0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:22:06.9177654+07:00","level":"INFO","msg":"Request ID: 839b238e-286e-4415-a562-86336af43116"}
+{"time":"2026-08-12T07:22:06.9222871+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63326: runtime error: invalid memory address or nil pointer dereference\ngoroutine 24 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0xe2f680?, 0x1599f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0xa3dfe9?, {0x1055a88?, 0xc00038f260?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0x10559e0?, {0x1055a88?, 0xc00038f260?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc000209020, {0x1054e00, 0xc00027e460}, 0xc0002998f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0x10559e0?, {0x1054e00?, 0xc00027e460?}, 0x1049f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x1054e00, 0xc00027e460}, 0xc0003d8c80)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003d8b40?, {0x1054e00?, 0xc00027e460?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc00015a480, {0x1054e00, 0xc00027e460}, 0xc000096000)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc00004a060?}, {0x1054e00?, 0xc00027e460?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0001693b0, {0x10559e0, 0xc0002438c0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:22:06.9242856+07:00","level":"INFO","msg":"Request ID: 4845ee1c-7e25-449e-b679-807d2166a9b4"}
+{"time":"2026-08-12T07:22:06.9311344+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63329: runtime error: invalid memory address or nil pointer dereference\ngoroutine 27 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0xe2f680?, 0x1599f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0xa3dfe9?, {0x1055a88?, 0xc00038f340?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0x10559e0?, {0x1055a88?, 0xc00038f340?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc000209020, {0x1054e00, 0xc00027e540}, 0xc0002998f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0x10559e0?, {0x1054e00?, 0xc00027e540?}, 0x1049f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x1054e00, 0xc00027e540}, 0xc0003d9040)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003d8f00?, {0x1054e00?, 0xc00027e540?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc00015a480, {0x1054e00, 0xc00027e540}, 0xc000096140)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc00004a120?}, {0x1054e00?, 0xc00027e540?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0001697a0, {0x10559e0, 0xc0002438c0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:22:07.244416+07:00","level":"INFO","msg":"Request ID: 2bb69ff7-b2bd-42c3-aba7-4ad350872bf4"}
+{"time":"2026-08-12T07:22:07.248235+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63332: runtime error: invalid memory address or nil pointer dereference\ngoroutine 56 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0xe2f680?, 0x1599f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0xa3dfe9?, {0x1055a88?, 0xc00038f420?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0x10559e0?, {0x1055a88?, 0xc00038f420?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc000209020, {0x1054e00, 0xc00027e620}, 0xc0002998f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0x10559e0?, {0x1054e00?, 0xc00027e620?}, 0x1049f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x1054e00, 0xc00027e620}, 0xc0003d9400)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003d92c0?, {0x1054e00?, 0xc00027e620?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc00015a480, {0x1054e00, 0xc00027e620}, 0xc00048c000)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000488030?}, {0x1054e00?, 0xc00027e620?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc000169a70, {0x10559e0, 0xc0002438c0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:38:41.1966519+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T07:38:41.1971696+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T07:38:41.1971696+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T07:38:41.1976883+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T07:38:44.2743129+07:00","level":"INFO","msg":"Request ID: ba302a03-ce2c-4515-905c-c923a520b6be"}
+{"time":"2026-08-12T07:38:44.3221843+07:00","level":"INFO","msg":"Request ID: 4ce7f7c1-e179-41bb-bd98-c60e2d391b99"}
+{"time":"2026-08-12T07:38:44.4102895+07:00","level":"INFO","msg":"Request ID: 6bbd9ca6-6013-4e59-907f-b89df8584a28"}
+{"time":"2026-08-12T07:38:44.4307272+07:00","level":"INFO","msg":"Request ID: 36fa6401-4910-4043-8bf3-2c4fea019642"}
+{"time":"2026-08-12T07:38:44.4589558+07:00","level":"INFO","msg":"Request ID: 37bbf89a-805a-4bc7-88ad-dae763e40ef6"}
+{"time":"2026-08-12T07:38:44.4649496+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63932: runtime error: invalid memory address or nil pointer dereference\ngoroutine 10 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x86f680?, 0xfd9f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0x47dfe9?, {0xa95a88?, 0xc0002cbb20?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0xa959e0?, {0xa95a88?, 0xc0002cbb20?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc0001f1050, {0xa94e00, 0xc0002b4700}, 0xc0000538f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0xa959e0?, {0xa94e00?, 0xc0002b4700?}, 0xa89f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0xa94e00, 0xc0002b4700}, 0xc0003b6000)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc00028fe00?, {0xa94e00?, 0xc0002b4700?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c4480, {0xa94e00, 0xc0002b4700}, 0xc00028fcc0)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc0002259e0?}, {0xa94e00?, 0xc0002b4700?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000d1290, {0xa959e0, 0xc0002258f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:38:44.4660996+07:00","level":"INFO","msg":"Request ID: 241065ca-33d5-4ef4-8b6a-cc58186f2def"}
+{"time":"2026-08-12T07:38:44.4711328+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63933: runtime error: invalid memory address or nil pointer dereference\ngoroutine 18 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x86f680?, 0xfd9f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0x47dfe9?, {0xa95a88?, 0xc0002cbc00?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0xa959e0?, {0xa95a88?, 0xc0002cbc00?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc0001f1050, {0xa94e00, 0xc0002b47e0}, 0xc0000538f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0xa959e0?, {0xa94e00?, 0xc0002b47e0?}, 0xa89f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0xa94e00, 0xc0002b47e0}, 0xc0003b63c0)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003b6280?, {0xa94e00?, 0xc0002b47e0?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c4480, {0xa94e00, 0xc0002b47e0}, 0xc00028e000)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000282030?}, {0xa94e00?, 0xc0002b47e0?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc000114000, {0xa959e0, 0xc0002258f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:38:44.5381485+07:00","level":"INFO","msg":"Request ID: 866513be-18fe-4fe2-a6eb-8f0f3726d2b4"}
+{"time":"2026-08-12T07:38:44.542808+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:63935: runtime error: invalid memory address or nil pointer dereference\ngoroutine 51 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x86f680?, 0xfd9f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetAllTransactions(0x47dfe9?, {0xa95a88?, 0xc000142000?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:69 +0x4c6\ndrfin/app/transactions.(*Service).GetAllTransactions(0xa959e0?, {0xa95a88?, 0xc000142000?})\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:36 +0x35\ndrfin/app/dashboard.(*Handler).TransactionsGrid(0xc0001f1050, {0xa94e00, 0xc00012e000}, 0xc00013b8f8?)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:117 +0x8b\nnet/http.HandlerFunc.ServeHTTP(0xa959e0?, {0xa94e00?, 0xc00012e000?}, 0xa89f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0xa94e00, 0xc00012e000}, 0xc000120280)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc000120140?, {0xa94e00?, 0xc00012e000?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c4480, {0xa94e00, 0xc00012e000}, 0xc000120000)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000110090?}, {0xa94e00?, 0xc00012e000?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc000292900, {0xa959e0, 0xc0002258f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:44:08.2152295+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T07:44:08.2157419+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T07:44:08.2162585+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T07:44:08.2162585+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T07:44:11.6368411+07:00","level":"INFO","msg":"Request ID: 20162bf4-ae3a-41cb-98ed-d8617542a240"}
+{"time":"2026-08-12T07:44:11.6778257+07:00","level":"INFO","msg":"Request ID: 576cb96b-d701-4ae4-8472-9b57ec649d02"}
+{"time":"2026-08-12T07:44:11.7570199+07:00","level":"INFO","msg":"Request ID: 2c2a25cc-529f-475e-8c26-4a11b15260bf"}
+{"time":"2026-08-12T07:44:11.7755686+07:00","level":"INFO","msg":"Request ID: c7d048b1-f8ac-4fc2-a1b9-c7f5dbc35b99"}
+{"time":"2026-08-12T07:44:11.8092192+07:00","level":"INFO","msg":"Request ID: bba80c5c-4a81-4bc1-bb26-790d3978264a"}
+{"time":"2026-08-12T07:44:11.8202696+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).TransactionsGrid (handlers.go:125)"}
+{"time":"2026-08-12T07:44:35.5779715+07:00","level":"INFO","msg":"Request ID: 49204fb6-e2f0-4a0f-a467-3e3a99eac583"}
+{"time":"2026-08-12T07:44:35.6284724+07:00","level":"INFO","msg":"Request ID: 8de76b66-ad90-4f6f-b7b0-0404b05da03f"}
+{"time":"2026-08-12T07:44:35.6997481+07:00","level":"INFO","msg":"Request ID: b88bdaa2-ac40-44fd-ae81-47cbf885c685"}
+{"time":"2026-08-12T07:44:35.7219965+07:00","level":"INFO","msg":"Request ID: 003bac45-9e84-4538-b63c-f618f497d377"}
+{"time":"2026-08-12T07:44:35.7369555+07:00","level":"INFO","msg":"Request ID: 5f0f2c68-0c25-4e8c-a441-f018c1ba9c75"}
+{"time":"2026-08-12T07:44:35.752298+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).TransactionsGrid (handlers.go:125)"}
+{"time":"2026-08-12T07:45:22.8106023+07:00","level":"INFO","msg":"Request ID: 6ab7b0b5-e8d8-4dd6-b6e4-62b3626139d2"}
+{"time":"2026-08-12T07:45:22.8430295+07:00","level":"INFO","msg":"Request ID: 3472b021-b613-481f-98a0-3bc1482bc548"}
+{"time":"2026-08-12T07:45:22.8457176+07:00","level":"INFO","msg":"Request ID: ab1dcb8f-c827-458f-a203-09c8cbb42954"}
+{"time":"2026-08-12T07:45:22.9267616+07:00","level":"INFO","msg":"Request ID: 63ea58b6-562f-49d2-835e-bb6b28775bd8"}
+{"time":"2026-08-12T07:45:22.9952566+07:00","level":"INFO","msg":"Request ID: 0f2d4af5-9c4d-40ed-bd4a-63d4034f3b94"}
+{"time":"2026-08-12T07:45:23.025055+07:00","level":"INFO","msg":"Request ID: 30e22c74-3295-4608-9ec2-17abb082c655"}
+{"time":"2026-08-12T07:45:23.0594123+07:00","level":"INFO","msg":"Request ID: 5a447308-5e67-4db9-8440-cd7dd12aed60"}
+{"time":"2026-08-12T07:45:32.6843348+07:00","level":"INFO","msg":"Request ID: 595450f5-5516-42f1-bd99-77e194958a77"}
+{"time":"2026-08-12T07:45:32.687957+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).EditTransactionForm (handlers.go:214)"}
+{"time":"2026-08-12T07:46:11.1032606+07:00","level":"INFO","msg":"Request ID: 73e4a734-133e-4e99-87f4-bb8ff2925900"}
+{"time":"2026-08-12T07:46:11.1688485+07:00","level":"INFO","msg":"Request ID: e9bbf666-0658-4622-9d78-78b20e14415d"}
+{"time":"2026-08-12T07:46:11.2256925+07:00","level":"INFO","msg":"Request ID: ee95db27-3be3-4299-98c3-542f0793e1e5"}
+{"time":"2026-08-12T07:46:11.2389721+07:00","level":"INFO","msg":"Request ID: 7c91489a-50a3-4ede-94c4-31c547de18c3"}
+{"time":"2026-08-12T07:46:11.2487995+07:00","level":"INFO","msg":"Request ID: 57f8df2c-8937-4141-9a2c-6863e222e3ac"}
+{"time":"2026-08-12T07:46:13.0452891+07:00","level":"INFO","msg":"Request ID: 3f4c37de-09c3-4a46-80c3-1f5b0e5f4d6a"}
+{"time":"2026-08-12T07:46:13.0465166+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64132: runtime error: invalid memory address or nil pointer dereference\ngoroutine 11 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026c850}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026c850?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000000}, 0xc0002128c0)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000000?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000000}, 0xc000212640)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc000212500?, {0x12c4e00?, 0xc000000000?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000000}, 0xc000212140)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000282030?}, {0x12c4e00?, 0xc000000000?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000cf3b0, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:13.0475435+07:00","level":"INFO","msg":"Request ID: 210f426a-6018-4c0f-87c5-ed5cf859a050"}
+{"time":"2026-08-12T07:46:13.0490325+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64131: runtime error: invalid memory address or nil pointer dereference\ngoroutine 10 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026c930}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026c930?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc0000000e0}, 0xc000213180)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc0000000e0?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc0000000e0}, 0xc000213040)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc000212f00?, {0x12c4e00?, 0xc0000000e0?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc0000000e0}, 0xc000212b40)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc00010e030?}, {0x12c4e00?, 0xc0000000e0?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000cf290, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:13.0498264+07:00","level":"INFO","msg":"Request ID: df7d000d-e517-48d8-a169-0a7cd1bd8d0c"}
+{"time":"2026-08-12T07:46:13.0509132+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64169: runtime error: invalid memory address or nil pointer dereference\ngoroutine 81 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026ca10}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026ca10?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000380}, 0xc0002137c0)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000380?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000380}, 0xc000213540)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0002132c0?, {0x12c4e00?, 0xc000000380?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000380}, 0xc0002123c0)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000400030?}, {0x12c4e00?, 0xc000000380?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc00041e090, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:13.3602487+07:00","level":"INFO","msg":"Request ID: 0c4cc320-a6bb-4b58-8d5a-351d6c16dc83"}
+{"time":"2026-08-12T07:46:13.3623422+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64176: runtime error: invalid memory address or nil pointer dereference\ngoroutine 140 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026caf0}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026caf0?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000460}, 0xc000213cc0)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000460?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000460}, 0xc000213b80)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc000213a40?, {0x12c4e00?, 0xc000000460?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000460}, 0xc00019e140)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc00060c030?}, {0x12c4e00?, 0xc000000460?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000ce870, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:13.9408658+07:00","level":"INFO","msg":"Request ID: 2fe40a7c-9193-49e5-805f-22b051ecabf3"}
+{"time":"2026-08-12T07:46:13.9421847+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64177: runtime error: invalid memory address or nil pointer dereference\ngoroutine 144 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026cbd0}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026cbd0?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000540}, 0xc0003b63c0)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000540?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000540}, 0xc0003b6280)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003b6140?, {0x12c4e00?, 0xc000000540?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000540}, 0xc00022a000)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000354750?}, {0x12c4e00?, 0xc000000540?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000ce990, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:14.2498138+07:00","level":"INFO","msg":"Request ID: a5394e98-dd4a-4342-9dcb-4f629685295c"}
+{"time":"2026-08-12T07:46:14.2513591+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64180: runtime error: invalid memory address or nil pointer dereference\ngoroutine 148 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026ccb0}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026ccb0?}, 0x925)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000620}, 0xc0003b6780)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000620?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000620}, 0xc0003b6640)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003b6500?, {0x12c4e00?, 0xc000000620?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000620}, 0xc00022a140)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc0003547b0?}, {0x12c4e00?, 0xc000000620?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000ceb40, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:14.6259356+07:00","level":"INFO","msg":"Request ID: 4ee94a98-cacf-4577-b396-f3e5bfa3eb97"}
+{"time":"2026-08-12T07:46:14.627087+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64181: runtime error: invalid memory address or nil pointer dereference\ngoroutine 152 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026ce70}, 0x924)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026ce70?}, 0x924)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc000000700}, 0xc0003b6b40)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc000000700?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc000000700}, 0xc0003b6a00)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003b68c0?, {0x12c4e00?, 0xc000000700?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc000000700}, 0xc00022a500)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000354a20?}, {0x12c4e00?, 0xc000000700?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000cec60, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:14.9279674+07:00","level":"INFO","msg":"Request ID: 962da4a5-1dea-45d7-87ea-94f6145f0840"}
+{"time":"2026-08-12T07:46:14.9299689+07:00","level":"INFO","msg":"http: panic serving 127.0.0.1:64184: runtime error: invalid memory address or nil pointer dereference\ngoroutine 156 [running]:\nnet/http.(*conn).serve.func1()\n\tC:/Program Files/Go/src/net/http/server.go:1947 +0xbe\npanic({0x109f680?, 0x1809f00?})\n\tC:/Program Files/Go/src/runtime/panic.go:792 +0x132\ndrfin/app/transactions.(*Repository).GetTransactionByIDDTO(0xc000080568, {0x12c5a88, 0xc00026cf50}, 0x924)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/repository.go:179 +0x3f2\ndrfin/app/transactions.(*Service).GetTransactionByIDDTO(0x12c59e0?, {0x12c5a88?, 0xc00026cf50?}, 0x924)\n\tD:/Documents/Project/golang-journey/drfin/app/transactions/services.go:96 +0x3a\ndrfin/app/dashboard.(*Handler).EditTransactionForm(0xc0001ed050, {0x12c4e00, 0xc0000007e0}, 0xc0003b6f00)\n\tD:/Documents/Project/golang-journey/drfin/app/dashboard/handlers.go:176 +0xfd\nnet/http.HandlerFunc.ServeHTTP(0x12c59e0?, {0x12c4e00?, 0xc0000007e0?}, 0x12b9f50?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ndrfin/app/api.DRFINHandler.func1({0x12c4e00, 0xc0000007e0}, 0xc0003b6dc0)\n\tD:/Documents/Project/golang-journey/drfin/app/api/api.go:57 +0x2e2\nnet/http.HandlerFunc.ServeHTTP(0xc0003b6c80?, {0x12c4e00?, 0xc0000007e0?}, 0x0?)\n\tC:/Program Files/Go/src/net/http/server.go:2294 +0x29\ngithub.com/gorilla/mux.(*Router).ServeHTTP(0xc0000c2480, {0x12c4e00, 0xc0000007e0}, 0xc00022a640)\n\tC:/Users/User/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x1e2\nnet/http.serverHandler.ServeHTTP({0xc000354d50?}, {0x12c4e00?, 0xc0000007e0?}, 0x6?)\n\tC:/Program Files/Go/src/net/http/server.go:3301 +0x8e\nnet/http.(*conn).serve(0xc0000ced80, {0x12c59e0, 0xc0002238f0})\n\tC:/Program Files/Go/src/net/http/server.go:2102 +0x625\ncreated by net/http.(*Server).Serve in goroutine 1\n\tC:/Program Files/Go/src/net/http/server.go:3454 +0x485"}
+{"time":"2026-08-12T07:46:15.4300742+07:00","level":"INFO","msg":"Request ID: 24a1fb47-6e52-44b4-9162-2b3a6ca1580a"}
+{"time":"2026-08-12T07:46:15.4330536+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).EditTransactionForm (handlers.go:214)"}
+{"time":"2026-08-12T07:46:44.229044+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T07:46:44.2300849+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T07:46:44.2300849+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T07:46:44.2306039+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T07:46:46.7260511+07:00","level":"INFO","msg":"Request ID: a5fd6d6a-ef50-4eb0-a88c-2e8d429d693a"}
+{"time":"2026-08-12T07:46:46.7634405+07:00","level":"INFO","msg":"Request ID: 03b6e022-8d08-4f8d-9acd-f84581b8d9b2"}
+{"time":"2026-08-12T07:46:46.7639746+07:00","level":"INFO","msg":"Request ID: 385fd870-5c3f-4188-9579-34ed3b4c7798"}
+{"time":"2026-08-12T07:46:46.8520345+07:00","level":"INFO","msg":"Request ID: 051358c7-e261-4869-bbf3-e9ce0aff59fe"}
+{"time":"2026-08-12T07:46:46.9108185+07:00","level":"INFO","msg":"Request ID: 8dd566a2-30e4-4a0a-8978-20fd12f9c89c"}
+{"time":"2026-08-12T07:46:46.9204082+07:00","level":"INFO","msg":"Request ID: 2de777a5-0c8e-4748-a7b8-c05f72e7288c"}
+{"time":"2026-08-12T07:46:46.9347257+07:00","level":"INFO","msg":"Request ID: e79b941a-9d74-46e8-830a-879eda687b78"}
+{"time":"2026-08-12T07:46:48.4518701+07:00","level":"INFO","msg":"Request ID: 4d1d91e8-cf1f-42af-ac6f-d0b6bdfd89bd"}
+{"time":"2026-08-12T07:46:48.454804+07:00","level":"INFO","msg":"http: superfluous response.WriteHeader call from drfin/app/dashboard.(*Handler).EditTransactionForm (handlers.go:214)"}
+{"time":"2026-08-12T07:47:43.2581203+07:00","level":"INFO","msg":"Request ID: 62ac28fe-5133-4225-b25f-c2b402218b80"}
+{"time":"2026-08-12T07:47:43.3006681+07:00","level":"INFO","msg":"Request ID: 69dafc8e-bb58-40f8-bbff-726dc7229f54"}
+{"time":"2026-08-12T07:47:43.3011985+07:00","level":"INFO","msg":"Request ID: 170ed3b6-9b61-4d08-ab03-e438935e744d"}
+{"time":"2026-08-12T07:47:43.3741758+07:00","level":"INFO","msg":"Request ID: f3491ded-0a3b-4f22-9dba-c76a1faef14d"}
+{"time":"2026-08-12T07:47:43.4409322+07:00","level":"INFO","msg":"Request ID: 60af9127-fb5e-42cd-9a13-79b3995f8366"}
+{"time":"2026-08-12T07:47:43.4538821+07:00","level":"INFO","msg":"Request ID: 39a683f4-f030-4766-8548-fcf659c3b9a3"}
+{"time":"2026-08-12T07:47:43.4609688+07:00","level":"INFO","msg":"Request ID: 82126f8a-1f2b-4110-a83c-2ece929e64c1"}
+{"time":"2026-08-12T07:47:44.9956447+07:00","level":"INFO","msg":"Request ID: 8b190a5b-3149-4297-9384-a44c83c30134"}
+{"time":"2026-08-12T07:47:51.1660793+07:00","level":"INFO","msg":"Request ID: 24ee622d-1515-4d08-aaf4-69bb72fca815"}
+{"time":"2026-08-12T07:49:11.9776451+07:00","level":"INFO","msg":"Request ID: 505a5d77-a379-408f-b89f-941f5f6405cc"}
+{"time":"2026-08-12T07:49:12.0190623+07:00","level":"INFO","msg":"Request ID: 4126e973-162e-4a2b-a1d6-9836b4bb767c"}
+{"time":"2026-08-12T07:49:12.0215109+07:00","level":"INFO","msg":"Request ID: e4ff5650-c269-4160-9579-1891d6a5b90a"}
+{"time":"2026-08-12T07:49:12.0917574+07:00","level":"INFO","msg":"Request ID: b4c8d706-6d58-4847-9a10-4466442c77d5"}
+{"time":"2026-08-12T07:49:12.1216835+07:00","level":"INFO","msg":"Request ID: bc014a5a-43ae-4563-b89b-161f7bfd8406"}
+{"time":"2026-08-12T07:49:12.1360314+07:00","level":"INFO","msg":"Request ID: e286078a-a834-430c-8e2e-d3ab111f18c4"}
+{"time":"2026-08-12T07:49:12.1442462+07:00","level":"INFO","msg":"Request ID: 29101544-640d-4fe4-8eb0-5405e9f1bbc0"}
+{"time":"2026-08-12T07:49:14.2123175+07:00","level":"INFO","msg":"Request ID: 77872402-bbbb-4f7a-a2b1-f5c136df2109"}
+{"time":"2026-08-12T07:49:33.2843422+07:00","level":"INFO","msg":"Request ID: 738a29a5-7ca7-485b-8300-7c51f5d8af82"}
+{"time":"2026-08-12T07:49:33.3233135+07:00","level":"INFO","msg":"Request ID: c2456c75-799c-4de2-b040-9c9daad766e8"}
+{"time":"2026-08-12T07:49:33.3243632+07:00","level":"INFO","msg":"Request ID: a36909c7-b28e-4b4c-89fe-e5f61e390d2e"}
+{"time":"2026-08-12T07:49:33.4033344+07:00","level":"INFO","msg":"Request ID: 7e01997f-0df4-4b20-8a23-2186d4806ba7"}
+{"time":"2026-08-12T07:49:33.4468153+07:00","level":"INFO","msg":"Request ID: ebc9e34f-a159-4193-86b5-be38548b05f9"}
+{"time":"2026-08-12T07:49:33.4758543+07:00","level":"INFO","msg":"Request ID: 9a5033fc-9c47-4fdf-841b-f7bdefa271d8"}
+{"time":"2026-08-12T07:49:33.4901766+07:00","level":"INFO","msg":"Request ID: 2b513b7f-c9a2-4a1e-a330-29830df37dae"}
+{"time":"2026-08-12T07:49:35.5196085+07:00","level":"INFO","msg":"Request ID: d55d46c6-b9bf-4261-b9b7-6cab585a9dd0"}
+{"time":"2026-08-12T07:49:42.9397111+07:00","level":"INFO","msg":"Request ID: 9f0d1b1a-7a6e-41bc-9703-3969d4543fbb"}
+{"time":"2026-08-12T07:50:39.5335025+07:00","level":"INFO","msg":"Request ID: 6bcfe5a1-a18d-46e9-933c-7c25e85ab973"}
+{"time":"2026-08-12T07:50:39.5748827+07:00","level":"INFO","msg":"Request ID: 673af056-c533-456f-a59d-c36c90c51661"}
+{"time":"2026-08-12T07:50:39.579549+07:00","level":"INFO","msg":"Request ID: 3be28eb1-b4de-4623-ac4d-423cc9cfd53f"}
+{"time":"2026-08-12T07:50:39.6517105+07:00","level":"INFO","msg":"Request ID: 235ea4c9-f297-4c08-bbd6-66fa17b70a5b"}
+{"time":"2026-08-12T07:50:39.6837084+07:00","level":"INFO","msg":"Request ID: 09eff111-fdce-49b7-83f9-9d3c70e70007"}
+{"time":"2026-08-12T07:50:39.6958544+07:00","level":"INFO","msg":"Request ID: 54783ea4-baa1-4166-9f1c-b80f1ed31b16"}
+{"time":"2026-08-12T07:50:39.7068365+07:00","level":"INFO","msg":"Request ID: 187effbb-6a79-42d7-929b-b9d92f75c2a6"}
+{"time":"2026-08-12T07:50:41.2104547+07:00","level":"INFO","msg":"Request ID: d43bd8d5-4400-4e55-9f54-8f36f007860f"}
+{"time":"2026-08-12T07:51:41.9059548+07:00","level":"INFO","msg":"Request ID: 516cf661-f3cd-4b03-98b6-3b12fb863ce1"}
+{"time":"2026-08-12T07:51:41.9479722+07:00","level":"INFO","msg":"Request ID: 813c8002-34ea-4a65-be00-cd76132b346f"}
+{"time":"2026-08-12T07:51:41.9489756+07:00","level":"INFO","msg":"Request ID: 9da314c7-3a68-4e51-bd07-eae0b94d2b26"}
+{"time":"2026-08-12T07:51:42.0220942+07:00","level":"INFO","msg":"Request ID: 6aa4d1b4-dc60-49d0-99d7-01d1fff655e0"}
+{"time":"2026-08-12T07:51:42.0523987+07:00","level":"INFO","msg":"Request ID: dd756f4e-5bd4-43d8-86e7-7526fc23ae4a"}
+{"time":"2026-08-12T07:51:42.0655676+07:00","level":"INFO","msg":"Request ID: 430a251f-afb1-4c2b-894a-9b16a067531f"}
+{"time":"2026-08-12T07:51:42.0737173+07:00","level":"INFO","msg":"Request ID: 0a35e397-9e93-442b-8428-deeb762d9101"}
+{"time":"2026-08-12T07:51:43.5745296+07:00","level":"INFO","msg":"Request ID: da80a4d7-f177-4024-8c99-42a32ab38fde"}
+{"time":"2026-08-12T07:53:32.6347705+07:00","level":"INFO","msg":"Request ID: 324089cc-8633-465f-9c20-b21a2b04271d"}
+{"time":"2026-08-12T07:53:32.6761528+07:00","level":"INFO","msg":"Request ID: 06c23447-6f6f-4978-8b16-9849d94c39eb"}
+{"time":"2026-08-12T07:53:32.6761528+07:00","level":"INFO","msg":"Request ID: 2713b39d-cd5a-46d9-8ece-b95d3cc099b0"}
+{"time":"2026-08-12T07:53:32.7471948+07:00","level":"INFO","msg":"Request ID: 645482a1-bd71-4259-a9ea-b1ecde4d5b3e"}
+{"time":"2026-08-12T07:53:32.7762177+07:00","level":"INFO","msg":"Request ID: 028f5965-651f-48d6-8dd2-2679397490f1"}
+{"time":"2026-08-12T07:53:32.7907094+07:00","level":"INFO","msg":"Request ID: 1384d4a5-ad77-44b7-892a-26554c4377e6"}
+{"time":"2026-08-12T07:53:32.799132+07:00","level":"INFO","msg":"Request ID: e7e94841-396f-4bad-ad22-85162abb46f4"}
+{"time":"2026-08-12T07:53:36.1052782+07:00","level":"INFO","msg":"Request ID: 60008324-a8ce-4c59-9332-2605ad681a6f"}
+{"time":"2026-08-12T07:54:18.5713985+07:00","level":"INFO","msg":"Request ID: c29f9543-fb40-485a-aa0a-563b72f7fcff"}
+{"time":"2026-08-12T07:54:18.6208929+07:00","level":"INFO","msg":"Request ID: b96fc14d-135f-485e-b303-f44a5c975222"}
+{"time":"2026-08-12T07:54:18.6251488+07:00","level":"INFO","msg":"Request ID: 3f13bdb2-a4d8-4001-ac75-0d8bc9f3b094"}
+{"time":"2026-08-12T07:54:18.7202759+07:00","level":"INFO","msg":"Request ID: d30c1fd4-47a3-4d41-8ff6-f291e456930f"}
+{"time":"2026-08-12T07:54:18.7467048+07:00","level":"INFO","msg":"Request ID: 39fc8892-e733-4224-9919-4dda7d7019cf"}
+{"time":"2026-08-12T07:54:18.7604515+07:00","level":"INFO","msg":"Request ID: fbfa51f3-6eb5-4642-969b-9c4fa6762271"}
+{"time":"2026-08-12T07:54:18.7678665+07:00","level":"INFO","msg":"Request ID: a960e8a9-83f9-404d-8198-e2d5ad0511a7"}
+{"time":"2026-08-12T07:54:20.5733159+07:00","level":"INFO","msg":"Request ID: f6ab0818-b5fb-42e5-b024-a893a7a2815e"}
+{"time":"2026-08-12T07:55:32.0065414+07:00","level":"INFO","msg":"Request ID: ce9137ec-69fa-4cb7-ad01-22b288b95abd"}
+{"time":"2026-08-12T07:55:32.0745198+07:00","level":"INFO","msg":"Request ID: b03b29c7-56f9-463f-8443-0901109d9a43"}
+{"time":"2026-08-12T07:55:32.0750426+07:00","level":"INFO","msg":"Request ID: 4609bff1-30be-4a67-a4bc-fa82dea2549a"}
+{"time":"2026-08-12T07:55:32.1493868+07:00","level":"INFO","msg":"Request ID: 03f77619-d214-463f-b178-dc01e5127772"}
+{"time":"2026-08-12T07:55:32.2183366+07:00","level":"INFO","msg":"Request ID: d76c1e12-8975-470b-b72b-f7c32ca7f4e8"}
+{"time":"2026-08-12T07:55:32.2463391+07:00","level":"INFO","msg":"Request ID: 6107cfa4-7adc-4443-819a-047aa1b7eb53"}
+{"time":"2026-08-12T07:55:32.2663505+07:00","level":"INFO","msg":"Request ID: 206959db-4be7-4f9d-940c-c68c6ff358f6"}
+{"time":"2026-08-12T07:55:34.5065149+07:00","level":"INFO","msg":"Request ID: f79b27fe-b277-4743-8967-c55027d2e8b7"}
+{"time":"2026-08-12T07:56:27.7248715+07:00","level":"INFO","msg":"Request ID: 0e62b91c-fdcc-460d-859d-b5f7a333ea09"}
+{"time":"2026-08-12T07:56:27.7917591+07:00","level":"INFO","msg":"Request ID: 50a79885-1792-4f62-85dd-e2298a8a8ff7"}
+{"time":"2026-08-12T07:56:27.7956457+07:00","level":"INFO","msg":"Request ID: 2f9b08e4-a23d-4ee0-800e-46eec3251deb"}
+{"time":"2026-08-12T07:56:27.8690131+07:00","level":"INFO","msg":"Request ID: f61309b8-c56b-418d-be64-5bc3ff5a0ac1"}
+{"time":"2026-08-12T07:56:27.9457453+07:00","level":"INFO","msg":"Request ID: 47cba24b-d9b9-470e-b4f8-19f0e1390032"}
+{"time":"2026-08-12T07:56:27.972384+07:00","level":"INFO","msg":"Request ID: 3a4e5124-d003-40e2-b039-04355e0a3fd7"}
+{"time":"2026-08-12T07:56:27.9933+07:00","level":"INFO","msg":"Request ID: f2df1d4b-a8e3-4bea-9fd4-572d685c43b6"}
+{"time":"2026-08-12T07:56:31.7052034+07:00","level":"INFO","msg":"Request ID: 81161723-4d6d-46ca-8a1a-dd535a1fe17c"}
+{"time":"2026-08-12T09:09:54.513485+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T09:09:54.5145473+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T09:09:54.5145473+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T09:09:54.5150686+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T09:09:56.3980242+07:00","level":"INFO","msg":"Request ID: dce74b39-5762-49e6-98f7-6c509b12f658"}
+{"time":"2026-08-12T09:09:56.4429436+07:00","level":"INFO","msg":"Request ID: c09ee206-11cd-4bc1-b6ad-7dd9c22b898d"}
+{"time":"2026-08-12T09:09:56.4434743+07:00","level":"INFO","msg":"Request ID: 0852304f-72d2-4af7-bbd8-6c3bb5364b0b"}
+{"time":"2026-08-12T09:09:56.5213415+07:00","level":"INFO","msg":"Request ID: e62f0650-37dc-48a8-a211-dcfdccdf603d"}
+{"time":"2026-08-12T09:09:56.5862752+07:00","level":"INFO","msg":"Request ID: d61a784e-697b-4515-a0d8-bc0adda188d8"}
+{"time":"2026-08-12T09:09:56.6017356+07:00","level":"INFO","msg":"Request ID: dde3fd3c-92c2-43fa-ad8b-4d9bc1645f16"}
+{"time":"2026-08-12T09:09:56.6264066+07:00","level":"INFO","msg":"Request ID: 801eb4d5-02b5-4a39-adae-d8af5ae164eb"}
+{"time":"2026-08-12T09:10:00.9365892+07:00","level":"INFO","msg":"Request ID: cd7a112f-e90d-43b0-951e-b09020d6c658"}
+{"time":"2026-08-12T09:10:12.9390117+07:00","level":"INFO","msg":"Request ID: 0d64be07-ca7b-429f-b3cf-361cba3d352c"}
+{"time":"2026-08-12T09:10:12.9555653+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:10:18.0231896+07:00","level":"INFO","msg":"Request ID: 11cd3df5-4907-4661-902b-4ce34f512ea1"}
+{"time":"2026-08-12T09:10:18.08364+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:10:41.0869253+07:00","level":"INFO","msg":"Request ID: 55803149-e615-4d9d-8d8e-30e17b88aaa9"}
+{"time":"2026-08-12T09:10:41.1377991+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:10:43.1442601+07:00","level":"INFO","msg":"Request ID: 9f8d6926-a335-4815-b1ea-5524db587b24"}
+{"time":"2026-08-12T09:10:43.1845462+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:10:44.62877+07:00","level":"INFO","msg":"Request ID: 2dac4de5-3670-47bc-acba-3ba998f6752b"}
+{"time":"2026-08-12T09:10:51.9492419+07:00","level":"INFO","msg":"Request ID: 0dbcf510-0e82-4a36-9c54-f1a88177a37c"}
+{"time":"2026-08-12T09:10:52.0472671+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:10:52.0472671+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:10:52.0497728+07:00","level":"INFO","msg":"update transaction failed by ID: pq: COALESCE tipe boolean dan numeric tidak sesuai (cocok)"}
+{"time":"2026-08-12T09:15:03.8125719+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T09:15:03.8136054+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T09:15:03.8136054+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T09:15:03.8141227+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T09:15:07.3909656+07:00","level":"INFO","msg":"Request ID: 22802733-8205-431d-a0fd-931f27a4193a"}
+{"time":"2026-08-12T09:15:07.5824176+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:15:07.5824176+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:15:07.6439555+07:00","level":"INFO","msg":"Request ID: 1a28840f-9739-49bb-ba60-3e80beb6f4cc"}
+{"time":"2026-08-12T09:15:07.8429061+07:00","level":"INFO","msg":"Request ID: d2e1c603-0b2c-4d27-8d9d-bcbda298cd12"}
+{"time":"2026-08-12T09:15:08.165207+07:00","level":"INFO","msg":"Request ID: 9392fae8-1d4e-4307-9fd6-6cd4a84e832e"}
+{"time":"2026-08-12T09:15:10.1783089+07:00","level":"INFO","msg":"Request ID: 72412ee5-4b25-47df-af46-41db3f9ea5c4"}
+{"time":"2026-08-12T09:15:10.2683341+07:00","level":"INFO","msg":"Request ID: c22adc2f-a1b1-4bc5-a129-d069d8cedc8f"}
+{"time":"2026-08-12T09:15:10.2746112+07:00","level":"INFO","msg":"Request ID: 360699d3-a745-4d8e-a501-8134be9da0e9"}
+{"time":"2026-08-12T09:15:10.3542942+07:00","level":"INFO","msg":"Request ID: 0c61b9b5-bf8a-4e17-9945-4887ee264a7e"}
+{"time":"2026-08-12T09:15:10.4329084+07:00","level":"INFO","msg":"Request ID: 44d4bf06-7238-41fa-96be-a7bc44e06bf7"}
+{"time":"2026-08-12T09:15:10.4585596+07:00","level":"INFO","msg":"Request ID: 7624a01e-501d-4584-9fa2-07a94f7f312b"}
+{"time":"2026-08-12T09:15:10.4767779+07:00","level":"INFO","msg":"Request ID: f1a7604d-d6eb-4093-bfce-ee1767f21180"}
+{"time":"2026-08-12T09:15:29.6861822+07:00","level":"INFO","msg":"Request ID: 6d03cc40-6fef-4c6a-9342-12d3715e7791"}
+{"time":"2026-08-12T09:15:38.8014811+07:00","level":"INFO","msg":"Request ID: d14cc5dd-030f-41f2-b150-9db6f37126e4"}
+{"time":"2026-08-12T09:15:48.2617647+07:00","level":"INFO","msg":"Request ID: 44a794b0-a376-4b29-a20f-e969c63041fc"}
+{"time":"2026-08-12T09:15:48.323178+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:15:48.323178+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:15:48.3731783+07:00","level":"INFO","msg":"Request ID: f50d1f7e-cf86-4172-9359-23abdc36b870"}
+{"time":"2026-08-12T09:15:48.532755+07:00","level":"INFO","msg":"Request ID: 949b1cb6-fa1b-4dc9-a2bb-7d1b0d235d99"}
+{"time":"2026-08-12T09:15:48.8294323+07:00","level":"INFO","msg":"Request ID: ad8195c6-baf2-4c3b-a204-5688d3f2cd73"}
+{"time":"2026-08-12T09:16:13.1255254+07:00","level":"INFO","msg":"Request ID: 49167821-0fda-49d3-89f7-251898aa742d"}
+{"time":"2026-08-12T09:16:24.296855+07:00","level":"INFO","msg":"Request ID: 42dfa1b5-3209-43c2-ac72-2aa67ef7e9ff"}
+{"time":"2026-08-12T09:16:24.2988844+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:16:37.3994376+07:00","level":"INFO","msg":"Request ID: 2bfdeaa7-3e74-4765-ac71-53b5300b637a"}
+{"time":"2026-08-12T09:50:27.5807181+07:00","level":"INFO","msg":"Request ID: 4557c438-1ee7-46d9-a2f9-32b11ed8eb4b"}
+{"time":"2026-08-12T09:51:05.702678+07:00","level":"INFO","msg":"Request ID: ad65c258-96bb-4613-89c3-825f11fae08f"}
+{"time":"2026-08-12T09:51:05.7085619+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:51:11.6760291+07:00","level":"INFO","msg":"Request ID: 0e956e86-849f-415f-bd61-254e572b6ec8"}
+{"time":"2026-08-12T09:51:11.7269999+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:51:13.3250676+07:00","level":"INFO","msg":"Request ID: 9df6c24a-29e6-4fa6-8035-5d520fb9f369"}
+{"time":"2026-08-12T09:51:13.367339+07:00","level":"INFO","msg":"Error creating receivable: could not create receivable account: pq: nilai kunci ganda melanggar batasan unik « accounts_pkey »"}
+{"time":"2026-08-12T09:51:14.8287049+07:00","level":"INFO","msg":"Request ID: 5a736451-2ca3-4443-a746-baa6975e4708"}
+{"time":"2026-08-12T09:52:58.2388093+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T09:52:58.2388093+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T09:52:58.2388093+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T09:52:58.2398108+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T09:53:07.8972133+07:00","level":"INFO","msg":"Request ID: 3cf00ea7-c57c-45fd-9454-5e539d539ed9"}
+{"time":"2026-08-12T09:53:15.6225175+07:00","level":"INFO","msg":"Request ID: bbf1cefa-cdca-4dac-9222-d163565f2944"}
+{"time":"2026-08-12T09:53:18.5682104+07:00","level":"INFO","msg":"Request ID: 2bd44eaa-39a2-4f6d-aba1-6c9c1843d9db"}
+{"time":"2026-08-12T09:53:18.6250411+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:53:18.6250411+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:53:18.6744915+07:00","level":"INFO","msg":"Request ID: 75b56ed8-a930-407a-a0a0-e2524bfe7faf"}
+{"time":"2026-08-12T09:53:18.8150294+07:00","level":"INFO","msg":"Request ID: 0a9d2dd9-c7bd-4c23-82b3-3cbf8d400a45"}
+{"time":"2026-08-12T09:53:19.243998+07:00","level":"INFO","msg":"Request ID: b44bc22a-56a8-4832-adff-2a26bbab3f2f"}
+{"time":"2026-08-12T09:53:25.3419376+07:00","level":"INFO","msg":"Request ID: b462ad90-eab9-446b-97e4-232f41d6943d"}
+{"time":"2026-08-12T09:53:25.4224348+07:00","level":"INFO","msg":"Request ID: 5d3b71ea-fa19-459a-aa50-49ea89466605"}
+{"time":"2026-08-12T09:53:25.4245315+07:00","level":"INFO","msg":"Request ID: d213df04-7654-40fe-bd66-f9a336bcb849"}
+{"time":"2026-08-12T09:53:25.551887+07:00","level":"INFO","msg":"Request ID: 766b3214-37fc-4ec5-aac2-e9a1f1f212ef"}
+{"time":"2026-08-12T09:53:25.6217665+07:00","level":"INFO","msg":"Request ID: 0ff97a41-9b3d-4443-88c3-67971a0abd3c"}
+{"time":"2026-08-12T09:53:25.6435417+07:00","level":"INFO","msg":"Request ID: d12a6103-8543-4150-8c91-2e7a65160e01"}
+{"time":"2026-08-12T09:53:25.6584482+07:00","level":"INFO","msg":"Request ID: 2fd1d9be-d1bb-482c-b4d0-cae2560cd2c7"}
+{"time":"2026-08-12T09:53:27.415801+07:00","level":"INFO","msg":"Request ID: 3a6166ae-28e1-4283-8268-364d40726704"}
+{"time":"2026-08-12T09:53:33.8137376+07:00","level":"INFO","msg":"Request ID: abcb5800-f07c-4c3d-b133-267fb02826ac"}
+{"time":"2026-08-12T09:53:33.8147772+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:53:33.8152961+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:53:33.8288946+07:00","level":"INFO","msg":"Request ID: f4585476-42b5-457a-8adc-a9b0d505c65f"}
+{"time":"2026-08-12T09:53:33.9761753+07:00","level":"INFO","msg":"Request ID: 7134ee93-34ff-4376-b969-a3c2075a24b0"}
+{"time":"2026-08-12T09:53:34.269886+07:00","level":"INFO","msg":"Request ID: 99642db4-9a85-4fe8-a64a-688b1458c6e0"}
+{"time":"2026-08-12T09:53:54.6251296+07:00","level":"INFO","msg":"Request ID: a607f7c5-0339-4541-be67-f91338ab36de"}
+{"time":"2026-08-12T09:54:00.8531072+07:00","level":"INFO","msg":"Request ID: dc54f0d4-37f4-4dba-bd96-ab7be23df5af"}
+{"time":"2026-08-12T09:54:00.8542376+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:54:00.8547568+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:54:00.9046863+07:00","level":"INFO","msg":"Request ID: 08793c19-09a6-4a52-8b2d-1e045f97e816"}
+{"time":"2026-08-12T09:54:01.0466312+07:00","level":"INFO","msg":"Request ID: 5e51b821-7636-4597-b9f2-b47560934303"}
+{"time":"2026-08-12T09:54:01.3606419+07:00","level":"INFO","msg":"Request ID: c8d6f5bb-0406-4011-b646-180446d64dbb"}
+{"time":"2026-08-12T09:54:24.7284123+07:00","level":"INFO","msg":"Request ID: cb7bf80d-9cb0-409a-b7dd-245a8fe60b22"}
+{"time":"2026-08-12T09:54:24.8087634+07:00","level":"INFO","msg":"Request ID: 869099ba-86b4-41d3-ae6d-05d88c97c651"}
+{"time":"2026-08-12T09:54:24.8093116+07:00","level":"INFO","msg":"Request ID: aa8721ec-d73d-4753-907f-3088d32319ab"}
+{"time":"2026-08-12T09:54:24.9247704+07:00","level":"INFO","msg":"Request ID: f387a38c-4c8a-411b-a3f1-15748378e775"}
+{"time":"2026-08-12T09:54:24.9953279+07:00","level":"INFO","msg":"Request ID: b1975586-73a7-4c44-bdbe-b7cc6cab3328"}
+{"time":"2026-08-12T09:54:25.027952+07:00","level":"INFO","msg":"Request ID: 99356a1f-dffb-4054-a375-6deae07b718e"}
+{"time":"2026-08-12T09:54:25.0437375+07:00","level":"INFO","msg":"Request ID: c8e17138-385d-4b4f-bb57-eac1716bb6bf"}
+{"time":"2026-08-12T09:54:27.1438071+07:00","level":"INFO","msg":"Request ID: 627b6559-68ff-4478-95b9-9df264314bc1"}
+{"time":"2026-08-12T09:57:26.4335288+07:00","level":"INFO","msg":"Starting Database Connection..."}
+{"time":"2026-08-12T09:57:26.4335288+07:00","level":"INFO","msg":"Starting Application DRFIN..."}
+{"time":"2026-08-12T09:57:26.4335288+07:00","level":"INFO","msg":"Assigning handlers..."}
+{"time":"2026-08-12T09:57:26.4345292+07:00","level":"INFO","msg":"DRFIN Application Started..."}
+{"time":"2026-08-12T09:57:29.6207392+07:00","level":"INFO","msg":"Request ID: 13d3ec21-389c-4362-a94c-5aabfbfb47d6"}
+{"time":"2026-08-12T09:57:29.6987548+07:00","level":"INFO","msg":"Request ID: 46698cfa-8fe1-4143-aed5-1bcd398e9902"}
+{"time":"2026-08-12T09:57:29.6999278+07:00","level":"INFO","msg":"Request ID: b26cb862-02f8-4264-85b6-62aa4b18ab46"}
+{"time":"2026-08-12T09:57:29.7781988+07:00","level":"INFO","msg":"Request ID: 0c9709e2-10d8-4258-952b-88f133f6145a"}
+{"time":"2026-08-12T09:57:29.8567671+07:00","level":"INFO","msg":"Request ID: 9d93f383-16fb-4399-98a3-c8395bace9ef"}
+{"time":"2026-08-12T09:57:29.8822291+07:00","level":"INFO","msg":"Request ID: 535f132c-44b1-4d0d-a563-1109cb614a8b"}
+{"time":"2026-08-12T09:57:29.9039841+07:00","level":"INFO","msg":"Request ID: 6d265f47-b250-4d1c-919a-26b281efbd11"}
+{"time":"2026-08-12T09:57:31.8547974+07:00","level":"INFO","msg":"Request ID: f8a31fd1-21cd-41ea-8085-0ad06a4bff4c"}
+{"time":"2026-08-12T09:57:38.8573351+07:00","level":"INFO","msg":"Request ID: 44d394ad-ae06-43b4-af4d-eb452ce8ebc5"}
+{"time":"2026-08-12T09:57:38.9217419+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:57:38.9217419+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:57:38.9802539+07:00","level":"INFO","msg":"Request ID: b26636db-04f6-4d67-8fd3-76464890d3c0"}
+{"time":"2026-08-12T09:57:39.1544037+07:00","level":"INFO","msg":"Request ID: 4d01fe3a-3b3f-40ab-bc8f-fa6812f0bed6"}
+{"time":"2026-08-12T09:57:39.5256136+07:00","level":"INFO","msg":"Request ID: 39dec391-7ef8-4dfd-b4cd-d0647bcb51af"}
+{"time":"2026-08-12T09:57:54.5608736+07:00","level":"INFO","msg":"Request ID: 9e561c1c-99fb-4f93-961a-93c21f6bbc29"}
+{"time":"2026-08-12T09:58:01.7568998+07:00","level":"INFO","msg":"Request ID: 98a52667-b71f-427a-9795-2d872381cde8"}
+{"time":"2026-08-12T09:58:01.7584599+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:58:01.7589831+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:58:01.8089954+07:00","level":"INFO","msg":"Request ID: d3ba4416-1043-48e7-a95a-d180d15564cf"}
+{"time":"2026-08-12T09:58:01.8822214+07:00","level":"INFO","msg":"Request ID: 811b5c32-52af-423d-a265-4b7bdcad838e"}
+{"time":"2026-08-12T09:58:02.0398387+07:00","level":"INFO","msg":"Request ID: 11758afc-5437-4bdd-9969-5d49eb5d9acd"}
+{"time":"2026-08-12T09:58:04.0078279+07:00","level":"INFO","msg":"Request ID: 92fb669c-f496-47bd-af1e-c3d5dae1df98"}
+{"time":"2026-08-12T09:58:06.2468555+07:00","level":"INFO","msg":"Request ID: e01189c4-d9ee-48cc-9b70-b219d3af6f2d"}
+{"time":"2026-08-12T09:58:06.2484173+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:58:06.2484173+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:58:06.2985246+07:00","level":"INFO","msg":"Request ID: 422ba93f-6785-46b2-8218-01e2281eb986"}
+{"time":"2026-08-12T09:58:06.3713517+07:00","level":"INFO","msg":"Request ID: 4a5d0ea9-b5d9-43a8-ad5f-59e023f82ec2"}
+{"time":"2026-08-12T09:58:06.5228742+07:00","level":"INFO","msg":"Request ID: b0c31633-d07a-4ca4-92f8-2e6ac15c7c11"}
+{"time":"2026-08-12T09:58:07.4545032+07:00","level":"INFO","msg":"Request ID: 93002ffa-8b1c-46f8-99dd-9eced2c4fffa"}
+{"time":"2026-08-12T09:58:10.4732918+07:00","level":"INFO","msg":"Request ID: e69f5bf4-6018-421f-a94a-5201b03ccc6c"}
+{"time":"2026-08-12T09:58:10.4752926+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:58:10.4752926+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:58:10.5279598+07:00","level":"INFO","msg":"Request ID: 945b076e-845e-4df0-970b-04e2c7ec1a2b"}
+{"time":"2026-08-12T09:58:10.5986648+07:00","level":"INFO","msg":"Request ID: 34bc44fd-40a8-4c07-b5a1-e66bfd8fbfbb"}
+{"time":"2026-08-12T09:58:10.8467003+07:00","level":"INFO","msg":"Request ID: 6666c865-c4d7-4cc8-9f86-ff344a543826"}
+{"time":"2026-08-12T09:58:13.0609356+07:00","level":"INFO","msg":"Request ID: d9d25e49-a8e4-450a-b02f-153c9d11f234"}
+{"time":"2026-08-12T09:58:18.3847673+07:00","level":"INFO","msg":"Request ID: 7d9fc407-6970-4063-83c5-aacbff66381a"}
+{"time":"2026-08-12T09:58:18.3867681+07:00","level":"INFO","msg":"Category","Category":{"id":9,"name":"Unknown"},"caller":"repository.go:73"}
+{"time":"2026-08-12T09:58:18.3867681+07:00","level":"INFO","msg":"DBDTO Category","ID":9,"caller":"services.go:388"}
+{"time":"2026-08-12T09:58:18.4361807+07:00","level":"INFO","msg":"Request ID: 8c13055d-f77a-4d07-857c-24872f249a3d"}
+{"time":"2026-08-12T09:58:18.5055395+07:00","level":"INFO","msg":"Request ID: b2d0607a-5592-47ec-8fe0-21f39befe579"}
+{"time":"2026-08-12T09:58:18.6534023+07:00","level":"INFO","msg":"Request ID: 930961fb-9060-4d88-8908-80d4657ed67f"}
+{"time":"2026-08-12T09:59:48.1995377+07:00","level":"INFO","msg":"Request ID: 0bacf61a-b8d1-4ac5-ab6f-7885c06b6862"}
+{"time":"2026-08-12T09:59:48.2402184+07:00","level":"INFO","msg":"Request ID: 0d3d618c-a9c9-4e22-a9f5-5fb8c0c77a75"}
+{"time":"2026-08-12T09:59:48.2437789+07:00","level":"INFO","msg":"Request ID: 57db3998-975a-4f5d-b36d-4e76f577356e"}
+{"time":"2026-08-12T09:59:48.3389805+07:00","level":"INFO","msg":"Request ID: 6b814c89-0e7a-4402-9c8b-11c0472d55e5"}
+{"time":"2026-08-12T09:59:48.4020882+07:00","level":"INFO","msg":"Request ID: 83fa6802-0478-49bc-a85c-fccc886ba5cc"}
+{"time":"2026-08-12T09:59:48.4242797+07:00","level":"INFO","msg":"Request ID: 8774e55a-a425-488c-a72f-0836564ea894"}
+{"time":"2026-08-12T09:59:48.4342817+07:00","level":"INFO","msg":"Request ID: 60c1f8fb-1ded-4721-876e-aae28110f901"}
+{"time":"2026-08-12T09:59:51.9665404+07:00","level":"INFO","msg":"Request ID: 2a421e30-80ee-4674-9b61-ad1c2a7bcfab"}
+{"time":"2026-08-12T10:02:14.3825666+07:00","level":"INFO","msg":"Request ID: 19d5337c-fc20-478b-be4d-b80148aee06e"}
+{"time":"2026-08-12T10:02:14.4226059+07:00","level":"INFO","msg":"Request ID: a8a5fd1e-f5a3-4477-8094-57726cc2160d"}
+{"time":"2026-08-12T10:02:14.4236501+07:00","level":"INFO","msg":"Request ID: 3219d7ae-bfa4-4b2d-a20a-52ce3b88bd04"}
+{"time":"2026-08-12T10:02:14.4999947+07:00","level":"INFO","msg":"Request ID: 5b9fdf6b-7252-454a-a70d-273b3dbd9da7"}
+{"time":"2026-08-12T10:02:14.5294885+07:00","level":"INFO","msg":"Request ID: c21f2236-a80b-4650-8b1c-37d2938f6c3a"}
+{"time":"2026-08-12T10:02:14.5429365+07:00","level":"INFO","msg":"Request ID: 0968386c-6fcc-4a93-8228-a226712fbe7a"}
+{"time":"2026-08-12T10:02:14.5517483+07:00","level":"INFO","msg":"Request ID: 547d58a8-7311-4645-ac7a-3912c0556bbe"}
+{"time":"2026-08-12T10:03:41.75722+07:00","level":"INFO","msg":"Request ID: f94e2145-a39b-486b-8ddd-ce24656b0adb"}
+{"time":"2026-08-12T10:03:58.9592835+07:00","level":"INFO","msg":"Request ID: e6de1437-d3c1-4940-bcc5-c31a051b1439"}
+{"time":"2026-08-12T10:03:58.9783652+07:00","level":"INFO","msg":"Request ID: e405a12a-a21d-4dc5-9dae-8532650e4b0a"}
+{"time":"2026-08-12T10:03:58.9802373+07:00","level":"INFO","msg":"Request ID: c665e315-c043-4456-adcf-2ea80f14cee1"}
+{"time":"2026-08-12T10:03:59.0632888+07:00","level":"INFO","msg":"Request ID: a4d7e85a-aab9-4eaf-8e96-8aadd4742739"}
+{"time":"2026-08-12T10:03:59.092872+07:00","level":"INFO","msg":"Request ID: 375dedae-0ceb-4aca-ad31-5cd3f2d3c1e5"}
+{"time":"2026-08-12T10:03:59.1097526+07:00","level":"INFO","msg":"Request ID: 62feb90a-3f5d-427b-8620-61489778dceb"}
+{"time":"2026-08-12T10:03:59.1187122+07:00","level":"INFO","msg":"Request ID: dd5d558c-b5b5-4106-8a56-1c1d8de91d99"}
+{"time":"2026-08-12T10:04:41.5215711+07:00","level":"INFO","msg":"Request ID: 73089d86-e53d-4ceb-90b8-aad4c883022a"}
+{"time":"2026-08-12T10:04:41.5680518+07:00","level":"INFO","msg":"Request ID: 26c77873-1e5b-4d1f-8adf-a170d0118ccf"}
+{"time":"2026-08-12T10:04:41.56858+07:00","level":"INFO","msg":"Request ID: 7e968867-e112-4db2-afef-82e90a7430d4"}
+{"time":"2026-08-12T10:04:41.642907+07:00","level":"INFO","msg":"Request ID: 014e7db3-6c4d-4b46-9c94-2a643784eaa8"}
+{"time":"2026-08-12T10:04:41.6740117+07:00","level":"INFO","msg":"Request ID: f03de6a4-5582-4367-a5ff-1f79d4b9f256"}
+{"time":"2026-08-12T10:04:41.6877878+07:00","level":"INFO","msg":"Request ID: cc2ab356-c099-4729-8875-cfce5dd31794"}
+{"time":"2026-08-12T10:04:41.695836+07:00","level":"INFO","msg":"Request ID: f4692d74-be43-435a-b6bd-9f43d8bd248d"}

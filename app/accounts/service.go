@@ -1,5 +1,11 @@
 package accounts
 
+import (
+	"context"
+	"fmt"
+	"log"
+)
+
 type Service struct {
 	repository *Repository
 }
@@ -16,22 +22,28 @@ func (s *Service) GetAccountByAccountNumber(accountNumber string) (*AccountDTO, 
 	return s.repository.GetAccountByAccountNumber(accountNumber)
 }
 
-// GetTransactionAccountGroupByID fetches a transaction type by its ID.
-// func (s *Service) GetAccountGroupByID(id int) (*AccountDTO, error) {
-// 	return s.repository.GetAccountGroupByID(id)
-// }
+func (s *Service) CreateReceivable(
+	ctx context.Context,
+	name string,
+) (*Account, error) {
 
-// // CreateTransactionAccountGroup creates a new transaction type.
-// func (s *Service) CreateAccountGroup(c AccountDTO) (AccountDTO, error) {
-// 	return s.repository.CreateAccountGroup(c)
-// }
+	tx, err := s.repository.db.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to start transaction: %w", err)
+	}
 
-// // UpdateTransactionAccountGroup updates an existing transaction type.
-// func (s *Service) UpdateAccountGroup(id int, c AccountDTO) (AccountDTO, error) {
-// 	return s.repository.UpdateAccountGroup(id, c)
-// }
+	account, err := s.repository.CreateReceivableAccount(tx, name)
+	if err != nil {
+		if rollbackErr := tx.Rollback(); rollbackErr != nil {
+			log.Printf("rollback failed: %v", rollbackErr)
+		}
 
-// // DeleteTransactionAccountGroup deletes a transaction type by its ID.
-// func (s *Service) DeleteAccountGroup(id int) error {
-// 	return s.repository.DeleteAccountGroup(id)
-// }
+		return nil, err
+	}
+
+	if err := tx.Commit(); err != nil {
+		return nil, fmt.Errorf("failed to commit receivable account: %w", err)
+	}
+
+	return account, nil
+}

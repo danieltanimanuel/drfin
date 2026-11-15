@@ -29,7 +29,7 @@ type TransactionDTO struct {
 	Type          TransactionType `json:"type"`
 	Category      Category        `json:"category"`
 	Account       Account         `json:"account_id"`
-	AccountDest   Account         `json:"account_dest_id"`
+	AccountDest   *Account         `json:"account_dest_id"`
 	Amount        *big.Float      `json:"amount"` //Why *?
 	Description   string          `json:"description"`
 	Status        string          `json:"status"`
@@ -63,15 +63,16 @@ type CreateTransactionDTO struct {
 // nil → field not updated
 // value → field updated
 type UpdateTransactionDTO struct {
-	TradeDate   *time.Time `json:"trade_date,omitempty"`
-	Type        *string    `json:"type,omitempty"`
-	Category    *string    `json:"category,omitempty"`
-	Account     *string    `json:"account_id,omitempty"`
-	AccountDest *string    `json:"account_dest_id,omitempty"`
-	Amount      *big.Float `json:"amount,omitempty"`
-	Description *string    `json:"description,omitempty"`
-	Status      *string    `json:"status,omitempty"`
-	Source      *string    `json:"source,omitempty"`
+    TradeDate        *time.Time `json:"trade_date,omitempty"`
+    Type             *string    `json:"type,omitempty"`
+    Category         *string    `json:"category,omitempty"`
+    Account          *string    `json:"account,omitempty"`
+    AccountDest      *string    `json:"account_dest,omitempty"`
+    NewReceivable    *string    `json:"new_receivable,omitempty"`
+    Amount           *big.Float `json:"amount,omitempty"`
+    Description      *string    `json:"description,omitempty"`
+    Status           *string    `json:"status,omitempty"`
+    Source           *string    `json:"source,omitempty"`
 }
 
 // Internal DB DTO (ID-based, repository-facing)
@@ -81,6 +82,7 @@ type UpdateTransactionDBDTO struct {
 	CategoryID    *int
 	AccountID     *int
 	AccountDestID *int
+	ClearAccountDest bool
 	Amount        *big.Float
 	Description   *string
 	Status        *string

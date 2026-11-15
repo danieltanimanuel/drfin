@@ -88,3 +88,40 @@
   background-color: #f1f1f1;
   color: #333;
 }
+
+.type-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.type-expense {
+    color: #c62828;
+    background: #ffebee;
+}
+
+.type-income {
+    color: #2e7d32;
+    background: #e8f5e9;
+}
+
+.type-transfer {
+    color: #1565c0;
+    background: #e3f2fd;
+}
+
+.type-lend {
+    color: #ef6c00;
+    background: #fff3e0;
+}
+
+.type-borrow {
+    color: #6a1b9a;
+    background: #f3e5f5;
+}
+
+.type-adjustment {
+    color: #555;
+    background: #eee;
+}

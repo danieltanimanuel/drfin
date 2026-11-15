@@ -66,11 +66,13 @@ func (r *Repository) GetAllTransactions(
 		}
 
 		if accountDestID.Valid {
-			transaction.AccountDest.ID = int(accountDestID.Int64)
-		}
+			transaction.AccountDest = &Account{
+				ID: int(accountDestID.Int64),
+			}
 
-		if accountDestName.Valid {
-			transaction.AccountDest.Name = accountDestName.String
+			if accountDestName.Valid {
+				transaction.AccountDest.Name = accountDestName.String
+			}
 		}
 
 		transaction.Amount, _, err =
@@ -174,12 +176,14 @@ func (r *Repository) GetTransactionByIDDTO(
 	)
 
 	if accountDestID.Valid {
-		transaction.AccountDest.ID = int(accountDestID.Int64)
-	}
+			transaction.AccountDest = &Account{
+				ID: int(accountDestID.Int64),
+			}
 
-	if accountDestName.Valid {
-		transaction.AccountDest.Name = accountDestName.String
-	}
+			if accountDestName.Valid {
+				transaction.AccountDest.Name = accountDestName.String
+			}
+		}
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -322,12 +326,16 @@ func (r *Repository) UpdateTransactionTx(
 			type_id         = COALESCE($2, type_id),
 			category_id     = COALESCE($3, category_id),
 			account_id      = COALESCE($4, account_id),
-			account_dest_id = COALESCE($5, account_dest_id),
-			amount          = COALESCE($6, amount),
-			description     = COALESCE($7, description),
-			status          = COALESCE($8, status),
+			account_dest_id =
+							CASE
+								WHEN $6 = true THEN NULL
+								ELSE COALESCE($5, account_dest_id)
+							END,
+			amount          = COALESCE($7, amount),
+			description     = COALESCE($8, description),
+			status          = COALESCE($9, status),
 			last_updated_at = NOW()
-		WHERE id = $9
+		WHERE id = $10
 		RETURNING *;
 	`
 
@@ -342,6 +350,7 @@ func (r *Repository) UpdateTransactionTx(
 		dto.CategoryID,
 		dto.AccountID,
 		dto.AccountDestID,
+		dto.ClearAccountDest,
 		dto.Amount,
 		dto.Description,
 		dto.Status,

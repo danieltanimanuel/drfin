@@ -133,30 +133,73 @@
 
     // ✅ STEP 6 — Handle Save Submit (THIS is step 6)
     document.addEventListener("submit", async function (e) {
-      if (e.target.id === "edit-form") {
-        e.preventDefault();
 
-        const form = e.target;
-        const id = form.dataset.id;
-        const category = form.querySelector("select[name='category']").value;
-        const account = form.querySelector("select[name='account']").value;
+      if (e.target.id !== "edit-form") {
+          return;
+      }
 
-        await fetch(`/dashboard/transactions/${id}`, {
+      e.preventDefault();
+
+      const form = e.target;
+      const id = form.dataset.id;
+
+      const payload = {
+          type: form.elements.type.value,
+          account: form.elements.account.value,
+          account_dest: form.elements.account_dest?.value || "",
+          category: form.elements.category.value
+      };
+
+      const response = await fetch(`/dashboard/transactions/${id}`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json"
+              "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            category: category,   
-            account: account
-          })
-        });
+          body: JSON.stringify(payload)
+      });
 
-        closeModal();
-
-        // Reload full transactions grid
-        await reloadDashboardSections();
+      if (!response.ok) {
+          const text = await response.text();
+          alert(text);
+          return;
       }
+
+      closeModal();
+
+      await reloadDashboardSections();
+    });
+
+    // =====================================================
+    // Transaction Type → Destination Account visibility
+    // =====================================================
+
+    document.addEventListener("change", function (e) {
+
+        if (e.target.id !== "transaction-type") {
+            return;
+        }
+
+        const typeSelect = e.target;
+
+        const destinationContainer =
+            document.getElementById("destination-account-container");
+
+        const destinationSelect =
+            document.getElementById("account-dest");
+
+        if (!destinationContainer) {
+            return;
+        }
+
+        const isTransfer = typeSelect.value === "Transfer";
+
+        destinationContainer.style.display =
+            isTransfer ? "block" : "none";
+
+        // Clear destination when changing away from Transfer
+        if (!isTransfer && destinationSelect) {
+            destinationSelect.value = "";
+        }
     });
 
     document.addEventListener("submit", async function (e) {
@@ -235,6 +278,111 @@
         await reloadDashboardSections();
       }
     });
+
+    document.addEventListener("click", async function (e) {
+
+      // Open new receivable form
+      if (e.target.id === "new-receivable-btn") {
+
+          const form =
+              document.getElementById("new-receivable-form");
+
+          const input =
+              document.getElementById("new-receivable-name");
+
+          form.style.display = "block";
+          input.focus();
+
+          return;
+      }
+
+
+      // Cancel
+      if (e.target.id === "cancel-receivable-btn") {
+
+          const form =
+              document.getElementById("new-receivable-form");
+
+          const input =
+              document.getElementById("new-receivable-name");
+
+          form.style.display = "none";
+          input.value = "";
+
+          return;
+      }
+
+
+      // Create receivable
+      if (e.target.id === "create-receivable-btn") {
+
+          const input =
+              document.getElementById("new-receivable-name");
+
+          const name =
+              input.value.trim();
+
+          if (!name) {
+              alert("Receivable name is required");
+              return;
+          }
+
+
+          const response = await fetch(
+              "/accounts/receivable",
+              {
+                  method: "POST",
+
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+
+                  body: JSON.stringify({
+                      name: name
+                  })
+              }
+          );
+
+
+          if (!response.ok) {
+
+              const error =
+                  await response.text();
+
+              alert(error);
+
+              return;
+          }
+
+
+          const account =
+              await response.json();
+
+
+          // Add the newly created account
+          // to destination dropdown
+          const destinationSelect =
+              document.getElementById("account-dest");
+
+          const option =
+              document.createElement("option");
+
+          option.value = account.name;
+          option.textContent = account.name;
+          option.selected = true;
+
+          destinationSelect.appendChild(option);
+
+
+          // Hide creation form
+          document.getElementById(
+              "new-receivable-form"
+          ).style.display = "none";
+
+          input.value = "";
+      }
+
+  });
   </script>
 </body>
 </html>

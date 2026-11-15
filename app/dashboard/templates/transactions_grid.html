@@ -29,19 +29,34 @@
         <tbody>
           {{range .Transactions}}
             <tr id="txn-{{.ID}}">
-              <td class="text-left" >{{.Type.Name}}</td>
               <td class="text-left">
-                <span class="category-badge
-                  {{if eq .Category.Name "Unknown"}}
-                    category-unknown
-                  {{else}}
-                    category-known
+                <span class="type-badge
+                  {{if eq .Type.Name "Expense"}}type-expense
+                  {{else if eq .Type.Name "Income"}}type-income
+                  {{else if eq .Type.Name "Transfer"}}type-transfer
+                  {{else if eq .Type.Name "Lend"}}type-lend
+                  {{else if eq .Type.Name "Borrow"}}type-borrow
+                  {{else}}type-adjustment
                   {{end}}">
-                  {{.Category.Name}}
+                  {{.Type.Name}}
                 </span>
               </td>
+              <td class="text-left">
+                {{if eq .Type.Name "Transfer"}}
+                  -
+                {{else}}
+                  <span class="category-badge
+                    {{if eq .Category.Name "Unknown"}}
+                      category-unknown
+                    {{else}}
+                      category-known
+                    {{end}}">
+                    {{.Category.Name}}
+                  </span>
+                {{end}}
+              </td>
               <td class="text-left">{{.Account.Name}}</td>
-              <td class="text-left">{{.AccountDest.Name}}</td>
+              <td class="text-left"> {{if .AccountDest}} {{.AccountDest.Name}} {{else}} - {{end}} </td>
               <td class="text-left">{{.Description}}</td>
 
               <td class="text-right {{if eq .Type.Name "Expense"}}expense{{else if eq .Type.Name "Transfer"}}transfer{{else}}income{{end}}">

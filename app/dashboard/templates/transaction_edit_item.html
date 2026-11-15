@@ -1,45 +1,127 @@
 <h3>Edit Transaction #{{.Transaction.ID}}</h3>
 
 <div class="txn-summary">
-  <p><strong>Description:</strong> {{.Transaction.Description}}</p>
-  <p><strong>Amount:</strong> Rp. {{formatNumber .Transaction.Amount}}</p>
-  <p><strong>Category:</strong> {{.Transaction.Category.Name}}</p>
-  <p><strong>Account:</strong> {{.Transaction.Account.Name}}</p>
-  {{if .Transaction.AccountDest}}
-    <p><strong>Destination:</strong> {{.Transaction.AccountDest.Name}}</p>
-  {{end}}
-  <p><strong>Type:</strong> {{.Transaction.Type.Name}}</p>
-  <p><strong>Date:</strong> {{formatDate .Transaction.TradeDate}}</p>
+    <p><strong>Description:</strong> {{.Transaction.Description}}</p>
+    <p><strong>Amount:</strong> Rp. {{formatNumber .Transaction.Amount}}</p>
+    <p><strong>Category:</strong> {{.Transaction.Category.Name}}</p>
+    <p><strong>Account:</strong> {{.Transaction.Account.Name}}</p>
+
+    {{if .Transaction.AccountDest}}
+        <p>
+            <strong>Destination:</strong>
+            {{.Transaction.AccountDest.Name}}
+        </p>
+    {{end}}
+
+    <p><strong>Type:</strong> {{.Transaction.Type.Name}}</p>
+    <p><strong>Date:</strong> {{formatDate .Transaction.TradeDate}}</p>
 </div>
 
 <hr/>
 
 <form id="edit-form" data-id="{{.Transaction.ID}}">
 
-  <label>Account</label>
-  <select name="account">
-    {{range .Accounts}}
-      <option value="{{.Name}}"
-        {{if eq .Name $.Transaction.Account.Name}}selected{{end}}>
-        {{.Name}}
-      </option>
-    {{end}}
-  </select>
+    <label>Type</label>
 
-  <br/><br/>
+    <select name="type" id="transaction-type">
+        {{range .TransactionTypes}}
+            <option
+                value="{{.Name}}"
+                {{if eq .ID $.Transaction.Type.ID}}selected{{end}}>
+                {{.Name}}
+            </option>
+        {{end}}
+    </select>
 
-  <label>Category</label>
-  <select name="category">
-    {{range .Categories}}
-      <option value="{{.Name}}"
-        {{if eq .ID $.Transaction.Category.ID}}selected{{end}}>
-        {{.Name}}
-      </option>
-    {{end}}
-  </select>
+    <br/><br/>
 
-  <br/><br/>
+    <label>Account</label>
 
-  <button type="submit">Save</button>
-  <button type="button" onclick="closeModal()">Cancel</button>
+    <select name="account">
+        {{range .Accounts}}
+            <option
+                value="{{.Name}}"
+                {{if eq .Name $.Transaction.Account.Name}}selected{{end}}>
+                {{.Name}}
+            </option>
+        {{end}}
+    </select>
+
+    <br/><br/>
+
+    <div id="destination-account-container">
+
+        <label>Destination Account</label>
+
+        <select name="account_dest" id="account-dest">
+
+            <option value="">
+                -- Select destination --
+            </option>
+
+            {{range .Accounts}}
+                <option
+                    value="{{.Name}}"
+                    {{if and $.Transaction.AccountDest (eq .Name $.Transaction.AccountDest.Name)}}selected{{end}}>
+                    {{.Name}}
+                </option>
+            {{end}}
+
+        </select>
+
+        <button
+            type="button"
+            id="new-receivable-btn">
+            + New Receivable
+        </button>
+
+        <div id="new-receivable-form" style="display: none; margin-top: 10px;">
+
+            <label>Receivable Name</label>
+
+            <input
+                type="text"
+                id="new-receivable-name"
+                placeholder="e.g. John"
+            />
+
+            <button type="button" id="create-receivable-btn">
+                Create
+            </button>
+
+            <button type="button" id="cancel-receivable-btn">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+    
+
+    <br/><br/>
+
+    <label>Category</label>
+
+    <select name="category">
+
+        {{range .Categories}}
+            <option
+                value="{{.Name}}"
+                {{if eq .ID $.Transaction.Category.ID}}selected{{end}}>
+                {{.Name}}
+            </option>
+        {{end}}
+
+    </select>
+
+    <br/><br/>
+
+    <button type="submit">Save</button>
+
+    <button
+        type="button"
+        onclick="closeModal()">
+        Cancel
+    </button>
+
 </form>

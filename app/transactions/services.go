@@ -11,6 +11,7 @@ import (
 	"log"
 	"math/big"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -314,6 +315,11 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 			return Transaction{}, err
 		}
 		dbDTO.TypeID = &tt.ID
+
+		// Any non-transfer transaction cannot have destination.
+		if tt.ID != 3 {
+			dbDTO.ClearAccountDest = true
+		}
 	}
 
 	if dto.Account != nil {
@@ -324,11 +330,45 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 		dbDTO.AccountID = &acc.ID
 	}
 
-	if dto.AccountDest != nil {
+	if dto.NewReceivable != nil {
+
+		if dto.Type == nil {
+			return Transaction{}, fmt.Errorf(
+				"transaction type is required when creating a receivable",
+			)
+		}
+
+		if *dto.Type != "Transfer" {
+			return Transaction{}, fmt.Errorf(
+				"receivable destination can only be used for Transfer",
+			)
+		}
+
+		accountName := strings.TrimSpace(*dto.NewReceivable)
+
+		if accountName == "" {
+			return Transaction{}, fmt.Errorf(
+				"receivable account name cannot be empty",
+			)
+		}
+
+		account, err := s.AccountRepo.CreateReceivableAccount(
+			tx,
+			accountName,
+		)
+		if err != nil {
+			return Transaction{}, err
+		}
+
+		dbDTO.AccountDestID = &account.ID
+	}
+
+	if dto.AccountDest != nil && *dto.AccountDest != "" {
 		acc, err := s.AccountRepo.GetAccountByName(*dto.AccountDest)
 		if err != nil {
 			return Transaction{}, err
 		}
+
 		dbDTO.AccountDestID = &acc.ID
 	}
 
@@ -372,6 +412,16 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 			updatedTx.AccountID == *updatedTx.AccountDestID {
 
 			txErr = fmt.Errorf("source and destination account must differ")
+			return Transaction{}, txErr
+		}
+
+		if updatedTx.TypeID == 3 && updatedTx.AccountDestID == nil {
+			txErr = fmt.Errorf("transfer requires a destination account")
+			return Transaction{}, txErr
+		}	
+
+		if updatedTx.TypeID != 3 && updatedTx.AccountDestID != nil {
+			txErr = fmt.Errorf("only transfer transactions can have a destination account")
 			return Transaction{}, txErr
 		}
 

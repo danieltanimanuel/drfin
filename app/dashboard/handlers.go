@@ -5,6 +5,7 @@ import (
 	"drfin/app/accounts"
 	"drfin/app/categories"
 	"drfin/app/transactions"
+	"drfin/app/transactiontypes"
 	"encoding/json"
 	"html/template"
 	"log"
@@ -19,6 +20,7 @@ type Handler struct {
 	accountService     *accounts.Service
 	transactionService *transactions.Service
 	categoryService    *categories.Service
+	transactionTypeService *transactiontypes.Service
 	renderer           Renderer
 }
 
@@ -26,8 +28,20 @@ type Renderer interface {
 	Render(w http.ResponseWriter, templatePath string, templateName string, data interface{}) error
 }
 
-func NewHandler(accountService *accounts.Service, transactionService *transactions.Service, categoryService *categories.Service, r Renderer) *Handler {
-	return &Handler{accountService: accountService, transactionService: transactionService, categoryService: categoryService, renderer: r}
+func NewHandler(
+    accountService *accounts.Service,
+    transactionService *transactions.Service,
+    categoryService *categories.Service,
+    transactionTypeService *transactiontypes.Service,
+    r Renderer,
+) *Handler {
+    return &Handler{
+        accountService:         accountService,
+        transactionService:      transactionService,
+        categoryService:         categoryService,
+        transactionTypeService: transactionTypeService,
+        renderer:                r,
+    }
 }
 
 func (h *Handler) RegisterHandler(router *mux.Router) {
@@ -148,6 +162,8 @@ func (h *Handler) GetAllAcounts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+
+
 func (h *Handler) EditTransactionForm(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	id, err := strconv.Atoi(idStr)
@@ -177,10 +193,17 @@ func (h *Handler) EditTransactionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	transactionTypes, err := h.transactionTypeService.GetAllTransactionTypes()
+	if err != nil {
+		http.Error(w, "Failed to load transaction types", http.StatusInternalServerError)
+		return
+	}
+
 	data := EditTransactionView{
 		Transaction: txn,
 		Categories:  categories,
 		Accounts:    accounts,
+    	TransactionTypes: transactionTypes,
 	}
 
 	err = h.renderer.Render(
@@ -203,8 +226,10 @@ func (h *Handler) UpdateTransactionCategory(w http.ResponseWriter, r *http.Reque
 	}
 
 	var payload struct {
-		Category string `json:"category"`
-		Account  string `json:"account"`
+		Type        string `json:"type"`
+		Category    string `json:"category"`
+		Account     string `json:"account"`
+		AccountDest string `json:"account_dest"`
 	}
 
 	err = json.NewDecoder(r.Body).Decode(&payload)
@@ -221,6 +246,8 @@ func (h *Handler) UpdateTransactionCategory(w http.ResponseWriter, r *http.Reque
 	dto := transactions.UpdateTransactionDTO{
 		Category: &category,
 		Account:  &payload.Account,
+		AccountDest: &payload.AccountDest,
+		Type: &payload.Type,
 	}
 
 	_, err = h.transactionService.UpdateTransaction(ctx, id, dto)

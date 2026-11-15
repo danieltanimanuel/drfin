@@ -102,7 +102,7 @@ func (apis *APIServer) Run() error {
 	gmailService := gmail.NewService(transactionsService, accountsService, lastEmailRepository, processedGmailRepository)
 	gmailHandler := gmail.NewHandler(gmailService)
 
-	dashboardHandler := dashboard.NewHandler(accountsService, transactionsService, categoryService, rend)
+	dashboardHandler := dashboard.NewHandler(accountsService, transactionsService, categoryService, transactiontypesService, rend)
 
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)
