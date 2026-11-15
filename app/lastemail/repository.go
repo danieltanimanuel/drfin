@@ -22,7 +22,7 @@ func (r *Repository) GetLastEmail() (string, error) {
 		if err == sql.ErrNoRows {
 			return "", fmt.Errorf("last email not found")
 		}
-		logdr.Info("Error fetching last email : %v", err)
+		logdr.Error("Error fetching last email : %v", err)
 		return "", fmt.Errorf("could not retrieve last email: %v", err)
 	}
 	return lastEmail, nil
@@ -33,7 +33,7 @@ func (r *Repository) UpdateLastEmail(messageID string) (string, error) {
 		SET message_id = $1`,
 		messageID)
 	if err != nil {
-		logdr.Info("Error updating transaction: %v", err)
+		logdr.Error("Error updating transaction: %v", err)
 		return messageID, fmt.Errorf("could not update transaction: %v", err)
 	}
 	return messageID, nil
@@ -57,13 +57,13 @@ func (r *Repository) GetLastInternalDate() (int64, error) {
 }
 
 func (r *Repository) UpdateLastInternalDate(internalDate int64) error {
-	logdr.Info("internaldate", internalDate)
+	logdr.Info("internaldate", "internaldate", internalDate)
 	_, err := r.db.Exec(
 		`UPDATE last_email SET internal_date = $1`,
 		internalDate,
 	)
 	if err != nil {
-		logdr.Info("Error updating transaction: %v", err)
+		logdr.Error("Error updating transaction: %v", err)
 		return fmt.Errorf("could not update transaction: %v", err)
 	}
 	return nil

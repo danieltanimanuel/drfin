@@ -10,8 +10,7 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
-	"time"
-
+	"runtime/debug"
 	"google.golang.org/api/gmail/v1"
 )
 
@@ -79,14 +78,9 @@ func (s *Service) syncMail(ctx context.Context) error {
 	logdr.Info("checkpoint internal_date:", "lastinternaldate", lastInternalDate)
 
 	// 2. Coarse Gmail query (date-based)
-	after := time.UnixMilli(lastInternalDate).UTC()
-	before := time.Now().AddDate(0,0,1)
-	query := fmt.Sprintf(
-		"after:%s before:%s",
-		after.Format("2006/01/02"),
-		before.Format("2006/01/02"),
-	)
-	logdr.Info("Fetch email with query : ", "Query", query)
+	query := fmt.Sprintf(`after:%d {subject:"%s" subject:"%s" subject:"%s"}`,
+		lastInternalDate/1000, EmailTitleCreditCardBCA, EmailTitleTransaksiBlu, EmailTitleTransaksiBCA)
+	logdr.Info("Fetch email with query", "query", query)
 
 	msgs, _ := listMessages(srv, "me", query)
 	if err != nil {
@@ -148,25 +142,9 @@ func (s *Service) syncMail(ctx context.Context) error {
 		}
 
 		// Start processing email
-		logdr.Info("Processing this email", message.Id, title)
-		logdr.Debug(strconv.Itoa(len(message.Payload.Parts)))
-		extractedData, err := extractMail(message)
-		if err != nil {
-			_ = s.processedGmailRepository.RecordFailure(
-				message.Id,
-				message.InternalDate,
-				err.Error(),
-			)
-			break
-		}
-
-		logdr.Info("Creating transaction..  ")
-		if err := s.createTransactionFromGmail(ctx, extractedData); err != nil {
-			_ = s.processedGmailRepository.RecordFailure(
-				message.Id,
-				message.InternalDate,
-				err.Error(),
-			)
+		logdr.Info("Processing email", "email_id", message.Id, "subject", title)
+		if data, err := s.processMessage(ctx, message); err != nil {
+			s.failMessage(message, title, data, err)
 			break
 		}
 
@@ -211,4 +189,36 @@ func (s *Service) createTransactionFromGmail(ctx context.Context, data *GmailExt
 		return handler(ctx, data)
 	}
 	return fmt.Errorf("no handler for email title: %s", data.Title)
+}
+
+// processMessage extracts one email and creates its transaction.
+// A panic (bad HTML, short-string slicing) becomes a recorded error instead of a lost request.
+func (s *Service) processMessage(ctx context.Context, message *gmail.Message) (data *GmailExtractedData, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			logdr.Info("panic while processing email", "email_id", message.Id, "panic", r, "stack", string(debug.Stack()))
+			err = fmt.Errorf("panic: %v", r)
+		}
+	}()
+	if data, err = extractMail(message); err != nil {
+		return data, err
+	}
+	if data == nil {
+		return nil, fmt.Errorf("no parsable html part found")
+	}
+	return data, s.createTransactionFromGmail(ctx, data)
+}
+
+// failMessage logs and stores everything needed to debug one email.
+func (s *Service) failMessage(msg *gmail.Message, title string, data *GmailExtractedData, err error) {
+	details := map[string]string{}
+	if data != nil {
+		details = toMap(data.DetailTransaction)
+	}
+	logdr.Info("EMAIL FAILED", "email_id", msg.Id, "subject", title,
+		"internal_date", msg.InternalDate, "error", err.Error(), "details", details)
+	if e := s.processedGmailRepository.RecordFailure(msg.Id, msg.InternalDate,
+		fmt.Sprintf("%v | subject=%q | details=%v", err, title, details)); e != nil {
+		logdr.Error("record failure", e)
+	}
 }

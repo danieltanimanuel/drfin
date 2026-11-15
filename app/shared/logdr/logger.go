@@ -28,7 +28,7 @@ func Warn(msg string, attrs ...any) {
 
 func Debug(msg string, attrs ...any) {
 	all := append(attrs, "caller", callerLine(2))
-	slog.Warn(msg, all...)
+	slog.Debug(msg, all...)
 }
 
 func Error(msg string, err error, attrs ...any) {

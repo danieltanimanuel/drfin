@@ -1,0 +1,4 @@
+app.log
+/drfin
+token.json
+resources/drfin-secret.json

@@ -20,13 +20,13 @@ func (r *Repository) Exists(messageID string) (bool, error) {
 	err := r.db.QueryRow(
 		`SELECT EXISTS (
 			SELECT 1 FROM processed_gmail_messages
-			WHERE gmail_message_id = $1
+			WHERE gmail_message_id = $1 AND status = 'success'
 		)`,
 		messageID,
 	).Scan(&exists)
 
 	if err != nil {
-		logdr.Info("Error checking processed gmail message: %v", err)
+		logdr.Error("Error checking processed gmail message: %v", err)
 		return false, err
 	}
 
@@ -43,14 +43,16 @@ func (r *Repository) RecordSuccess(
 		`INSERT INTO processed_gmail_messages
 			(gmail_message_id, internal_date, transaction_id, status)
 		VALUES ($1, $2, $3, 'success')
-		ON CONFLICT (gmail_message_id) DO NOTHING`,
+		ON CONFLICT (gmail_message_id) DO UPDATE SET
+		status = 'success', error_message = NULL,
+		transaction_id = EXCLUDED.transaction_id, processed_at = NOW()`,
 		messageID,
 		internalDate,
 		transactionID,
 	)
 
 	if err != nil {
-		logdr.Info("Error recording gmail success: %v", err)
+		logdr.Error("Error recording gmail success: %v", err)
 		return fmt.Errorf("could not record gmail success: %v", err)
 	}
 
@@ -78,7 +80,7 @@ func (r *Repository) RecordFailure(
 	)
 
 	if err != nil {
-		logdr.Info("Error recording gmail failure: %v", err)
+		logdr.Error("Error recording gmail failure: %v", err)
 		return fmt.Errorf("could not record gmail failure: %v", err)
 	}
 

@@ -1,10 +1,10 @@
 package gmail
 
 import (
+	"drfin/app/shared/logdr"
 	"encoding/json"
 	"fmt"
 	"log"
-	"log/slog"
 	"os"
 
 	"net/http"
@@ -78,13 +78,13 @@ func saveToken(file string, token *oauth2.Token) {
 func authO2() (*gmail.Service, error) {
 	b, err := os.ReadFile(ClientSecretFile)
 	if err != nil {
-		slog.Error("Unable to read client secret file: %v", err)
+		logdr.Error("Unable to read client secret file: %v", err)
 		return nil, err
 	}
 
 	config, err := google.ConfigFromJSON(b, gmail.GmailReadonlyScope)
 	if err != nil {
-		slog.Error("Unable to parse client secret file to config: %v", err)
+		logdr.Error("Unable to parse client secret file to config: %v", err)
 		return nil, err
 	}
 
@@ -92,7 +92,7 @@ func authO2() (*gmail.Service, error) {
 
 	srv, err := gmail.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
-		slog.Error("Unable to create Gmail service", "error", err)
+		logdr.Error("Unable to create Gmail service", err)
 		return nil, err
 	}
 	return srv, err
