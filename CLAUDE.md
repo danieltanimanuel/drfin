@@ -25,3 +25,17 @@ drfin is a personal finance tracker. It is an existing Go web application that t
 
 ## Definition of done
 A change is complete when it is scoped, understandable, tested where practical, has no unrelated edits, and its remaining risks or unverified assumptions are stated.
+
+
+## Token efficiency
+- Never read the entire repository unless explicitly requested.
+- Start with the task-specific files and their direct dependencies.
+- Read documentation only when it answers a question relevant to the task.
+- Do not reread files already inspected in the current session unless they may have changed.
+- Do not print entire files, directory trees, or large command outputs.
+- Use targeted searches and limited output.
+- Avoid repeating project context already established in the conversation.
+- Give concise progress updates; report findings, decisions, and blockers only.
+- Do not generate documentation or summaries unless requested or necessary.
+- Before finishing, summarize changed files, tests, and remaining risks briefly.
+
