@@ -1,41 +1,54 @@
 # drfin — Claude Code Instructions
 
 ## Project
-drfin is a personal finance tracker. It is an existing Go web application that tracks accounts and transactions and imports supported bank notifications from Gmail.
+drfin is a personal finance tracker built with Go. It tracks accounts and transactions and imports supported bank notifications from Gmail.
 
-## Working rules
-- Read this file first, then read only the documentation and source files relevant to the current task.
-- Before editing, inspect the existing implementation and explain the smallest safe change. For multi-file, database, Gmail, or financial-logic work, plan first and wait for approval.
-- Keep changes minimal. Prefer the existing patterns and Go standard library. Add a dependency only when it clearly reduces complexity or risk.
-- Do not refactor unrelated code, rename packages, introduce layers/frameworks, or redesign the architecture unless asked.
-- Preserve existing behavior unless the task explicitly changes it. Do not invent features that are only mentioned in future requirements.
-- Never read, print, commit, or expose secrets, OAuth tokens, real email contents, or personal financial data. Treat `token.json` and `resources/drfin-secret.json` as sensitive.
-- Do not change database schema or migration/SQL scripts without explaining compatibility and data-loss risks first.
-- Financial logic is high risk: trace the full transaction and balance flow; verify Expense, Income, and Transfer separately; use database transactions where multiple records/balances must change.
-- Do not assume `math/big.Float` is safe for monetary arithmetic. Understand existing numeric types and database precision before changing them. Avoid introducing floating-point conversions.
-- Add or update focused tests for behavior changes. Never claim tests passed unless you ran them.
-- After changes, run the narrowest relevant tests, then `go test ./...` and `go vet ./...` when feasible. Report commands and results.
-- Keep comments and documentation concise and update docs only when behavior or architecture actually changes.
+## Working Rules
+- Read this file first. Inspect only documentation and source files relevant to the task.
+- Investigate the existing implementation before proposing changes.
+- Before editing, explain the smallest safe change and identify affected files.
+- For multi-file, database, Gmail, or financial-logic changes, present a plan and wait for approval.
+- Keep changes minimal. Follow existing patterns and prefer the Go standard library.
+- Avoid unrelated refactoring, new abstractions, dependencies, or architectural changes unless necessary or requested.
+- Preserve existing behavior. Do not implement features mentioned only in future requirements.
+- Never expose, print, or commit secrets, OAuth tokens, real email contents, or personal financial data. Treat `token.json` and `resources/drfin-secret.json` as sensitive. Do not read their contents.
+- Explain compatibility and data-loss risks before changing database schemas or SQL migrations.
 
-## Project references
-- `docs/ARCHITECTURE.md` — current structure and request flow
-- `docs/FEATURES.md` — implemented features versus known gaps
-- `docs/DATABASE.md` — current PostgreSQL schema
-- `docs/DEVELOPMENT.md` — local setup, commands, and safety notes
+## Financial Logic
+- Trace the complete transaction and balance flow before making changes.
+- Verify Expense, Income, and Transfer behavior separately.
+- Use database transactions when multiple records or balances must change together.
+- Understand existing numeric types and database precision before modifying monetary calculations.
+- Avoid floating-point conversions. Do not assume `math/big.Float` is suitable for monetary arithmetic.
 
-## Definition of done
-A change is complete when it is scoped, understandable, tested where practical, has no unrelated edits, and its remaining risks or unverified assumptions are stated.
+## Testing
+- Add or update focused tests for behavior changes.
+- Never claim tests passed unless they were executed successfully.
+- Run focused tests first, followed by `go test ./...` and `go vet ./...` when feasible.
+- Report executed commands, results, and unverified behavior.
 
+## Project References
+Read these only when relevant to the task:
 
-## Token efficiency
-- Never read the entire repository unless explicitly requested.
-- Start with the task-specific files and their direct dependencies.
-- Read documentation only when it answers a question relevant to the task.
-- Do not reread files already inspected in the current session unless they may have changed.
-- Do not print entire files, directory trees, or large command outputs.
-- Use targeted searches and limited output.
-- Avoid repeating project context already established in the conversation.
-- Give concise progress updates; report findings, decisions, and blockers only.
-- Do not generate documentation or summaries unless requested or necessary.
-- Before finishing, summarize changed files, tests, and remaining risks briefly.
+- `docs/ARCHITECTURE.md` — project structure and request flow.
+- `docs/FEATURES.md` — implemented features and known gaps.
+- `docs/DATABASE.md` — PostgreSQL schema.
+- `docs/DEVELOPMENT.md` — setup, commands, and safety notes.
 
+## Token Efficiency
+- Never scan or read the entire repository unless explicitly requested.
+- Start with relevant entry points, targeted searches, and task-specific files.
+- Follow direct dependencies only as needed to understand the implementation.
+- Read documentation only when it answers a task-specific question.
+- Do not reread files already inspected unless they may have changed.
+- Keep command output targeted. Avoid dumping entire files, directory trees, or large logs.
+- Do not repeat established project context or generate unsolicited documentation and summaries.
+- Keep progress updates concise. Report findings, decisions, and blockers.
+
+## Definition of Done
+A change is complete when it:
+- Implements only the requested scope.
+- Follows existing architecture and patterns.
+- Includes appropriate tests where practical.
+- Has no unrelated modifications.
+- Reports changed files, executed tests, and remaining risks or assumptions.
