@@ -1,25 +1,94 @@
-These apps are built with the help of AI and love <3
+# drfin
 
-TO-DOs:
-1. Add request ID and correlation ID for tracing purposes
-2. Add feature automation to read from gmail
-    a. how to read the email?
-    b. how to know which email already read by apps?
-    c. logic to know if that is expense, income, or transfer
-3. Read Email Transaction
-    a. Credit Card BCA (Done)
-    b. Debit BCA
-        - Top up Flazz (Done)
-        - QRIS Payment (Done)
-        - Transfer to BCA Account 
-            a) Beneficiary Account is ours
-            b) Beneficiary Account is not ours
-    c. Go-Pay
-    d. ShopeePay
-    e. Ovo
-    f. Blu
-        - Top up Flazz (Done)
-        - Transfer to BCA Account 
-            a) Beneficiary Account is Tahapan Gold 0840945740 (Done)
-            b) Beneficiary Account is not ours
-        - QRIS sample 27 Agt 2025 12:03:16 
+A personal finance web application for tracking accounts and transactions, with Gmail-based import of supported bank transaction notifications.
+
+## Current capabilities
+
+- Manage account groups, accounts, transaction types, and categories.
+- Create, list, update, and delete transactions through the existing handlers and services.
+- Maintain account balances when transactions are created or updated.
+- Render a web dashboard with account summaries, transaction history, and expense-category summaries.
+- Trigger Gmail synchronization through `POST /scan-email`.
+- Parse selected BCA, blu, and BCA credit-card notification formats.
+- Record processed Gmail message IDs and failed processing attempts.
+
+See [docs/FEATURES.md](docs/FEATURES.md) for implementation status and limitations.
+
+## Technology
+
+- Go (module declares Go 1.23.0 and toolchain Go 1.24.2)
+- PostgreSQL via `database/sql` and `github.com/lib/pq`
+- HTTP routing with `github.com/gorilla/mux`
+- Server-rendered HTML templates and static CSS
+- Gmail API with Google OAuth 2.0 (`google.golang.org/api/gmail/v1`, `golang.org/x/oauth2`)
+- HTML parsing with `github.com/PuerkitoBio/goquery`
+- Deployment configuration currently includes Google App Engine (`app.yaml`) and dispatch configuration.
+
+The exact dependencies are listed in `go.mod`.
+
+## Repository layout
+
+```text
+.
+├── app/
+│   ├── accountgroups/   # Account group handlers, services, repository, model
+│   ├── accounts/        # Account handlers, services, repository, model
+│   ├── api/             # HTTP router and dependency wiring
+│   ├── categories/      # Category CRUD
+│   ├── dashboard/       # Dashboard handlers, view models, templates
+│   ├── db/              # PostgreSQL connection setup
+│   ├── gmail/           # Gmail OAuth, sync, extraction, and bank parsers
+│   ├── lastemail/       # Gmail sync checkpoint persistence
+│   ├── processedgmail/  # Processed/failed Gmail message tracking
+│   ├── shared/          # Logging and HTML rendering helpers
+│   ├── transactions/    # Transaction logic and persistence
+│   ├── transactiontypes/# Transaction type CRUD
+│   └── static/          # CSS
+├── resources/
+│   ├── SQL/             # Database creation/configuration and seed SQL
+│   └── sample_html/     # Bank notification samples used by parsers
+├── main.go              # Application entry point
+├── go.mod
+└── app.yaml
+```
+
+## Local development
+
+The current database connection is hard-coded in `app/db/db.go` to a local PostgreSQL DSN. Configure a local PostgreSQL instance matching that DSN, or change the application configuration as a separate task before running elsewhere.
+
+1. Install the Go version required by `go.mod`.
+2. Create a PostgreSQL database and apply the SQL scripts in `resources/SQL/` in the appropriate order:
+   - `initial_table.sql`
+   - `initial_table_config.sql`
+   - `populate_table.sql`
+3. Provide Gmail OAuth client credentials locally (see the security note below).
+4. Run:
+
+```bash
+go run .
+```
+
+The current entry point starts the HTTP server on `localhost:8080`.
+
+## Security — read before running
+
+**Do not commit OAuth client secrets or user OAuth tokens.** The repository has historically contained `token.json` and `resources/drfin-secret.json`. Treat any credentials that have ever been committed to this public repository as exposed: revoke/rotate them, remove the files, and consider cleaning Git history. Keep local credential files out of Git and deploy secrets through an appropriate secret store or environment-based configuration.
+
+The current implementation expects:
+- `token.json`
+- `resources/drfin-secret.json`
+
+Those paths are legacy implementation details, not a recommended secrets-management design. Never upload these files to an AI coding assistant.
+
+## Known limitations
+
+This is documentation of the current repository, not a claim that the future product roadmap is implemented. Gmail account-to-account configuration, reconciliation, robust transfer matching, and multi-Gmail-account support are not established by the current code inspected. See [docs/FEATURES.md](docs/FEATURES.md).
+
+## Development checks
+
+```bash
+go test ./...
+go vet ./...
+```
+
+No Go test files were present in the repository tree when this documentation snapshot was prepared. Add tests as behavior is changed.
