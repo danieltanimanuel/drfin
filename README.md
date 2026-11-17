@@ -104,8 +104,9 @@ go test ./app/gmail/ -v
 |---|---|---|
 | `app/shared/logdr` | `logger_test.go` | `frames()` stack-trace helper: first frame is the caller, and `skip` moves it up one level |
 | `app/gmail` | `parse_test.go` | `ParseDate` for blu emails: Indonesian month abbreviations (`Agu`, `Agt`, `Okt`, `Des`, `Mei`) and an English month |
+| `app/gmail` | `credit_card_bca_test.go` | `isSkippedCurrency`: `MYR` detection (case, leading space), and that IDR, other currencies and empty input are not skipped |   
 
-Coverage is minimal. Only Gmail date parsing is tested. Email extraction, bank parsers, amount parsing, transaction logic, and balance updates have no tests yet, so add focused tests when changing them.
+Coverage is minimal. Only Gmail date parsing and the credit-card currency skip check are tested. Email extraction, bank parsers, amount parsing, transaction logic, balance updates and the `syncMail` skip handling have no tests yet, so add focused tests when changing them.
 
 ### Log output
 

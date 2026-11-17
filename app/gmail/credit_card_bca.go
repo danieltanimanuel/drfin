@@ -5,11 +5,29 @@ import (
 	"drfin/app/shared/logdr"
 	"drfin/app/transactions"
 	"fmt"
+	"strings"
 )
+
+// isSkippedCurrency reports whether the amount's currency prefix
+// (e.g. "MYR" in "MYR 99,47") is one we deliberately do not import yet.
+// See "TODO: foreign-currency credit-card transactions" in docs/FEATURES.md.
+func isSkippedCurrency(amountText string) bool {
+	fields := strings.Fields(amountText)
+	if len(fields) == 0 {
+		return false
+	}
+	return strings.EqualFold(fields[0], "MYR")
+}
 
 func (s *Service) handleCreditCardBCA(ctx context.Context, data *GmailExtractedData) error {
 	logdr.Info("log detail transactions", "detailTransactions", data)
 	mapData := toMap(data.DetailTransaction)
+
+	// Skip foreign-currency emails before any parsing so they are not treated as failures.
+	if isSkippedCurrency(mapData["Sejumlah"]) {
+		return ErrSkipEmail
+	}
+
 	tradeDate, err := ParseDate(mapData["Pada Tanggal"], EmailTitleCreditCardBCA)
 	if err != nil {
 		return err

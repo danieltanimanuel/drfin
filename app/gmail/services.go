@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"runtime/debug"
 	"google.golang.org/api/gmail/v1"
+	"errors"
 )
 
 type AmountFormat string
@@ -35,6 +36,10 @@ type Service struct {
 	lastEmailRepository      *lastemail.Repository
 	processedGmailRepository *processedgmail.Repository
 }
+
+// ErrSkipEmail is returned by a handler to say "intentionally not imported".
+// It is not a failure: the sync loop records the email and moves on.
+var ErrSkipEmail = errors.New("email intentionally skipped")
 
 func NewService(transactionService *transactions.Service,
 	accountService *accounts.Service,
@@ -143,7 +148,15 @@ func (s *Service) syncMail(ctx context.Context) error {
 
 		// Start processing email
 		logdr.Info("Processing email", "email_id", message.Id, "subject", title)
-		if data, err := s.processMessage(ctx, message); err != nil {
+		data, err := s.processMessage(ctx, message)
+		if errors.Is(err, ErrSkipEmail) {
+			logdr.Warn("Skipping email: unsupported currency", "email_id", message.Id, "subject", title)
+			// Record as processed so it is not retried, and let the checkpoint advance.
+			_ = s.processedGmailRepository.RecordSuccess(message.Id, message.InternalDate, 0)
+			safeInternalDate = message.InternalDate
+			continue
+		}
+		if err != nil {
 			s.failMessage(message, title, data, err)
 			break
 		}
