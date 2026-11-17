@@ -14,6 +14,7 @@ Status is based on source code and SQL currently present in the public `main` br
 | Dashboard | Dashboard page, account grid, transaction grid, expense category summary, create/edit transaction views | Server-rendered templates |
 | Gmail OAuth | Gmail read-only scope and local token/client-secret file loading | Single local credential path; not a multi-account setup |
 | Gmail sync | `POST /scan-email`; subject/date-based search; message sorting; checkpoint; processed-message records | Sync is initiated by an HTTP request |
+| Gmail date parsing | `ParseDate` in `app/gmail/parse.go` maps Indonesian month abbreviations (`Agt`/`Agu`, `Okt`, `Des`, `Mei`) to English before `time.Parse` | Covered by `app/gmail/parse_test.go`. Full month names are not handled |
 | BCA parsing | Internet Transaction Journal cases include transfer, QRIS, credit-card/paylater transfer, Flazz top-up | Current mapping uses fixed account/category names |
 | blu parsing | blu transaction notification; BI-FAST, QRIS, Flazz top-up cases | Destination account-number lookup is used to distinguish known accounts from outside recipients |
 | BCA credit-card parsing | Credit-card transaction notification | Maps as an expense against the configured `CC BCA` account |
@@ -50,8 +51,9 @@ These are observations for future review, not permission to refactor everything 
 4. Gmail `syncMail` currently ignores the error returned by `listMessages` (`msgs, _ := ...`) before checking a different `err` variable. This deserves a focused bug fix with tests.
 5. A Gmail import can create a transaction and then separately record the message as processed. Review failure windows and idempotency before changing sync behavior.
 6. The Gmail processing repository uses Gmail message ID as the unique key; current schema does not include Gmail account identity in that key.
-7. Some parser functions use string slicing and assumptions about exact email layouts. Test malformed and changed email formats.
+7. Some parser functions use string slicing and assumptions about exact email layouts. Test malformed and changed email formats. `ParseDate` strips the timezone by removing the last 4 characters (" WIB") for blu and BCA credit-card emails, and parsed times carry no timezone offset. Only the Indonesian month abbreviations seen in real emails are mapped, so a new variant fails that email's import.
 8. Do not mark a message successful or advance the checkpoint if transaction persistence fails.
+9. A failed email stops the `syncMail` loop (`break`) and the checkpoint does not advance past it. Every later email is retried on each scan until the failure is fixed, so one unparsable email blocks all newer imports.
 
 ## TODO list in the existing README
 

@@ -91,4 +91,26 @@ go test ./...
 go vet ./...
 ```
 
-No Go test files were present in the repository tree when this documentation snapshot was prepared. Add tests as behavior is changed.
+Run a single package while iterating:
+
+```bash
+go test ./app/shared/logdr/ -v
+go test ./app/gmail/ -v
+```
+
+### Current tests
+
+| Package | File | Covers |
+|---|---|---|
+| `app/shared/logdr` | `logger_test.go` | `frames()` stack-trace helper: first frame is the caller, and `skip` moves it up one level |
+| `app/gmail` | `parse_test.go` | `ParseDate` for blu emails: Indonesian month abbreviations (`Agu`, `Agt`, `Okt`, `Des`, `Mei`) and an English month |
+
+Coverage is minimal. Only Gmail date parsing is tested. Email extraction, bank parsers, amount parsing, transaction logic, and balance updates have no tests yet, so add focused tests when changing them.
+
+### Log output
+
+`logdr.Info`, `Warn` and `Debug` add two fields:
+- `caller`: `file:line` of the log call.
+- `trace`: up to 5 frames, formatted as `file:line func`. `trace[0]` equals `caller`.
+
+`logdr.Error` logs a full `debug.Stack()` instead of `trace`.

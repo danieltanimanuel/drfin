@@ -10,6 +10,10 @@ import (
 func prerequisiteParseDate(datetime string) (datetimeClean string) {
 	if strings.Contains(datetime, "Agt") {
 		return strings.ReplaceAll(datetime, "Agt", "Aug")
+	} else if strings.Contains(datetime, "Agu") {
+		return strings.ReplaceAll(datetime, "Agu", "Aug")
+	} else if strings.Contains(datetime, "Okt") {
+		return strings.ReplaceAll(datetime, "Okt", "Oct")
 	} else if strings.Contains(datetime, "Des") {
 		return strings.ReplaceAll(datetime, "Des", "Dec")
 	} else if strings.Contains(datetime, "Mei") {
