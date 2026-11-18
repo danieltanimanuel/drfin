@@ -1,37 +1,47 @@
-insert into transaction_types values (1, 'Expense',NOW());
-insert into transaction_types values (2, 'Income',NOW());
-insert into transaction_types values (3, 'Transfer',NOW());
-insert into transaction_types values (4, 'Lend',NOW());
-insert into transaction_types values (5, 'Borrow',NOW());
-insert into transaction_types values (6, 'Adjustment',NOW());
+INSERT INTO transaction_types VALUES
+(1, 'Expense', NOW()),
+(2, 'Income', NOW()),
+(3, 'Transfer', NOW()),
+(4, 'Lend', NOW()),
+(5, 'Borrow', NOW()),
+(6, 'Adjustment', NOW());
 
-insert into categories values (1,'Food',NOW());
-insert into categories values (2,'Transport',NOW());
-insert into categories values (3,'Utilities',NOW());
-insert into categories values (4,'Gifts',NOW());
-insert into categories values (5,'Debts',NOW());
-insert into categories values (6,'Misc',NOW());
-insert into categories values (7,'Fee',NOW());
-insert into categories values (8,'Salary',NOW());
-insert into categories values (9,'Unknown',NOW());
+INSERT INTO categories VALUES
+(DEFAULT, 'Transport', NOW()),
+(DEFAULT, 'Salary', NOW()),
+(DEFAULT, 'Unknown', NOW()),
+(DEFAULT, 'Mami', NOW()),
+(DEFAULT, 'Tagihan', NOW()),
+(DEFAULT, 'Kebutuhan Rumah', NOW()),
+(DEFAULT, 'Mama', NOW()),
+(DEFAULT, 'Makan', NOW()),
+(DEFAULT, 'Entertainment', NOW()),
+(DEFAULT, 'Skin Care', NOW()),
+(DEFAULT, 'Occasional', NOW());
 
-insert into accounts values (1, 'Cash', 0, 1, 'O',NOW(),null);
-insert into accounts values (2, 'Tahapan Gold', 0, 2, 'O',NOW(),null);
-insert into accounts values (3, 'Tahapan Xpresi', 0, 2, 'O',NOW(),null);
-insert into accounts values (4, 'CC BCA', 0, 3, 'O',NOW(),null);
-insert into accounts values (5, 'Blu', 0, 2, 'O',NOW(),null);
+INSERT INTO accounts VALUES
+(DEFAULT, 'Cash', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Tahapan Gold', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Tahapan Xpresi', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'CC BCA', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Blu', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Blu Transport', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Blu Makan', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Blu Entertainment', 0, 1, 'O', NOW(), NULL),
+(DEFAULT, 'Mami', 0, 1, 'O', NOW(), NULL);
 
-insert into account_groups values (1, 'Cash',NOW());
-insert into account_groups values (2, 'Debit',NOW());
-insert into account_groups values (3, 'Credit',NOW());
-insert into account_groups values (4, 'E-Money',NOW());
-insert into account_groups values (5, 'E-Wallet',NOW());
-insert into account_groups values (6, 'Debt',NOW());
-insert into account_groups values (7, 'Loan',NOW());
-insert into account_groups values (8, 'Saving',NOW());
+INSERT INTO account_groups VALUES
+(1, 'Cash', NOW()),
+(2, 'Debit', NOW()),
+(3, 'Credit', NOW()),
+(4, 'E-Money', NOW()),
+(5, 'E-Wallet', NOW()),
+(6, 'Debt', NOW()),
+(7, 'Loan', NOW()),
+(8, 'Saving', NOW());
 
-
-insert into owned_account values ('BCA Tahapan Gold IDR/Forex','0840945740');
-insert into owned_account values ('BCA Tahapan Gold IDR','2060524290');
-insert into owned_account values ('BCA Tahapan Xpresi IDR','0840945740');
-insert into owned_account values ('BLU BY BCA DIGITAL','005493616619');
+INSERT INTO owned_account VALUES
+('BCA Tahapan Gold IDR/Forex', '0840945740'),
+('BCA Tahapan Gold IDR', '2060524290'),
+('BCA Tahapan Xpresi IDR', '0840945740'),
+('BLU BY BCA DIGITAL', '005493616619');

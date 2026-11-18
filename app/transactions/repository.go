@@ -461,3 +461,20 @@ func (r *Repository) GetCategoryAggregatesByType(
 
 	return results, nil
 }
+
+func (r *Repository) InsertAdjustmentTx(
+	tx *sql.Tx,
+	accountID, typeID, categoryID int,
+	amount, description string,
+	tradeDate time.Time,
+) (int, error) {
+	var id int
+	err := tx.QueryRow(queryInsertTransactionAdjustment,
+		tradeDate, typeID, categoryID, accountID, amount, description,
+	).Scan(&id)
+	if err != nil {
+		log.Printf("Error inserting adjustment: %v", err)
+		return 0, fmt.Errorf("could not insert adjustment: %w", err)
+	}
+	return id, nil
+}

@@ -53,4 +53,7 @@ const (
 
 	queryInsertTransactionAuto = `INSERT INTO transactions (parent_id, trade_date, type_id, category_id, account_id, account_dest_id, amount, description, status, source, inserted_at, last_updated_at) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW(), NOW()) RETURNING id`
+
+    queryInsertTransactionAdjustment = `INSERT INTO transactions (parent_id, trade_date, type_id, category_id, account_id, account_dest_id, amount, description, status, source, inserted_at, last_updated_at, confirmed_at)
+		VALUES (0, $1, $2, $3, $4, NULL, $5::numeric, $6, 'Confirmed', 'Manual', NOW(), NOW(), NOW()) RETURNING id`
 )

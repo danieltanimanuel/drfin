@@ -22,6 +22,12 @@ type Service struct {
 	CategoryRepo        *categories.Repository
 }
 
+const (
+	adjustmentTypeName     = "Adjustment"
+	adjustmentCategoryName = "Unknown"
+	maxAdjustmentNoteLen   = 500
+)
+
 func NewService(repository *Repository, accountRepo *accounts.Repository, transactionTypeRepo *transactiontypes.Repository, categoryRepo *categories.Repository) *Service {
 	return &Service{
 		Repository:          repository,
@@ -454,4 +460,73 @@ func (s *Service) DeleteTransaction(ctx context.Context, id int) error {
 		return fmt.Errorf("could not delete transaction with ID %d: %v", id, err)
 	}
 	return nil
+}
+
+func (s *Service) AdjustAccountBalance(ctx context.Context, accountID int, req AdjustBalanceRequest) (AdjustBalanceResult, error) {
+	if accountID <= 0 {
+		return AdjustBalanceResult{}, fmt.Errorf("%w: invalid account id", accounts.ErrInvalidInput)
+	}
+	newBalance, err := accounts.NormalizeAmount(req.NewBalance)
+	if err != nil {
+		return AdjustBalanceResult{}, err
+	}
+	note := strings.TrimSpace(req.Note)
+	if len([]rune(note)) > maxAdjustmentNoteLen {
+		return AdjustBalanceResult{}, fmt.Errorf("%w: note is too long", accounts.ErrInvalidInput)
+	}
+
+	// Lookups before the SQL transaction so it stays short.
+	adjType, err := s.TransactionTypeRepo.GetTransactionTypeByName(adjustmentTypeName)
+	if err != nil {
+		return AdjustBalanceResult{}, err
+	}
+	category, err := s.CategoryRepo.GetCategoryByName(adjustmentCategoryName)
+	if err != nil {
+		return AdjustBalanceResult{}, err
+	}
+
+	tx, err := s.Repository.db.BeginTx(ctx, nil)
+	if err != nil {
+		return AdjustBalanceResult{}, fmt.Errorf("failed to start transaction: %w", err)
+	}
+	defer tx.Rollback() // no-op after a successful Commit
+
+	oldBalance, delta, err := s.AccountRepo.LockAndDiffBalance(tx, accountID, newBalance)
+	if err != nil {
+		return AdjustBalanceResult{}, err
+	}
+
+	result := AdjustBalanceResult{
+		AccountID:  accountID,
+		OldBalance: oldBalance,
+		NewBalance: newBalance,
+		Delta:      delta,
+	}
+
+	d, ok := new(big.Rat).SetString(delta)
+	if !ok {
+		return AdjustBalanceResult{}, fmt.Errorf("could not parse balance difference %q", delta)
+	}
+	if d.Sign() == 0 {
+		return result, nil // nothing to adjust
+	}
+
+	description := fmt.Sprintf("Balance adjustment: %s -> %s", oldBalance, newBalance)
+	if note != "" {
+		description += " (" + note + ")"
+	}
+
+	id, err := s.Repository.InsertAdjustmentTx(tx, accountID, adjType.ID, category.ID, delta, description, time.Now())
+	if err != nil {
+		return AdjustBalanceResult{}, err
+	}
+	if err := s.AccountRepo.SetAccountBalance(tx, accountID, newBalance); err != nil {
+		return AdjustBalanceResult{}, err
+	}
+	if err := tx.Commit(); err != nil {
+		return AdjustBalanceResult{}, fmt.Errorf("failed to commit adjustment: %w", err)
+	}
+
+	result.TransactionID = id
+	return result, nil
 }

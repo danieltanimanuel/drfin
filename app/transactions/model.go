@@ -107,3 +107,16 @@ type CategoryAggregate struct {
 	CategoryName string
 	TotalAmount  *big.Float
 }
+
+type AdjustBalanceRequest struct {
+	NewBalance string `json:"new_balance"`
+	Note       string `json:"note"`
+}
+
+type AdjustBalanceResult struct {
+	AccountID     int    `json:"account_id"`
+	OldBalance    string `json:"old_balance"`
+	NewBalance    string `json:"new_balance"`
+	Delta         string `json:"delta"`
+	TransactionID int    `json:"transaction_id,omitempty"` // 0 when nothing changed
+}

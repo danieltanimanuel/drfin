@@ -8,7 +8,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-
+	"errors"
+	"drfin/app/accounts"
 	"github.com/gorilla/mux"
 )
 
@@ -27,6 +28,7 @@ func (h *Handler) RegisterHandler(r *mux.Router) {
 	// Enhancement: Use RESTful path param instead of query param (?id=)
 	// This works better with HTMX hx-put / hx-delete
 	r.HandleFunc("/transactions/{id}", h.UpdateTransaction).Methods("PUT", "PATCH")
+	r.HandleFunc("/accounts/{id}/adjust-balance", h.AdjustAccountBalance).Methods("POST")
 }
 
 func (h *Handler) GetAllTransactions(w http.ResponseWriter, r *http.Request) {
@@ -124,4 +126,40 @@ func (h *Handler) UpdateTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	GenerateNewCreatedResponse(w, updated, http.StatusOK)
+}
+
+func (h *Handler) AdjustAccountBalance(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+
+	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil || id <= 0 {
+		http.Error(w, "Invalid account id", http.StatusBadRequest)
+		return
+	}
+
+	var req AdjustBalanceRequest
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20)).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	result, err := h.service.AdjustAccountBalance(ctx, id, req)
+	if err != nil {
+		switch {
+		case errors.Is(err, accounts.ErrInvalidInput):
+			http.Error(w, err.Error(), http.StatusBadRequest)
+		case errors.Is(err, accounts.ErrAccountNotFound):
+			http.Error(w, err.Error(), http.StatusNotFound)
+		default:
+			log.Printf("Error adjusting balance: %v", err)
+			http.Error(w, "Failed to adjust balance", http.StatusInternalServerError)
+		}
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(result); err != nil {
+		log.Printf("Error encoding adjustment result: %v", err)
+	}
 }

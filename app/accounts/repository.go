@@ -172,3 +172,61 @@ func (r *Repository) CreateReceivableAccount(
 
     return &account, nil
 }
+
+func (r *Repository) AccountGroupExists(tx *sql.Tx, id int) (bool, error) {
+	var exists bool
+	err := tx.QueryRow(`SELECT EXISTS (SELECT 1 FROM account_groups WHERE id = $1)`, id).Scan(&exists)
+	if err != nil {
+		return false, fmt.Errorf("could not check account group: %w", err)
+	}
+	return exists, nil
+}
+
+func (r *Repository) AccountNameExists(tx *sql.Tx, name string) (bool, error) {
+	var exists bool
+	err := tx.QueryRow(`SELECT EXISTS (SELECT 1 FROM accounts WHERE LOWER(name) = LOWER($1))`, name).Scan(&exists)
+	if err != nil {
+		return false, fmt.Errorf("could not check account name: %w", err)
+	}
+	return exists, nil
+}
+
+func (r *Repository) CreateAccount(tx *sql.Tx, name string, groupID int, balance string, creditLimit *string) (*Account, error) {
+	var account Account
+	err := tx.QueryRow(`
+		INSERT INTO accounts (name, balance, account_group_id, status, inserted_at, credit_limit)
+		VALUES ($1, $2::numeric, $3, 'O', NOW(), $4::numeric)
+		RETURNING id, name`,
+		name, balance, groupID, creditLimit,
+	).Scan(&account.ID, &account.Name)
+	if err != nil {
+		return nil, fmt.Errorf("could not create account: %w", err)
+	}
+	return &account, nil
+}
+
+// LockAndDiffBalance locks the account row and returns its current balance and
+// (newBalance - currentBalance), both computed by Postgres as numeric.
+func (r *Repository) LockAndDiffBalance(tx *sql.Tx, accountID int, newBalance string) (oldBalance, delta string, err error) {
+	err = tx.QueryRow(`
+		SELECT balance::text, ($2::numeric - balance)::text
+		FROM accounts
+		WHERE id = $1
+		FOR UPDATE`, accountID, newBalance).Scan(&oldBalance, &delta)
+	if err == sql.ErrNoRows {
+		return "", "", fmt.Errorf("%w: id %d", ErrAccountNotFound, accountID)
+	}
+	if err != nil {
+		log.Printf("Error locking account balance: %v", err)
+		return "", "", fmt.Errorf("could not read account balance: %w", err)
+	}
+	return oldBalance, delta, nil
+}
+
+func (r *Repository) SetAccountBalance(tx *sql.Tx, accountID int, balance string) error {
+	_, err := tx.Exec(`UPDATE accounts SET balance = $1::numeric WHERE id = $2`, balance, accountID)
+	if err != nil {
+		return fmt.Errorf("could not set account balance: %w", err)
+	}
+	return nil
+}

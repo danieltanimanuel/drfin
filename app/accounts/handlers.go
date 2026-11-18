@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"time"
-
+	"errors"
 	"github.com/gorilla/mux"
 )
 
@@ -30,9 +30,36 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
         "/accounts/receivable",
         h.CreateReceivable,
     ).Methods("POST")
+	router.HandleFunc("/accounts", h.CreateAccount).Methods("POST")
 }
 
+func (h *Handler) CreateAccount(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
 
+	var req CreateAccountRequest
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20)).Decode(&req); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	account, err := h.service.CreateAccount(ctx, req)
+	if err != nil {
+		if errors.Is(err, ErrInvalidInput) {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		log.Printf("Error creating account: %v", err)
+		http.Error(w, "Failed to create account", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode(account); err != nil {
+		log.Printf("Error encoding account: %v", err)
+	}
+}
 
 // GetTransactionAccountGroups handles GET requests to retrieve all transaction accountgroups
 func (h *Handler) GetAllAcounts(w http.ResponseWriter, r *http.Request) {

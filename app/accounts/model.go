@@ -35,3 +35,10 @@ type AccountPage struct {
 	Accounts     []AccountDTO
 	AccountsJSON template.JS // safe to inject JSON into template
 }
+
+type CreateAccountRequest struct {
+	Name           string `json:"name"`
+	AccountGroupID int    `json:"account_group_id"`
+	InitialBalance string `json:"initial_balance"` // optional, defaults to 0
+	CreditLimit    string `json:"credit_limit"`    // optional
+}

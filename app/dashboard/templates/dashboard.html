@@ -383,6 +383,68 @@
       }
 
   });
+    // =====================================================
+    // Accounts: create account + adjust balance
+    // (must live here: scripts inside innerHTML partials never run)
+    // =====================================================
+
+    async function postJSON(url, body) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) {
+        throw new Error((await res.text()).trim() || res.statusText);
+      }
+      return res.json();
+    }
+
+    document.addEventListener("submit", async function (e) {
+      if (e.target.id !== "create-account-form") {
+        return;
+      }
+      e.preventDefault();
+
+      const form = e.target;
+      try {
+        await postJSON("/accounts", {
+          name: form.elements["name"].value,
+          account_group_id: parseInt(form.elements["account_group_id"].value, 10),
+          initial_balance: form.elements["initial_balance"].value,
+          credit_limit: form.elements["credit_limit"].value
+        });
+        location.reload(); // refreshes accounts grid and pie chart
+      } catch (err) {
+        alert("Could not create account: " + err.message);
+      }
+    });
+
+    document.addEventListener("click", async function (e) {
+      const btn = e.target.closest(".adjust-balance-btn");
+      if (!btn) {
+        return;
+      }
+
+      const value = prompt('New balance for "' + btn.dataset.name + '":');
+      if (value === null) {
+        return;
+      }
+
+      try {
+        const res = await postJSON(
+          "/accounts/" + btn.dataset.id + "/adjust-balance",
+          { new_balance: value }
+        );
+        if (!res.transaction_id) {
+          alert("Balance is already " + res.new_balance + ". Nothing changed.");
+          return;
+        }
+        location.reload();
+      } catch (err) {
+        alert("Could not adjust balance: " + err.message);
+      }
+    });
   </script>
 </body>
 </html>
