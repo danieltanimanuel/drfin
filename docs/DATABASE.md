@@ -29,6 +29,18 @@ The application uses PostgreSQL through `database/sql` and `github.com/lib/pq`. 
 
 The seed script inserts IDs for Expense, Income, Transfer, Lend, Borrow, and Adjustment. Existing service logic contains ID-specific branches, so changing seed IDs or names can break behavior.
 
+## Adjustment transactions
+
+Balance adjustments are stored in `transactions` with:
+- `type_id` of the `Adjustment` type (looked up by name, seeded as ID 6)
+- `category_id` of the category named `Unknown` (looked up by name; `category_id` is NOT NULL). If your database lacks this exact name, adjusting fails with "category ... not found".
+- `amount` = signed difference (`new balance - old balance`), negative when the balance decreases. `transactions.amount` has no check constraint against negatives.
+- `account_dest_id` NULL, `parent_id` 0, `status` `Confirmed`, `source` `Manual`.
+
+Daily income/expense totals and the expense-category summary only count types named `Income` and `Expense`, so adjustments are excluded from them.
+
+New accounts store `initial_balance` directly in `accounts.balance` with no transaction row. Account names must be unique (case-insensitively checked in the service, exact match enforced by the DB).
+
 ## Database safety rules for Claude
 
 - Never run destructive SQL against a real database.
@@ -39,3 +51,4 @@ The seed script inserts IDs for Expense, Income, Transfer, Lend, Borrow, and Adj
 - Do not assume `parent_id` semantics; inspect its usage before relying on it.
 - Do not change money representation as an incidental cleanup. Propose a migration and tests separately.
 - Never include real account numbers, tokens, or personal financial data in docs, fixtures, logs, or prompts.
+- `populate_table.sql` inserts accounts before `account_groups` and uses explicit IDs for some tables. On a fresh database this can violate the account group foreign key, and sequences may not advance. Check with `SELECT setval('<table>_id_seq', (SELECT MAX(id) FROM <table>));` if inserts fail with a duplicate key.

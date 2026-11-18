@@ -1,0 +1,31 @@
+# TODO: foreign-currency credit-card transactions
+
+Moved from `docs/FEATURES.md`. Read only when working on credit-card import or foreign currency. Not implemented; do not build it unless requested.
+
+BCA credit-card notifications in a foreign currency (observed: `MYR`, e.g. a
+Shopee MY purchase) cannot be imported. The `Sejumlah` field has a currency
+prefix other than IDR, and the amount parser fails on it.
+
+## Current behavior
+
+- `handleCreditCardBCA` checks the currency prefix of `Sejumlah` before parsing.
+  For `MYR` it returns `ErrSkipEmail` (`app/gmail/services.go`).
+- `syncMail` treats `ErrSkipEmail` as a skip, not a failure: it logs a warning,
+  records the message as processed (transaction ID `0`), advances the
+  checkpoint and continues with the next email.
+- No transaction is created, so skipped purchases must be entered manually.
+- Only `MYR` is skipped. Any other foreign currency still fails visibly and
+  blocks newer imports (see risk #9 in `docs/RISKS.md`).
+- Skipped emails look the same as imported ones in `processedgmail`; telling
+  them apart would need a schema change.
+
+## Open questions for the real implementation
+
+- Which amount is charged to the `CC BCA` account: the foreign amount
+  converted to IDR, or the IDR billing amount from the statement? The
+  notification only shows the foreign amount.
+- Where the exchange rate and any foreign-transaction fee come from.
+- Whether to store the original currency and amount alongside the IDR value.
+- Whether to handle other currencies (USD, SGD, ...) with the same approach.
+- Indonesian decimal format (`99,47` uses a comma) must be parsed without
+  `float64` or `big.Float` conversions.

@@ -4,7 +4,7 @@
 
 - Go version compatible with `go.mod` (Go 1.23.0; toolchain directive 1.24.2).
 - PostgreSQL.
-- Gmail OAuth client credentials only if testing Gmail synchronization.
+- Gmail OAuth client credentials only if testing Gmail synchronization (see `docs/GMAIL_SETUP.md`).
 
 ## Run locally
 
@@ -30,7 +30,7 @@ go test ./...
 go vet ./...
 ```
 
-There were no `*_test.go` files in the inspected repository tree at the time this document was written. Do not assume the project has a test suite until tests are added.
+Tests exist but coverage is minimal: `app/shared/logdr` (stack-frame helper) and `app/gmail` (`ParseDate`, `isSkippedCurrency`). Extraction, bank parsers, amount parsing, transaction logic, balance updates and `syncMail` have no tests yet. See the test table in `README.md`.
 
 ## Secrets and local files
 

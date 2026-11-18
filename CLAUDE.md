@@ -31,9 +31,12 @@ drfin is a personal finance tracker built with Go. It tracks accounts and transa
 Read these only when relevant to the task:
 
 - `docs/ARCHITECTURE.md` — project structure and request flow.
-- `docs/FEATURES.md` — implemented features and known gaps.
+- `docs/FEATURES.md` — implemented features and what is not implemented.
+- `docs/RISKS.md` — known correctness/reliability risks (read when touching Gmail sync, parsers, or balance logic).
 - `docs/DATABASE.md` — PostgreSQL schema.
 - `docs/DEVELOPMENT.md` — setup, commands, and safety notes.
+- `docs/GMAIL_SETUP.md` — Gmail OAuth credential setup (only for auth/credential problems).
+- `docs/todo/` — one file per unimplemented feature design. Read only the file for the task at hand.
 
 ## Token Efficiency
 - Never scan or read the entire repository unless explicitly requested.
@@ -44,6 +47,7 @@ Read these only when relevant to the task:
 - Keep command output targeted. Avoid dumping entire files, directory trees, or large logs.
 - Do not repeat established project context or generate unsolicited documentation and summaries.
 - Keep progress updates concise. Report findings, decisions, and blockers.
+- Docs layout: keep `CLAUDE.md` short. Put new topics in their own file under `docs/` (designs in `docs/todo/`) and add a one-line pointer here. Do not append large sections to existing docs.
 
 ## Definition of Done
 A change is complete when it:
