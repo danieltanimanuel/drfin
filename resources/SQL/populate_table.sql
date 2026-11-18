@@ -19,10 +19,7 @@ insert into accounts values (1, 'Cash', 0, 1, 'O',NOW(),null);
 insert into accounts values (2, 'Tahapan Gold', 0, 2, 'O',NOW(),null);
 insert into accounts values (3, 'Tahapan Xpresi', 0, 2, 'O',NOW(),null);
 insert into accounts values (4, 'CC BCA', 0, 3, 'O',NOW(),null);
-insert into accounts values (5, 'Go-Pay', 0, 5, 'O',NOW(),null);
-insert into accounts values (6, 'Badmin 2025/03/12', 0, 7, 'O',NOW(),null);
-insert into accounts values (7, 'Blu', 0, 2, 'O',NOW(),null);
-insert into accounts values (8, 'Flazz', 0, 4, 'O',NOW(),null);
+insert into accounts values (5, 'Blu', 0, 2, 'O',NOW(),null);
 
 insert into account_groups values (1, 'Cash',NOW());
 insert into account_groups values (2, 'Debit',NOW());
