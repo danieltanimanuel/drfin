@@ -1,25 +1,58 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard</title>
   <link rel="stylesheet" href="/static/style.css" />
   <link rel="stylesheet" href="/static/transaction-grid.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/dashboard.css" />
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
 <body>
-    <div class="dashboard">
-        <div class="main-grid">
-            <div id="accounts-grid" class="account-list"></div>
-            <div id="pie-grid" class="pie-chart"></div>
-            <div id="categories-grid" class="categories-list"></div>
-            <div id="transactions-grid" class="transaction-list"></div>
-            <div class="transaction-toolbar">
-            <button id="new-transaction-btn">
-              + New Transaction
-            </button>
-          </div>
+    <div class="dash">
+      <header class="dash-header">
+        <div>
+          <h1>drfin</h1>
+          <p class="muted">Personal finance overview</p>
         </div>
+        <nav class="quick-actions" aria-label="Quick actions">
+          <button type="button" id="add-account-btn" class="btn">+ Add Account</button>
+          <button type="button" id="new-transaction-btn" class="btn btn-primary">+ New Transaction</button>
+          <a href="#all-transactions" class="btn btn-ghost">View Transactions</a>
+        </nav>
+      </header>
+
+      <section id="overview-grid" class="dash-section" aria-label="Financial overview"></section>
+
+      <section class="dash-section">
+        <h2>My Accounts</h2>
+        <div id="accounts-grid"></div>
+      </section>
+
+      <div class="dash-two-col">
+        <section class="card">
+          <h2>Income vs Expenses</h2>
+          <div id="cashflow-grid"></div>
+        </section>
+        <section class="card">
+          <h2>Expense Breakdown</h2>
+          <div id="categories-grid"></div>
+        </section>
+      </div>
+
+      <section class="card dash-section">
+        <div class="card-head">
+          <h2>Recent Transactions</h2>
+          <a href="#all-transactions">View all</a>
+        </div>
+        <div id="recent-grid"></div>
+      </section>
+
+      <section id="all-transactions" class="card dash-section">
+        <h2>All Transactions</h2>
+        <div id="transactions-grid"></div>
+      </section>
     </div>
     <div id="modal-overlay" class="modal-overlay" style="display:none;">
       <div class="modal">
@@ -28,48 +61,27 @@
     </div>
 
   <script>
-    async function loadGrids() {
-      // Load accounts
-      document.getElementById("accounts-grid").innerHTML =
-        await (await fetch("/dashboard/accounts")).text();
-
-      // Load pie data -> draw chart
-      const pieData = await (await fetch("/dashboard/pie")).json();
-      renderPieChart(pieData);
-
-      document.getElementById("categories-grid").innerHTML =
-        await (await fetch("/dashboard/categories")).text();
-
-      // Load transactions
-      document.getElementById("transactions-grid").innerHTML =
-        await (await fetch("/dashboard/transactions")).text();
+    async function loadFragment(url, id) {
+      const el = document.getElementById(id);
+      try {
+        const res = await fetch(url);
+        el.innerHTML = res.ok
+          ? await res.text()
+          : '<p class="muted">Could not load this section.</p>';
+      } catch (err) {
+        el.innerHTML = '<p class="muted">Could not load this section.</p>';
+      }
     }
 
-    function renderPieChart(accounts) {
-      const ctx = document.createElement("canvas");
-      document.getElementById("pie-grid").appendChild(ctx);
-
-      const labels = accounts.map(a => a.name);
-      const balances = accounts.map(a => parseFloat(a.balance));
-
-      new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: labels,
-          datasets: [{
-            data: balances,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.7)',
-              'rgba(54, 162, 235, 0.7)',
-              'rgba(255, 206, 86, 0.7)',
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(153, 102, 255, 0.7)',
-              'rgba(255, 159, 64, 0.7)'
-            ]
-          }]
-        },
-        options: { responsive: true }
-      });
+    async function loadGrids() {
+      await Promise.all([
+        loadFragment("/dashboard/overview", "overview-grid"),
+        loadFragment("/dashboard/accounts", "accounts-grid"),
+        loadFragment("/dashboard/cashflow", "cashflow-grid"),
+        loadFragment("/dashboard/categories", "categories-grid"),
+        loadFragment("/dashboard/recent", "recent-grid"),
+        loadFragment("/dashboard/transactions", "transactions-grid")
+      ]);
     }
 
     loadGrids();
@@ -80,6 +92,18 @@
       console.log("clicked");
       openCreateModal();
     });
+
+    document
+    .getElementById("add-account-btn")
+    .addEventListener("click", function () {
+      openAccountModal();
+    });
+
+    async function openAccountModal() {
+      const response = await fetch("/dashboard/accounts/new");
+      document.getElementById("modal-content").innerHTML = await response.text();
+      document.getElementById("modal-overlay").style.display = "flex";
+    }
 
     async function openCreateModal() {
 
@@ -116,19 +140,8 @@
     }
 
     async function reloadDashboardSections() {
-
-      // reload transactions
-      const txnHtml = await (await fetch("/dashboard/transactions")).text();
-      document.getElementById("transactions-grid").innerHTML = txnHtml;
-
-      // reload category summary
-      const categoryHtml = await (await fetch("/dashboard/categories")).text();
-      document.getElementById("categories-grid").innerHTML = categoryHtml;
-
-      
-      document.getElementById("accounts-grid").innerHTML =
-        await (await fetch("/dashboard/accounts")).text();
-
+      // balances, totals, charts and lists all depend on transactions
+      await loadGrids();
     }
 
     // ✅ STEP 6 — Handle Save Submit (THIS is step 6)
@@ -282,7 +295,7 @@
         return;
       }
 
-      location.reload(); // balances changed: refreshes accounts grid and pie chart
+      location.reload(); // balances changed: refreshes every section
     });
 
     document.addEventListener("click", async function (e) {
@@ -420,7 +433,7 @@
           initial_balance: form.elements["initial_balance"].value,
           credit_limit: form.elements["credit_limit"].value
         });
-        location.reload(); // refreshes accounts grid and pie chart
+        location.reload(); // refreshes every section
       } catch (err) {
         alert("Could not create account: " + err.message);
       }
@@ -453,4 +466,4 @@
     });
   </script>
 </body>
-</html>
+</html>

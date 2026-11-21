@@ -1,24 +1,28 @@
-<div class="category-summary">
-  <h3>Category Summary (Expense)</h3>
-
+<div class="cat-breakdown">
   <div class="date-filter">
-    <label>From:</label>
     <input type="date" id="date-from" value="{{.CurrentMonthStart}}">
-
-    <label>To:</label>
+    <span>to</span>
     <input type="date" id="date-to" value="{{.CurrentMonthEnd}}">
-
     <button type="button" onclick="applyDateFilter()">Apply</button>
   </div>
 
-  <ul>
-    {{range .Items}}
-      <li class="category-row">
-        <span class="cat-name">{{.CategoryName}}</span>
-        <span class="cat-amount">
-          Rp. {{formatNumber .TotalAmount}}
-        </span>
-      </li>
-    {{end}}
-  </ul>
+  {{if .Items}}
+    <div class="cat-total">
+      <span>Total expenses</span>
+      <strong>Rp. {{formatNumber .Total}}</strong>
+    </div>
+    <ul class="cat-list">
+      {{range .Items}}
+        <li class="cat-item">
+          <div class="cat-item-top">
+            <span class="cat-name">{{.Name}}</span>
+            <span class="cat-amt">Rp. {{formatNumber .Amount}} <em>{{.PctLabel}}%</em></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width: {{.Bar}}%"></div></div>
+        </li>
+      {{end}}
+    </ul>
+  {{else}}
+    <p class="muted">No expenses in this period.</p>
+  {{end}}
 </div>

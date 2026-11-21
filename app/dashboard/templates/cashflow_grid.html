@@ -1,0 +1,31 @@
+<div class="cf-legend">
+  <span><i class="dot dot-income"></i>Income</span>
+  <span><i class="dot dot-expense"></i>Expenses</span>
+</div>
+<div class="cf-chart" role="img" aria-label="Income and expenses for the last six months">
+  {{range .Months}}
+    <div class="cf-month">
+      <div class="cf-bars">
+        <div class="cf-bar cf-income" style="height: {{.IncomePct}}%" title="Income Rp. {{formatNumber .Income}}"></div>
+        <div class="cf-bar cf-expense" style="height: {{.ExpensePct}}%" title="Expenses Rp. {{formatNumber .Expense}}"></div>
+      </div>
+      <span class="cf-label">{{.Label}}</span>
+    </div>
+  {{end}}
+</div>
+<div class="table-scroll">
+  <table class="cf-table">
+    <thead>
+      <tr><th>Month</th><th class="num">Income</th><th class="num">Expenses</th></tr>
+    </thead>
+    <tbody>
+      {{range .Months}}
+        <tr>
+          <td>{{.FullLabel}}</td>
+          <td class="num pos">Rp. {{formatNumber .Income}}</td>
+          <td class="num neg">Rp. {{formatNumber .Expense}}</td>
+        </tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>

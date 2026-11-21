@@ -1,0 +1,22 @@
+<h3>New Account</h3>
+<form id="create-account-form">
+  <label>Name <input type="text" name="name" required maxlength="255" /></label>
+  <label>Group
+    <select name="account_group_id" required>
+      <option value="1">Cash</option>
+      <option value="2">Debit</option>
+      <option value="3">Credit</option>
+      <option value="4">E-Money</option>
+      <option value="5">E-Wallet</option>
+      <option value="6">Debt</option>
+      <option value="7">Loan</option>
+      <option value="8">Saving</option>
+    </select>
+  </label>
+  <label>Initial balance (negative if you owe, e.g. credit card)
+    <input type="number" step="0.01" name="initial_balance" />
+  </label>
+  <label>Credit limit (optional) <input type="number" step="0.01" min="0" name="credit_limit" /></label>
+  <button type="submit">Create account</button>
+  <button type="button" onclick="closeModal()">Cancel</button>
+</form>

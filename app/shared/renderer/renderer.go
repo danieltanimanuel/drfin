@@ -37,6 +37,11 @@ func formatNumber(f *big.Float) string {
 
     parts := strings.Split(s, ".")
     integerPart := parts[0] // "11000000"
+    sign := ""
+    if strings.HasPrefix(integerPart, "-") {
+        sign = "-"
+        integerPart = integerPart[1:]
+    }
     decimalPart := parts[1] // "00"
 
     // Insert thousands separator '.' from right to left
@@ -54,7 +59,7 @@ func formatNumber(f *big.Float) string {
     intWithDots := reverseString(intBuilder.String())
 
     // Join with ',' as decimal separator
-    return intWithDots + "," + decimalPart
+    return sign + intWithDots + "," + decimalPart
 }
 
 func reverseString(s string) string {

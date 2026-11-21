@@ -125,6 +125,20 @@ func (s *Service) GetExpenseCategoryAggregates(
 	)
 }
 
+func (s *Service) GetIncomeCategoryAggregates(
+	ctx context.Context,
+	startDate time.Time,
+	endDate time.Time,
+) ([]CategoryAggregate, error) {
+
+	return s.Repository.GetCategoryAggregatesByType(
+		ctx,
+		startDate,
+		endDate,
+		"Income",
+	)
+}
+
 func (s *Service) CreateTransaction(ctx context.Context, t CreateTransactionDTO) (Transaction, error) {
 
 	// Begin SQL transaction WITH context

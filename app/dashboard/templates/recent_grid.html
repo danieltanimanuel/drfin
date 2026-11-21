@@ -1,0 +1,16 @@
+{{if .}}
+<ul class="recent-list">
+  {{range .}}
+    <li class="recent-item">
+      <span class="pill pill-{{.Class}}">{{.Txn.Type.Name}}</span>
+      <div class="recent-main">
+        <span class="recent-desc">{{with .Txn.Description}}{{.}}{{else}}<span class="muted">No description</span>{{end}}</span>
+        <span class="recent-meta">{{if .ShowCategory}}{{.Txn.Category.Name}} · {{end}}{{.Txn.Account.Name}}{{if .ShowDest}} → {{.Txn.AccountDest.Name}}{{end}} · {{formatDate .Txn.TradeDate}}</span>
+      </div>
+      <span class="recent-amount amt-{{.Class}}">{{.Sign}}Rp. {{formatNumber .Amount}}</span>
+    </li>
+  {{end}}
+</ul>
+{{else}}
+  <p class="muted">No transactions yet.</p>
+{{end}}

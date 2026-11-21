@@ -1,0 +1,30 @@
+<div class="metric-grid">
+  <div class="metric">
+    <span class="metric-label">Income · {{.MonthLabel}}</span>
+    <span class="metric-value pos">Rp. {{formatNumber .Income}}</span>
+  </div>
+  <div class="metric">
+    <span class="metric-label">Expenses · {{.MonthLabel}}</span>
+    <span class="metric-value neg">Rp. {{formatNumber .Expense}}</span>
+  </div>
+  <div class="metric">
+    <span class="metric-label">Net cash flow</span>
+    <span class="metric-value">Rp. {{formatNumber .Net}}</span>
+    <span class="metric-note">Income minus expenses. Transfers and adjustments excluded.</span>
+  </div>
+</div>
+
+<div class="balance-grid">
+  {{range .Blocks}}
+    <div class="balance-block">
+      <span class="metric-label">{{.Title}}</span>
+      <span class="metric-value">Rp. {{formatNumber .Total}}</span>
+      <span class="metric-note">{{.Hint}}</span>
+      <ul class="balance-groups">
+        {{range .Groups}}
+          <li><span>{{.Name}}</span><span>Rp. {{formatNumber .Total}}</span></li>
+        {{end}}
+      </ul>
+    </div>
+  {{end}}
+</div>

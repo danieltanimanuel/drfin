@@ -3,6 +3,7 @@
 Status is based on source code and SQL currently present in the public `main` branch when this snapshot was prepared. “Implemented” means code paths exist; it does not mean they are production-ready or fully tested.
 
 Related (read only when relevant):
+- `docs/DASHBOARD.md` — dashboard fragments, calculation rules, and account-group semantics.
 - `docs/RISKS.md` — known correctness and reliability risks.
 - `docs/todo/foreign-currency-cc.md` — open design for foreign-currency credit-card imports.
 
@@ -14,8 +15,8 @@ Related (read only when relevant):
 | Account groups | Create, list, read, update, delete | Standard CRUD handlers/service/repository |
 | Categories | Create, list, read, update, delete | Standard CRUD handlers/service/repository |
 | Transaction types | Create, list, read, update, delete | Standard CRUD handlers/service/repository |
-| Transactions | List, create, update; delete is exposed through dashboard handler | Transaction service also groups daily totals and computes expense category aggregates |
-| Dashboard | Dashboard page, account grid, transaction grid, expense category summary, create/edit transaction views | Server-rendered templates |
+| Transactions | List, create, update; delete is exposed through dashboard handler | Transaction service also groups daily totals and computes expense and income category aggregates |
+| Dashboard | Overview cards (month income, expenses, net cash flow, balance blocks), account cards grouped by account group with adjust-balance and available credit, 6-month income vs expenses bars, expense breakdown with percentages and date filter, recent transactions, full transaction grid, create/edit/cancel transaction views, add-account modal | Server-rendered fragments loaded by `dashboard.html`. See `docs/DASHBOARD.md` |
 | Gmail OAuth | Gmail read-only scope and local token/client-secret file loading | Single local credential path; not a multi-account setup |
 | Gmail sync | `POST /scan-email`; subject/date-based search; message sorting; checkpoint; processed-message records | Sync is initiated by an HTTP request |
 | Gmail date parsing | `ParseDate` in `app/gmail/parse.go` maps Indonesian month abbreviations (`Agt`/`Agu`, `Okt`, `Des`, `Mei`) to English before `time.Parse` | Covered by `app/gmail/parse_test.go`. Full month names are not handled |

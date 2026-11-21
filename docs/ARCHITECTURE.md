@@ -61,5 +61,6 @@ drfin is currently a single Go HTTP application. `main.go` opens the log file, c
 - `api.go` contains request-ID middleware, but it stores the value under a string context key and logs with the standard logger. Avoid changing this incidentally.
 - The renderer parses templates on each render; do not introduce caching or a template framework as part of unrelated work.
 - There is currently no evidence in the inspected tree of a frontend framework or a separate frontend build pipeline.
+- Dashboard fragments, routes, and calculation rules are in `docs/DASHBOARD.md`. Dashboard-only view models and builders live in `app/dashboard/overview_view.go`; keep money arithmetic there in `big.Rat`.
 - Dashboard grids (`accounts_grid.html`, etc.) are loaded with `innerHTML`, so `<script>` tags inside them never run and inline `onclick`/`onsubmit` handlers can't see functions defined there. Put all JavaScript in `dashboard.html` and use document-level event delegation (as for edit/delete and the account forms).
-- The adjust-balance route (`POST /accounts/{id}/adjust-balance`) is registered by the `transactions` handler, because `transactions` imports `accounts` and the adjustment writes a transaction row. `accounts` must not import `transactions`.
+- The adjust-balance route (`POST /accounts/{id}/adjust-balance`) is registered by the `transactions` handler, because `transactions` imports `accounts` and the adjustment writes a transaction row. `accounts` must not import `transactions`.    

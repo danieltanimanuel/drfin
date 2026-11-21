@@ -51,6 +51,10 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
 	})
 	router.HandleFunc("/dashboard", h.Dashboard)
 	router.HandleFunc("/dashboard/accounts", h.AccountsGrid)
+	router.HandleFunc("/dashboard/accounts/new", h.AccountCreateForm).Methods("GET")
+	router.HandleFunc("/dashboard/overview", h.OverviewGrid)
+	router.HandleFunc("/dashboard/cashflow", h.CashflowGrid)
+	router.HandleFunc("/dashboard/recent", h.RecentGrid)
 	router.HandleFunc("/dashboard/pie", h.PieGrid)
 	router.HandleFunc("/dashboard/categories", h.GetExpenseCategoryAggregates)
 	router.HandleFunc("/dashboard/transactions", h.TransactionsGrid)
@@ -87,7 +91,7 @@ func (h *Handler) AccountsGrid(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.renderer.Render(w, "dashboard/templates/", "accounts_grid.html", accountsInq)
+	err = h.renderer.Render(w, "dashboard/templates/", "accounts_grid.html", buildAccountSections(accountsInq))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -309,15 +313,7 @@ func (h *Handler) GetExpenseCategoryAggregates(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	data := struct {
-		CurrentMonthStart string
-		CurrentMonthEnd   string
-		Items             interface{}
-	}{
-		CurrentMonthStart: from.Format("2006-01-02"),
-		CurrentMonthEnd:   to.Format("2006-01-02"),
-		Items:             expenseTotals,
-	}
+	data := buildCategoryBreakdown(from, to, expenseTotals)
 
 	err = h.renderer.Render(
 		w,
@@ -392,4 +388,4 @@ func (h *Handler) CancelTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-}
+}
