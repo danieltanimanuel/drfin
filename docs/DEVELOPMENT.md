@@ -49,6 +49,6 @@ The existing code reads OAuth files from fixed paths. For local development, kee
 2. Inspect only relevant source files and their callers/tests.
 3. For complex or financial changes, write a plan before editing.
 4. Implement the smallest coherent change.
-5. Add focused tests, especially for amount parsing, date parsing, transaction types, transfer balance effects, duplicate Gmail messages, and failure/retry behavior.
+5. Test files are paused (see `CLAUDE.md` → Testing); do not add them for now. Note untested behavior instead.
 6. Run tests and vet; report anything not run.
 7. Review `git diff` and ensure no secrets or unrelated changes are included.

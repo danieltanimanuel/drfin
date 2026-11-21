@@ -11,6 +11,7 @@ A personal finance web application for tracking accounts and transactions, with 
 - Trigger Gmail synchronization through `POST /scan-email`.
 - Parse selected BCA, blu, and BCA credit-card notification formats.
 - Post BCA QRIS payments to `CC BCA` or `Tahapan Gold` based on the email's `Source of Fund` field (empty falls back to `Tahapan Gold`).
+- Import BCA MyBCA pocket transfers as `Transfer` transactions: `Tahapan Gold` → pocket, pocket → pocket, and pocket → `Tahapan Gold`. Pocket accounts must exist as `MyBCAPocket <pocket name>` (for example `MyBCAPocket Mam`).
 - Record processed Gmail message IDs and failed processing attempts.
 - Create accounts from the dashboard and adjust an account's balance (recorded as an `Adjustment` transaction).
 
@@ -110,7 +111,7 @@ go test ./app/gmail/ -v
 | `app/accounts` | `money_test.go` | `NormalizeAmount` (plain decimals, at most 2 decimals, no float conversion) and `validateCreateAccount` (name, group, initial balance, credit limit) |
 | `app/gmail` | `bca_test.go` | `accountFromSourceOfFund`: `BCA KKI` → `CC BCA`, `TAHAPAN - 0840` → `Tahapan Gold`, empty/whitespace fallback to `Tahapan Gold`, and unrecognized values rejected |
 
-Coverage is minimal. Only Gmail date parsing, the credit-card currency skip check, and the BCA QRIS source-of-fund account mapping are tested. Email extraction, bank parsers, amount parsing, transaction logic, balance updates and the `syncMail` skip handling have no tests yet, so add focused tests when changing them. The SQL paths for account creation and balance adjustment have no tests (no database test setup exists)
+Coverage is minimal. Only Gmail date parsing, the credit-card currency skip check, and the BCA QRIS source-of-fund account mapping are tested. Email extraction, bank parsers, amount parsing, transaction logic, balance updates and the `syncMail` skip handling have no tests yet, so add focused tests when changing them. The SQL paths for account creation and balance adjustment have no tests (no database test setup exists). The BCA pocket mapping (`buildPocketTransferDTO`) is also untested.
 
 ### Log output
 

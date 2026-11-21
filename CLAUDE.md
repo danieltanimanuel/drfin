@@ -22,7 +22,7 @@ drfin is a personal finance tracker built with Go. It tracks accounts and transa
 - Avoid floating-point conversions. Do not assume `math/big.Float` is suitable for monetary arithmetic.
 
 ## Testing
-- Add or update focused tests for behavior changes.
+- Do not create, edit or hand over test files (`*_test.go`) for now. This pause overrides any "add tests" guidance in this file or in `docs/`. Say which new behavior is untested instead.
 - Never claim tests passed unless they were executed successfully.
 - Run focused tests first, followed by `go test ./...` and `go vet ./...` when feasible.
 - Report executed commands, results, and unverified behavior.
@@ -53,6 +53,6 @@ Read these only when relevant to the task:
 A change is complete when it:
 - Implements only the requested scope.
 - Follows existing architecture and patterns.
-- Includes appropriate tests where practical.
+- Includes no new test files while the test pause in "Testing" is active; lists new untested behavior under remaining risks.
 - Has no unrelated modifications.
 - Reports changed files, executed tests, and remaining risks or assumptions.

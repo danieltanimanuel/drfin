@@ -110,6 +110,13 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 			Source:      "Email",
 		}
 		return s.saveTransaction(ctx, dto)
+
+	case "Pocket Transaction":
+		dto, err := buildPocketTransferDTO(mapData, tradeDate)
+		if err != nil {
+			return err
+		}
+		return s.saveTransaction(ctx, dto)
 	}
 	return nil
 }
