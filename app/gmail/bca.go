@@ -4,7 +4,25 @@ import (
 	"context"
 	"drfin/app/transactions"
 	"fmt"
+	"strings"
 )
+
+// accountFromSourceOfFund maps the BCA "Source of Fund" field to an owned account name.
+// A missing (empty) value falls back to "Tahapan Gold" to preserve the previous behavior.
+// A non-empty value that matches no known pattern returns false so the caller can fail
+// instead of posting to the wrong account.
+func accountFromSourceOfFund(sourceOfFund string) (string, bool) {
+	sourceOfFund = strings.TrimSpace(sourceOfFund)
+	switch {
+	case sourceOfFund == "":
+		return "Tahapan Gold", true
+	case strings.Contains(sourceOfFund, "BCA KKI"):
+		return "CC BCA", true
+	case strings.Contains(sourceOfFund, "TAHAPAN - 0840"):
+		return "Tahapan Gold", true
+	}
+	return "", false
+}
 
 func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedData) error {
 	mapData := toMap(data.DetailTransaction)
@@ -42,11 +60,15 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 		if !ok {
 			return fmt.Errorf("%f invalid number format", amount)
 		}
+		account, ok := accountFromSourceOfFund(mapData["Source of Fund"])
+		if !ok {
+			return fmt.Errorf("unrecognized source of fund for QRIS payment")
+		}
 		dto := &transactions.CreateTransactionDTO{
 			TradeDate:   tradeDate,
 			Type:        "Expense",
 			Category:    "Unknown",
-			Account:     "Tahapan Gold",
+			Account:     account,
 			Amount:      amount,
 			Description: mapData["Payment to"],
 			Status:      "Waiting",

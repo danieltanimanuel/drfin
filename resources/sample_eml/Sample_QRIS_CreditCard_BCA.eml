@@ -1,0 +1,469 @@
+Delivered-To: danieltanimanuel@gmail.com
+Received: by 2002:a05:693c:400e:b0:381:88c4:bc48 with SMTP id 14csp92943dyr;
+        Fri, 20 Nov 2026 18:55:22 -0800 (PST)
+X-Received: by 2002:a05:690c:2d87:b0:8b4:dba5:f0ff with SMTP id 00721157ae682-8b52050f7f9mr26059837b3.44.1795229721877;
+        Fri, 20 Nov 2026 18:55:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795229721; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U4tAwQ2lmGRJ3tNVrSM99qHH1f6zxOXuVYiPTW1Da+ha/VNXiNaaxamgEpGIDMZ9ih
+         iQokIltmq+TxXanFJbBaM1iEgkTH/qgZZlkIR6mBDcPWIm0dWzkMTiJ9UiKmqyPs6tLX
+         AlJxWQe23FehCZn3CA4XPcz36m3clvRgVkxNTReZoJKy2KAtOVIrvbljG5Kyc7T8XBtz
+         bygHJsxl27gL3lE9cHjuFpM5EeloilwRPWWSYQUzb7XorXnu58/hZ9oaJpibZO/TFw82
+         dCAL84S8RP4TkMhQONE4SRNIRETi3GP4cR/sEK7Wy2OavfTir2lar533vROiOeiOKT63
+         MsqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=dkim-signature:mime-version:subject:message-id:to:from:date;
+        bh=IS4Jc90GC2gDE1WQziKbxx8IyW+xBVsJ3ZmwY4GuTJE=;
+        fh=sXSRMYmkslB/brq9WNJc1EcOk2E0EPVf+k2YmGZKEyM=;
+        b=DpHbawlNzpkp/Af3fa7CeR/wchxEH1YujSzMaOs499ma7xcHbblQWd0OKsrpDDgTaW
+         pGKYG6uuahuIZSwSwxWWTmCBmFYxzMbgilSwD9CI4AlOSjbJsNnn2X0q0jK1WwtStaDm
+         ZIl27VBBf4g5XPt2dDrjYWlZNCEBQTBX9tPxFDt+49jkHu/CZuBUc2B100EIOMP9hscg
+         Jq87qHU33bTXGPxLHdlMtLB13l2JyyTmpa8PKXMir0dSe3KqlMtnfpXy2Dzh//HIqtAu
+         osPY3cebJPzhWSg8GgnqWsC8XIWkEVvyFz8sYv4HfPaNn+HI9JRZO1BOzR5pZVq5BQ12
+         nxpw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@bca.co.id header.s=trans6 header.b=O8SgiVhY;
+       spf=pass (google.com: domain of bca@bca.co.id designates 119.2.69.140 as permitted sender) smtp.mailfrom=bca@bca.co.id;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=bca.co.id
+Return-Path: <bca@bca.co.id>
+Received: from smtp04.klikbca.com (mail-dc42-s1.bca.co.id. [119.2.69.140])
+        by mx.google.com with ESMTPS id 00721157ae682-8b52039cf98si18481057b3.166.2026.11.20.18.55.20
+        for <DANIELTANIMANUEL@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 18:55:21 -0800 (PST)
+Received-SPF: pass (google.com: domain of bca@bca.co.id designates 119.2.69.140 as permitted sender) client-ip=119.2.69.140;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@bca.co.id header.s=trans6 header.b=O8SgiVhY;
+       spf=pass (google.com: domain of bca@bca.co.id designates 119.2.69.140 as permitted sender) smtp.mailfrom=bca@bca.co.id;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=bca.co.id
+Date: Sat, 21 Nov 2026 09:55:18 +0700 (WIB)
+From: BCA <bca@bca.co.id>
+To: DANIELTANIMANUEL@GMAIL.COM
+Message-ID: <616128409.3685387.1795229718762@737f8a2e-5211-4304-70d5-07c5>
+Subject: Internet Transaction Journal
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3685382_507413551.1795229718762"
+X-FEAS-BEC-Info: WlpIGw0aAQkEARIJHAEHBlJSCRoLAAEeDUhZUEhYSFhIWUhZXkguLUVaIy48WlpcWFhYWFhQSFlbSAoLCSgKCwlGCwdGAQxIWUhaXUg7KTohIyklKikmL1hdWFAoDwUJ
+ AQRGCwcFSFhIWkhZWkhZWEZZXkZZWFFGXlFIUEhYSFhIWUhYSFhIWEhaXkgsKSYhLSQ8KSYhJSkmPS0kKA8FCQEERgsHBUhY
+X-FEAS-Client-IP: 10.16.109.69
+X-FE-Policy-ID: 10:8:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=bca.co.id; s=trans6; c=relaxed/relaxed;
+ h=date:from:to:message-id:subject:mime-version:content-type;
+ bh=IS4Jc90GC2gDE1WQziKbxx8IyW+xBVsJ3ZmwY4GuTJE=;
+ b=O8SgiVhY044zFMCkNgMga2qrCqy0pZ8UKFPcpffaq4ve5lawzyBIvL7qv4+jBccuoJVFvIohN+MZ
+	ES+GU3LPtK4EvUCWR7l4G1PS9JcSo9wLgjQiHwiLBtDuqQzE7Hq80lDgTn7qg4LiC0SVV7nkqmeV
+	HlDp0WYlOtu6dJoH6v6vJEyWq7U+ZIz54Q2fe4ykwIBTFffrnV8ZXg/QllUpfUu6HI/KmAN7hmPa
+	bOWJmbAPLcj550t+mV16LrOAdnrbMBP/+mhZJUBJFGDc8iUK0O8ziZLQ4KiX4UsLy+WoGKnQSVlR
+	vtKYxTfRTNOU1rUMgPnnPMje/hIKrxbHmyTIYA==
+
+------=_Part_3685382_507413551.1795229718762
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+ <head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="telephone=no" name="format-detection">
+    <!-- <![endif]-->
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="style_myBca.css">
+</head>
+
+<body style="width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+  <div class="es-wrapper-color" style="background-color:#F6F6F6"> 
+   <!--[if gte mso 9]>
+			<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+				<v:fill type="tile" color="#f6f6f6"></v:fill>
+			</v:background>
+		<![endif]--> 
+   <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+     <tr style="border-collapse:collapse"> 
+      <td valign="top" style="padding:0;Margin:0"> 
+       <table class="es-header" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+         <tr style="border-collapse:collapse"> 
+          <td align="center" style="padding:0;Margin:0"> 
+           <table class="es-header-body" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="left" bgcolor="#ffffff" style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-color:#FFFFFF"> 
+               <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                   <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" href="https://bca.id/2xpv2w0" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;text-decoration:underline;color:#1376C8"><img src="https://ahxnz.stripocdn.email/content/guids/CABINET_8086b088bd3b6f0c551477af70a63812/images/29931600764857717.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="90"></a></td>
+                     </tr>
+                   </table></td> 
+                 </tr> 
+               </table></td> 
+             </tr>
+           </table></td> 
+         </tr> 
+       </table>
+	  </td>
+	 </tr>
+	 
+     <tr style="border-collapse:collapse"> 
+      <td valign="top" style="padding:0;Margin:0"> 
+       <table class="es-header" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+         <tr style="border-collapse:collapse"> 
+          <td align="center" style="padding:0;Margin:0"> 
+           <table class="es-header-body" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="left" bgcolor="#ffffff" style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-color:#FFFFFF"> 
+               <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+
+				 <br>					 
+				 <tr>
+				  <div align="left" style="Margin:0;font-size:14px;line-height:18px;">
+					<div class="wrap">
+													Hello DANIEL IMANUEL SUTANTO,<br/>
+							You just made a transaction through myBCA.<br/>
+							Here are the details of your transaction :
+					</div>
+					<div class="table-box">
+						<table>	
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Status</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">Successful</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Transaction Date</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">21 Nov 2026 09:55:17</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Transaction Type</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">QRIS Payment</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Payment to</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">NASI AYAM HAINAM 9 PAGI</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Merchant Location</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">TANGERANG, 15334, ID</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Acquirer</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">BCA</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Merchant PAN</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">9360001430046897523</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Terminal ID</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">A2IV3102</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Source of Fund</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">BCA KKI 5890 - **** - **** - **99</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Customer PAN</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">9360001420001602562</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Total Payment</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">IDR 139,000.00</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">RRN</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">442737002</td>
+							</tr>
+							<tr>
+									<td width="198" valign="top" style="Margin:0;font-size:14px;line-height:18px;">Reference No.</td>
+									<td width="2" valign="top" style="Margin:0;font-size:14px;line-height:18px;">: </td>
+									<td valign="top" style="Margin:0;font-size:14px;line-height:18px;">9527120261121095515025QRS1545322394</td>
+							</tr>
+						</table>
+					</div>
+					<div class="wrap">
+							Please save this email as your transaction reference.<br/>
+							If you do not recognize this transaction, immediately contact Halo BCA at 1500888.
+					</div>
+					<div>
+							<p>Best Regards,</p>
+							<p>PT Bank Central Asia Tbk</p>
+						
+					</div>
+					<br><hr style="border: 0.5px solid black;" />
+				
+         <tr style="border-collapse:collapse"> 
+          <td align="center" style="padding:0;Margin:0"> 
+           <table class="es-footer-body" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" background="https://ahxnz.stripocdn.email/content/guids/CABINET_b15eb0a961c2691933d8a7513218d78d/images/bgputih.jpg" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;background-repeat:no-repeat no-repeat;width:600px;background-image:url(https://ahxnz.stripocdn.email/content/guids/CABINET_b15eb0a961c2691933d8a7513218d78d/images/bgputih.jpg);background-position:left top">
+             <tr style="border-collapse:collapse">
+              <td align="left" style="padding:0;Margin:0;padding-top:5px;padding-left:20px;padding-right:20px">
+               <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                 <tr style="border-collapse:collapse">
+                  <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
+                   <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                            <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;line-height:21px;color:#333333;font-size:14px">This email is generated automatically. Please do not send a response to this email.<br><br>For inquiries and other banking information,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;line-height:21px;color:#333333;font-size:14px">please contact BCA</p></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr>
+             <tr class="es-mobile-hidden" style="border-collapse:collapse">
+              <td class="esdev-adapt-off" align="left" style="padding:0;Margin:0;padding-top:5px">
+               <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px">
+                 <tr style="border-collapse:collapse">
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:300px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img class="adapt-img" src="https://content.mybca.bca.co.id/mybca/email/footer/en/App%20haloBCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="40" width="145"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:280px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;padding-right:25px;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/Call%20haloBCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="159" height="40"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr>
+             <tr class="es-mobile-hidden" style="border-collapse:collapse">
+              <td class="esdev-adapt-off" align="left" style="padding:0;Margin:0;padding-top:5px">
+               <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px">
+                 <tr style="border-collapse:collapse">
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:300px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img class="adapt-img" src="https://content.mybca.bca.co.id/mybca/email/footer/en/Whatsapp%20BCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="40" width="145"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:280px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img class="adapt-img" src="https://content.mybca.bca.co.id/mybca/email/footer/en/Email%20BCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="159" height="40"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr><!--[if !mso]><!-- -->
+             <tr class="es-desk-hidden" style="display:none;float:left;overflow:hidden;width:0;max-height:0;line-height:0;mso-hide:all;border-collapse:collapse">
+              <td class="esdev-adapt-off" align="left" style="padding:0;Margin:0;padding-top:5px">
+               <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px">
+                 <tr style="border-collapse:collapse">
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:290px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/App%20haloBCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="127"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:290px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/Call%20haloBCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="139"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr><!--<![endif]--><!--[if !mso]><!-- -->
+             <tr class="es-desk-hidden" style="display:none;float:left;overflow:hidden;width:0;max-height:0;line-height:0;mso-hide:all;border-collapse:collapse">
+              <td class="esdev-adapt-off" align="left" style="padding:0;Margin:0;padding-top:5px">
+               <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px">
+                 <tr style="border-collapse:collapse">
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:290px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="right" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/Whatsapp%20BCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="127"></a></td>
+                        </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                     <tr style="border-collapse:collapse">
+                      <td align="left" style="padding:0;Margin:0;width:290px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/Email%20BCA.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="139"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr><!--<![endif]-->
+             <tr class="es-mobile-hidden" style="border-collapse:collapse">
+              <td align="left" style="Margin:0;padding-bottom:10px;padding-top:15px;padding-right:20px;padding-left:35px"><!--[if mso]><table style="width:545px" cellpadding="0" cellspacing="0"><tr><td style="width:128px" valign="top"><![endif]-->
+               <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                 <tr style="border-collapse:collapse">
+                  <td class="es-m-p0r es-m-p20b" align="center" style="padding:0;Margin:0;width:108px">
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                            <td align="center" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/appstore.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="105"></a></td>
+                     </tr>
+                   </table></td>
+                  <td class="es-hidden" style="padding:0;Margin:0;width:20px"></td>
+                 </tr>
+               </table><!--[if mso]></td><td style="width:222px" valign="top"><![endif]-->
+               <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                 <tr style="border-collapse:collapse">
+                  <td class="es-m-p20b" align="center" style="padding:0;Margin:0;width:222px">
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                            <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/googleplay.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="35" width="117"></a></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table><!--[if mso]></td><td style="width:20px"></td><td style="width:175px" valign="top"><![endif]-->
+               <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                 <tr style="border-collapse:collapse">
+                  <td align="center" style="padding:0;Margin:0;width:175px">
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                      <td align="right" style="padding:0;Margin:0;padding-top:5px;font-size:0px">
+                       <table class="es-table-not-adapt es-social" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                          <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Facebook" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" width="32" height="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                          <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Twitter" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png" alt="Tw" width="32" height="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                          <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Instagram" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" width="32" height="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                          <td valign="top" align="center" style="padding:0;Margin:0"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Youtube" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/youtube-logo-black.png" alt="Yt" width="32" height="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table><!--[if mso]></td></tr></table><![endif]--></td>
+             </tr><!--[if !mso]><!-- -->
+             <tr class="es-desk-hidden" style="display:none;float:left;overflow:hidden;width:0;max-height:0;line-height:0;mso-hide:all;border-collapse:collapse">
+              <td class="esdev-adapt-off" align="left" style="Margin:0;padding-bottom:10px;padding-top:15px;padding-right:20px;padding-left:35px">
+               <table cellpadding="0" cellspacing="0" class="esdev-mso-table" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:545px">
+                 <tr style="border-collapse:collapse">
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td class="es-m-p0r" align="center" style="padding:0;Margin:0;width:73px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/appstore.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="72" height="24"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                     <tr style="border-collapse:collapse">
+                      <td align="center" style="padding:0;Margin:0;width:127px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                                <td align="left" style="padding:0;Margin:0;font-size:0px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img src="https://content.mybca.bca.co.id/mybca/email/footer/en/googleplay.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" height="24" width="80"></a></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                  <td style="padding:0;Margin:0;width:20px"></td>
+                  <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                   <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                     <tr style="border-collapse:collapse">
+                      <td align="center" style="padding:0;Margin:0;width:305px">
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                         <tr style="border-collapse:collapse">
+                          <td align="right" style="padding:0;Margin:0;padding-top:5px;font-size:0px">
+                           <table class="es-table-not-adapt es-social" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                             <tr style="border-collapse:collapse">
+                              <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Facebook" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" width="24" height="24" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                              <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Twitter" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png" alt="Tw" width="24" height="24" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                              <td valign="top" align="center" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Instagram" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" width="24" height="24" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                              <td valign="top" align="center" style="padding:0;Margin:0"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size:12px"><img title="Youtube" src="https://ahxnz.stripocdn.email/content/assets/img/social-icons/logo-black/youtube-logo-black.png" alt="Yt" width="24" height="24" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                             </tr>
+                           </table></td>
+                         </tr>
+                       </table></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr><!--<![endif]-->
+             <tr style="border-collapse:collapse">
+              <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:40px;padding-right:40px">
+               <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                 <tr style="border-collapse:collapse">
+                  <td align="center" valign="top" style="padding:0;Margin:0;width:520px">
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                            <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px"><img class="adapt-img" src="https://content.mybca.bca.co.id/mybca/email/footer/en/Text%20footer%20Bahasa%20Inggris.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="450" height="10"></td>
+                     </tr>
+                   </table></td>
+                 </tr>
+               </table></td>
+             </tr>
+           </table></td> 
+         </tr> 				
+					
+				</div>
+				</tr>
+			   </table></td> 
+			 </tr> 
+		   </table></td> 
+		 </tr> 
+	   </table>
+	   </td>
+	   </tr>
+
+	  </table>
+	  </div>
+</body>
+
+</html>
+------=_Part_3685382_507413551.1795229718762--
