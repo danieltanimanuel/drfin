@@ -7,6 +7,7 @@ import (
 	"drfin/app/transactions"
 	"drfin/app/transactiontypes"
 	"encoding/json"
+	"errors"
 	"html/template"
 	"log"
 	"net/http"
@@ -60,9 +61,9 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
 	router.HandleFunc("/dashboard/transactions/{id}/edit", h.EditTransactionForm)
 	router.HandleFunc("/dashboard/transactions/{id}", h.UpdateTransactionCategory).Methods("PUT")
 	router.HandleFunc(
-		"/dashboard/transactions/{id}",
-		h.DeleteTransaction,
-	).Methods("DELETE")
+		"/dashboard/transactions/{id}/cancel",
+		h.CancelTransaction,
+	).Methods("POST")
 }
 
 // ----------------------
@@ -362,7 +363,7 @@ func (h *Handler) CreateTransactionForm(
 	}
 }
 
-func (h *Handler) DeleteTransaction(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) CancelTransaction(w http.ResponseWriter, r *http.Request) {
 
 	idStr := mux.Vars(r)["id"]
 	id, err := strconv.Atoi(idStr)
@@ -374,9 +375,19 @@ func (h *Handler) DeleteTransaction(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
 
-	err = h.transactionService.DeleteTransaction(ctx, id)
+	err = h.transactionService.CancelTransaction(ctx, id)
 	if err != nil {
-		http.Error(w, "failed to delete", http.StatusInternalServerError)
+		switch {
+		case errors.Is(err, transactions.ErrTransactionNotFound):
+			http.Error(w, "transaction not found", http.StatusNotFound)
+		case errors.Is(err, transactions.ErrAlreadyCancelled):
+			http.Error(w, "transaction is already cancelled", http.StatusConflict)
+		case errors.Is(err, transactions.ErrCancelNotSupported):
+			http.Error(w, "cancel is not supported for this transaction type", http.StatusUnprocessableEntity)
+		default:
+			log.Printf("Error cancelling transaction %d: %v", id, err)
+			http.Error(w, "failed to cancel transaction", http.StatusInternalServerError)
+		}
 		return
 	}
 

@@ -23,12 +23,12 @@
             <th>Description</th>
             <th class="amount-col">Amount</th>
             <th>Edit</th>
-            <th>Delete</th>
+            <th>Cancel</th>
           </tr>
         </thead>
         <tbody>
           {{range .Transactions}}
-            <tr id="txn-{{.ID}}">
+            <tr id="txn-{{.ID}}"{{if eq .Status "Cancelled"}} class="txn-cancelled"{{end}}>
               <td class="text-left">
                 <span class="type-badge
                   {{if eq .Type.Name "Expense"}}type-expense
@@ -40,6 +40,7 @@
                   {{end}}">
                   {{.Type.Name}}
                 </span>
+                {{if eq .Status "Cancelled"}}<span class="status-badge status-cancelled">Cancelled</span>{{end}}
               </td>
               <td class="text-left">
                 {{if eq .Type.Name "Transfer"}}
@@ -64,22 +65,26 @@
               </td>
 
               <td>
+                {{if ne .Status "Cancelled"}}
                 <button
                   type="button"
                   class="edit-btn"
                   data-id="{{.ID}}">
                   Edit
                 </button>
+                {{end}}
               </td>
               <td>
+                {{if ne .Status "Cancelled"}}
                 <button
                   type="button"
-                  class="delete-btn"
+                  class="delete-btn cancel-transaction-btn"
                   data-id="{{ .ID }}"
-                  title="Delete"
+                  title="Cancel transaction"
                 >
                   🗑
                 </button>
+                {{end}}
               </td>
             </tr>
           {{end}}

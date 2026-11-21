@@ -254,29 +254,35 @@
       document.getElementById("categories-grid").innerHTML = html;
     }
 
+    // Cancel (soft delete): server reverses the balances and marks the row Cancelled.
     document.addEventListener("click", async function (e) {
 
-      if (e.target.classList.contains("delete-btn")) {
-
-        const id = e.target.dataset.id;
-
-        const confirmed = confirm(
-          "Delete this transaction?"
-        );
-
-        if (!confirmed) return;
-
-        const response = await fetch(`/dashboard/transactions/${id}`, {
-          method: "DELETE"
-        });
-
-        if (!response.ok) {
-          alert("Failed to delete");
-          return;
-        }
-
-        await reloadDashboardSections();
+      const btn = e.target.closest(".cancel-transaction-btn");
+      if (!btn) {
+        return;
       }
+
+      const confirmed = confirm(
+        "Cancel this transaction? Balances will be reversed. This can't be undone."
+      );
+
+      if (!confirmed) return;
+
+      btn.disabled = true;
+
+      const response = await fetch(
+        `/dashboard/transactions/${btn.dataset.id}/cancel`,
+        { method: "POST" }
+      );
+
+      if (!response.ok) {
+        const text = (await response.text()).trim();
+        alert(text || "Failed to cancel transaction");
+        await reloadDashboardSections();
+        return;
+      }
+
+      location.reload(); // balances changed: refreshes accounts grid and pie chart
     });
 
     document.addEventListener("click", async function (e) {

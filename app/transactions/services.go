@@ -60,13 +60,16 @@ func (s *Service) GetAllTransactions(ctx context.Context) ([]DailyTransactionsDT
 		if dailyMap[dayKey].ExpenseTotal == nil {
 			dailyMap[dayKey].ExpenseTotal = big.NewFloat(0)
 		}
-		switch tx.Type.Name {
-		case "Income":
-			dailyMap[dayKey].IncomeTotal =
-				new(big.Float).Add(dailyMap[dayKey].IncomeTotal, tx.Amount)
-		case "Expense":
-			dailyMap[dayKey].ExpenseTotal =
-				new(big.Float).Add(dailyMap[dayKey].ExpenseTotal, tx.Amount)
+		// Cancelled rows stay in the list but never count in the totals.
+		if tx.Status != StatusCancelled {
+			switch tx.Type.Name {
+			case "Income":
+				dailyMap[dayKey].IncomeTotal =
+					new(big.Float).Add(dailyMap[dayKey].IncomeTotal, tx.Amount)
+			case "Expense":
+				dailyMap[dayKey].ExpenseTotal =
+					new(big.Float).Add(dailyMap[dayKey].ExpenseTotal, tx.Amount)
+			}
 		}
 		dailyMap[dayKey].Transactions =
 			append(dailyMap[dayKey].Transactions, tx)
@@ -308,6 +311,17 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 		return Transaction{}, txErr
 	}
 
+	// Cancelled rows are read-only; cancelling goes through CancelTransaction only.
+	if oldTx.Status == StatusCancelled {
+		txErr = ErrTransactionCancelled
+		return Transaction{}, txErr
+	}
+	if dto.Status != nil &&
+		strings.EqualFold(strings.TrimSpace(*dto.Status), StatusCancelled) {
+		txErr = fmt.Errorf("use cancel to cancel a transaction")
+		return Transaction{}, txErr
+	}
+
 	// 2️⃣ Resolve DTO → DB DTO (labels → IDs)
 	dbDTO := UpdateTransactionDBDTO{}
 
@@ -453,13 +467,61 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 	return updatedTx, nil
 }
 
-func (s *Service) DeleteTransaction(ctx context.Context, id int) error {
-	err := s.Repository.DeleteTransaction(ctx, id)
+// CancelTransaction soft-deletes a transaction: it reverses the balance effect
+// and sets the status to Cancelled, all in one SQL transaction. A cancelled
+// transaction cannot be cancelled again, edited, or restored.
+func (s *Service) CancelTransaction(ctx context.Context, id int) error {
+	tx, err := s.Repository.db.BeginTx(ctx, nil)
 	if err != nil {
-		log.Printf("Error deleting transaction with ID %d: %v", id, err)
-		return fmt.Errorf("could not delete transaction with ID %d: %v", id, err)
+		return fmt.Errorf("failed to start transaction: %w", err)
+	}
+	defer tx.Rollback() // no-op after a successful Commit
+
+	// Lock the row first so a concurrent cancel/update waits and then sees the latest state.
+	t, err := s.Repository.GetTransactionForUpdateTx(ctx, tx, id)
+	if err != nil {
+		return err
+	}
+	if t.Status == StatusCancelled {
+		return ErrAlreadyCancelled
+	}
+
+	if err := s.reverseBalanceForCancel(tx, *t); err != nil {
+		return err
+	}
+	if err := s.Repository.MarkCancelledTx(ctx, tx, id); err != nil {
+		return err
+	}
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("failed to commit cancel: %w", err)
 	}
 	return nil
+}
+
+// reverseBalanceForCancel undoes the balance effect of t.
+// Expense, Income and Transfer reuse reverseBalance (unchanged, shared with update).
+// Adjustment is handled here only, because reverseBalance/applyBalance must not learn it.
+// Any other type is rejected without touching balances.
+func (s *Service) reverseBalanceForCancel(tx *sql.Tx, t Transaction) error {
+	switch t.TypeID {
+	case 1, 2, 3:
+		if t.TypeID == 3 && t.AccountDestID == nil {
+			return fmt.Errorf("transfer %d has no destination account", t.ID)
+		}
+		return s.reverseBalance(tx, t)
+	}
+
+	adjType, err := s.TransactionTypeRepo.GetTransactionTypeByName(adjustmentTypeName)
+	if err != nil {
+		return fmt.Errorf("could not look up adjustment type: %w", err)
+	}
+	if t.TypeID != adjType.ID {
+		return fmt.Errorf("%w: type id %d", ErrCancelNotSupported, t.TypeID)
+	}
+
+	// Adjustment amount is a signed delta (new - old) on the source account only.
+	// Subtracting it undoes it: +2,000 becomes -2,000 and -2,000 becomes +2,000.
+	return s.AccountRepo.SubstractAccountBalance(tx, t.AccountID, t.Amount)
 }
 
 func (s *Service) AdjustAccountBalance(ctx context.Context, accountID int, req AdjustBalanceRequest) (AdjustBalanceResult, error) {

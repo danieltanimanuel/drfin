@@ -1,8 +1,20 @@
 package transactions
 
 import (
+	"errors"
 	"math/big"
 	"time"
+)
+
+// StatusCancelled marks a transaction whose balance effect has been reversed.
+// A cancelled transaction is kept for audit and can never be changed or restored.
+const StatusCancelled = "Cancelled"
+
+var (
+	ErrTransactionNotFound  = errors.New("transaction not found")
+	ErrAlreadyCancelled     = errors.New("transaction is already cancelled")
+	ErrCancelNotSupported   = errors.New("cancel is not supported for this transaction type")
+	ErrTransactionCancelled = errors.New("cancelled transaction cannot be modified")
 )
 
 type Transaction struct {

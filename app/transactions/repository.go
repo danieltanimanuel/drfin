@@ -336,6 +336,7 @@ func (r *Repository) UpdateTransactionTx(
 			status          = COALESCE($9, status),
 			last_updated_at = NOW()
 		WHERE id = $10
+		  AND status <> 'Cancelled'
 		RETURNING *;
 	`
 
@@ -374,7 +375,7 @@ func (r *Repository) UpdateTransactionTx(
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return Transaction{}, fmt.Errorf("transaction not found")
+			return Transaction{}, fmt.Errorf("transaction not found or already cancelled")
 		}
 		log.Printf("update transaction failed by ID: %v", err)
 		return Transaction{}, fmt.Errorf("update transaction failed: %w", err)
@@ -392,23 +393,67 @@ func (r *Repository) UpdateTransactionTx(
 }
 
 //
-// DELETE
+// CANCEL (soft delete)
 //
 
-func (r *Repository) DeleteTransaction(
-	ctx context.Context, // ADD
+// GetTransactionForUpdateTx reads the fields needed to reverse a transaction
+// and locks the row until the SQL transaction ends.
+func (r *Repository) GetTransactionForUpdateTx(
+	ctx context.Context,
+	tx *sql.Tx,
+	id int,
+) (*Transaction, error) {
+
+	var t Transaction
+	var amountStr string
+
+	err := tx.QueryRowContext(ctx, queryGetTransactionForUpdate, id).Scan(
+		&t.ID,
+		&t.TypeID,
+		&t.AccountID,
+		&t.AccountDestID,
+		&amountStr,
+		&t.Status,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("%w: id %d", ErrTransactionNotFound, id)
+		}
+		log.Printf("Error locking transaction for cancel: %v", err)
+		return nil, fmt.Errorf("could not retrieve transaction: %w", err)
+	}
+
+	// 256-bit precision, same as the accounts repository.
+	amount, ok := new(big.Float).SetPrec(256).SetString(amountStr)
+	if !ok {
+		return nil, fmt.Errorf("invalid numeric value for amount: %s", amountStr)
+	}
+	t.Amount = amount
+
+	return &t, nil
+}
+
+// MarkCancelledTx sets the status to Cancelled. It fails if the row is
+// missing or already cancelled, so a balance can never be reversed twice.
+func (r *Repository) MarkCancelledTx(
+	ctx context.Context,
+	tx *sql.Tx,
 	id int,
 ) error {
 
-	_, err := r.db.ExecContext(ctx,
-		`DELETE FROM transactions WHERE id = $1`,
-		id,
-	)
+	res, err := tx.ExecContext(ctx, queryMarkTransactionCancelled, id)
 	if err != nil {
-		log.Printf("Error deleting transaction: %v", err)
-		return fmt.Errorf("could not delete transaction: %w", err)
+		log.Printf("Error cancelling transaction: %v", err)
+		return fmt.Errorf("could not cancel transaction: %w", err)
 	}
 
+	n, err := res.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("could not confirm cancel: %w", err)
+	}
+	if n != 1 {
+		return ErrAlreadyCancelled
+	}
 	return nil
 }
 
@@ -428,6 +473,7 @@ func (r *Repository) GetCategoryAggregatesByType(
 		JOIN transaction_types tt ON t.type_id = tt.id
 		WHERE t.trade_date BETWEEN $1 AND $2
 		  AND tt.name = $3
+		  AND t.status <> 'Cancelled'
 		GROUP BY c.name
 		ORDER BY total_amount DESC;
 	`

@@ -39,6 +39,7 @@ Read these only when relevant to the task:
 - `docs/todo/` — one file per unimplemented feature design. Read only the file for the task at hand.
 
 ## Token Efficiency
+
 - Never scan or read the entire repository unless explicitly requested.
 - Start with relevant entry points, targeted searches, and task-specific files.
 - Follow direct dependencies only as needed to understand the implementation.
@@ -47,7 +48,34 @@ Read these only when relevant to the task:
 - Keep command output targeted. Avoid dumping entire files, directory trees, or large logs.
 - Do not repeat established project context or generate unsolicited documentation and summaries.
 - Keep progress updates concise. Report findings, decisions, and blockers.
-- Docs layout: keep `CLAUDE.md` short. Put new topics in their own file under `docs/` (designs in `docs/todo/`) and add a one-line pointer here. Do not append large sections to existing docs.
+
+### File Output Efficiency
+
+Classify files by size:
+
+- **Small:** ≤150 lines.
+- **Medium:** 151–400 lines.
+- **Large:** 401–800 lines.
+- **Very large:** >800 lines.
+- Treat files exceeding 20 KB as large, regardless of line count.
+
+Output rules:
+
+- Small files: Full-file output is acceptable when necessary.
+- Medium files: Show only modified sections, with enough surrounding context to identify their location.
+- Large files: Show only changed lines or a minimal diff/patch. Never reproduce the entire file.
+- Very large files: Use minimal diffs or patches exclusively.
+- For unchanged sections, reference their function, heading, or location instead of reproducing their contents.
+- Never repeat an entire file just to demonstrate a small modification.
+- When editing files directly, make the changes in place and report only the affected files and a concise change summary.
+- If asked to provide code for manual application, provide only the updated lines or relevant code blocks unless the full file is explicitly requested.
+
+### Documentation Organization
+
+- Keep `CLAUDE.md` short.
+- Put new topics in their own file under `docs/` (designs in `docs/todo/`) and add a one-line pointer here.
+- Do not append large sections to existing docs.
+
 
 ## Definition of Done
 A change is complete when it:

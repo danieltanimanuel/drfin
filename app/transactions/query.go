@@ -56,4 +56,16 @@ const (
 
     queryInsertTransactionAdjustment = `INSERT INTO transactions (parent_id, trade_date, type_id, category_id, account_id, account_dest_id, amount, description, status, source, inserted_at, last_updated_at, confirmed_at)
 		VALUES (0, $1, $2, $3, $4, NULL, $5::numeric, $6, 'Confirmed', 'Manual', NOW(), NOW(), NOW()) RETURNING id`
+
+	// Cancel path: lock the row so concurrent cancel/update serialize.
+	queryGetTransactionForUpdate = `
+		SELECT id, type_id, account_id, account_dest_id, amount::text, status
+		FROM transactions
+		WHERE id = $1
+		FOR UPDATE`
+
+	queryMarkTransactionCancelled = `
+		UPDATE transactions
+		SET status = 'Cancelled', last_updated_at = NOW()
+		WHERE id = $1 AND status <> 'Cancelled'`
 )
