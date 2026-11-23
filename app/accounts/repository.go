@@ -35,13 +35,14 @@ func parseBigFloat(value interface{}) (*big.Float, error) {
 	return f, nil
 }
 
-func (r *Repository) GetAllAccounts() ([]AccountDTO, error) {
+func (r *Repository) GetAllAccounts(ownerID *int) ([]AccountDTO, error) {
 	rows, err := r.db.Query(`
 		SELECT a.id, a.name, a.balance, a.account_group_id, a.status, a.inserted_at, a.closed_at, a.credit_limit,
 				 ag.name
 		FROM accounts a
 		LEFT JOIN account_groups ag ON a.account_group_id = ag.id
-		ORDER BY id ASC`)
+		WHERE ($1::int IS NULL OR a.owner_id = $1)
+		ORDER BY id ASC`, ownerID)
 	if err != nil {
 		log.Printf("Error fetching accounts: %v", err)
 		return nil, fmt.Errorf("could not retrieve accounts: %v", err)
@@ -109,9 +110,9 @@ func (r *Repository) updateAccountBalance(tx *sql.Tx, query string, accountID in
 	return nil
 }
 
-func (r *Repository) GetAccountByName(name string) (*Account, error) {
+func (r *Repository) GetAccountByName(name string, ownerID int) (*Account, error) {
 	var c Account
-	err := r.db.QueryRow(`SELECT id, name FROM accounts WHERE name = $1`, name).
+	err := r.db.QueryRow(`SELECT id, name FROM accounts WHERE name = $1 AND owner_id = $2`, name, ownerID).
 		Scan(&c.ID, &c.Name)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -123,9 +124,9 @@ func (r *Repository) GetAccountByName(name string) (*Account, error) {
 	return &c, nil
 }
 
-func (r *Repository) GetAccountByAccountNumber(accountNumber string) (*AccountDTO, error) {
+func (r *Repository) GetAccountByAccountNumber(accountNumber string, ownerID int) (*AccountDTO, error) {
 	var account AccountDTO
-	err := r.db.QueryRow(`SELECT name, account_number FROM accounts WHERE account_number = $1`, accountNumber).
+	err := r.db.QueryRow(`SELECT name, account_number FROM accounts WHERE account_number = $1 AND owner_id = $2`, accountNumber, ownerID).
 		Scan(&account.Name, &account.AccountNumber)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -136,9 +137,23 @@ func (r *Repository) GetAccountByAccountNumber(accountNumber string) (*AccountDT
 	}
 	return &account, nil
 }
+
+func (r *Repository) GetOwnerID(accountID int) (int, error) {
+	var ownerID int
+	err := r.db.QueryRow(`SELECT owner_id FROM accounts WHERE id = $1`, accountID).Scan(&ownerID)
+	if err == sql.ErrNoRows {
+		return 0, fmt.Errorf("%w: id %d", ErrAccountNotFound, accountID)
+	}
+	if err != nil {
+		return 0, fmt.Errorf("could not read account owner: %w", err)
+	}
+	return ownerID, nil
+}
+
 func (r *Repository) CreateReceivableAccount(
     tx *sql.Tx,
     name string,
+	ownerID int,
 ) (*Account, error) {
 
     const loanAccountGroupID = 7
@@ -151,16 +166,19 @@ func (r *Repository) CreateReceivableAccount(
             balance,
             account_group_id,
             status,
-            inserted_at
+            inserted_at,
+			owner_id
         )
-        VALUES ($1, 0, $2, 'O', NOW())
+        VALUES ($1, 0, $2, 'O', NOW(), $3)
         RETURNING id, name
     `,
         name,
         loanAccountGroupID,
+		ownerID,
     ).Scan(
         &account.ID,
         &account.Name,
+		
     )
 
     if err != nil {
@@ -182,22 +200,22 @@ func (r *Repository) AccountGroupExists(tx *sql.Tx, id int) (bool, error) {
 	return exists, nil
 }
 
-func (r *Repository) AccountNameExists(tx *sql.Tx, name string) (bool, error) {
+func (r *Repository) AccountNameExists(tx *sql.Tx, name string, ownerID int) (bool, error) {
 	var exists bool
-	err := tx.QueryRow(`SELECT EXISTS (SELECT 1 FROM accounts WHERE LOWER(name) = LOWER($1))`, name).Scan(&exists)
+	err := tx.QueryRow(`SELECT EXISTS (SELECT 1 FROM accounts WHERE LOWER(name) = LOWER($1) AND owner_id = $2)`, name, ownerID).Scan(&exists)
 	if err != nil {
 		return false, fmt.Errorf("could not check account name: %w", err)
 	}
 	return exists, nil
 }
 
-func (r *Repository) CreateAccount(tx *sql.Tx, name string, groupID int, balance string, creditLimit *string) (*Account, error) {
+func (r *Repository) CreateAccount(tx *sql.Tx, name string, groupID int, balance string, creditLimit *string, ownerID int) (*Account, error) {
 	var account Account
 	err := tx.QueryRow(`
-		INSERT INTO accounts (name, balance, account_group_id, status, inserted_at, credit_limit)
-		VALUES ($1, $2::numeric, $3, 'O', NOW(), $4::numeric)
+		INSERT INTO accounts (name, balance, account_group_id, status, inserted_at, credit_limit, owner_id)
+		VALUES ($1, $2::numeric, $3, 'O', NOW(), $4::numeric, $5)
 		RETURNING id, name`,
-		name, balance, groupID, creditLimit,
+		name, balance, groupID, creditLimit, ownerID,
 	).Scan(&account.ID, &account.Name)
 	if err != nil {
 		return nil, fmt.Errorf("could not create account: %w", err)
@@ -230,3 +248,4 @@ func (r *Repository) SetAccountBalance(tx *sql.Tx, accountID int, balance string
 	}
 	return nil
 }
+

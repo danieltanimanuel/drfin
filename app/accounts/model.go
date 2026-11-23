@@ -41,4 +41,5 @@ type CreateAccountRequest struct {
 	AccountGroupID int    `json:"account_group_id"`
 	InitialBalance string `json:"initial_balance"` // optional, defaults to 0
 	CreditLimit    string `json:"credit_limit"`    // optional
+	OwnerID        int    `json:"owner_id"`
 }

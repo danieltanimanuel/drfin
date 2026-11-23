@@ -96,6 +96,26 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.transactions
     OWNER to postgres;
 
+-- Table: public.users  (multi-owner: moved here from initial_table_config.sql;
+-- it is the owner registry and accounts references it)
+
+-- DROP TABLE IF EXISTS public.users;
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+    email character varying(50) COLLATE pg_catalog."default",
+    name character varying(100) COLLATE pg_catalog."default", -- multi-owner
+    bank_holder_name character varying(100) COLLATE pg_catalog."default", -- multi-owner: name printed in blu emails
+    CONSTRAINT users_pkey PRIMARY KEY (id),
+    CONSTRAINT users_email_key UNIQUE (email) -- multi-owner
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
+
 -- Table: public.accounts
 
 -- DROP TABLE IF EXISTS public.accounts;
@@ -111,10 +131,15 @@ CREATE TABLE IF NOT EXISTS public.accounts
     closed_at timestamp without time zone,
     account_number character varying(20) COLLATE pg_catalog."default",
     credit_limit numeric(24,2),
+    owner_id integer NOT NULL, -- multi-owner (kept last: populate_table.sql inserts by position)
     CONSTRAINT accounts_pkey PRIMARY KEY (id),
-    CONSTRAINT accounts_name_key UNIQUE (name),
+    CONSTRAINT accounts_owner_name_key UNIQUE (owner_id, name), -- multi-owner (replaces accounts_name_key)
     CONSTRAINT accounts_account_group_id_fkey FOREIGN KEY (account_group_id)
         REFERENCES public.account_groups (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT accounts_owner_id_fkey FOREIGN KEY (owner_id) -- multi-owner
+        REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
@@ -124,7 +149,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.accounts
     OWNER to postgres;
 
--- Table: public.owned_account
+-- Table: public.owned_account  (unchanged; not referenced by the code)
 
 -- DROP TABLE IF EXISTS public.owned_account;
 

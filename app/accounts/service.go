@@ -16,17 +16,22 @@ func NewService(repository *Repository) *Service {
 	return &Service{repository: repository}
 }
 
-func (s *Service) GetAllAccounts() ([]AccountDTO, error) {
-	return s.repository.GetAllAccounts()
+func (s *Service) GetAllAccounts(ownerID *int) ([]AccountDTO, error) {
+	return s.repository.GetAllAccounts(ownerID)
 }
 
-func (s *Service) GetAccountByAccountNumber(accountNumber string) (*AccountDTO, error) {
-	return s.repository.GetAccountByAccountNumber(accountNumber)
+func (s *Service) GetAccountByAccountNumber(accountNumber string, ownerID int) (*AccountDTO, error) {
+	return s.repository.GetAccountByAccountNumber(accountNumber, ownerID)
+}
+
+func (s *Service) GetAccountOwnerID(accountID int) (int, error) {
+	return s.repository.GetOwnerID(accountID)
 }
 
 func (s *Service) CreateReceivable(
 	ctx context.Context,
 	name string,
+	ownerID int,
 ) (*Account, error) {
 
 	tx, err := s.repository.db.BeginTx(ctx, nil)
@@ -34,7 +39,7 @@ func (s *Service) CreateReceivable(
 		return nil, fmt.Errorf("failed to start transaction: %w", err)
 	}
 
-	account, err := s.repository.CreateReceivableAccount(tx, name)
+	account, err := s.repository.CreateReceivableAccount(tx, name, ownerID)
 	if err != nil {
 		if rollbackErr := tx.Rollback(); rollbackErr != nil {
 			log.Printf("rollback failed: %v", rollbackErr)
@@ -81,6 +86,9 @@ func validateCreateAccount(req CreateAccountRequest) (name, balance string, cred
 
 func (s *Service) CreateAccount(ctx context.Context, req CreateAccountRequest) (*Account, error) {
 	name, balance, creditLimit, err := validateCreateAccount(req)
+	if req.OwnerID <= 0 {
+		return nil, fmt.Errorf("%w: owner is required", ErrInvalidInput)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +107,7 @@ func (s *Service) CreateAccount(ctx context.Context, req CreateAccountRequest) (
 		return nil, fmt.Errorf("%w: account group %d does not exist", ErrInvalidInput, req.AccountGroupID)
 	}
 
-	taken, err := s.repository.AccountNameExists(tx, name)
+	taken, err := s.repository.AccountNameExists(tx, name, req.OwnerID)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +115,7 @@ func (s *Service) CreateAccount(ctx context.Context, req CreateAccountRequest) (
 		return nil, fmt.Errorf("%w: an account named %q already exists", ErrInvalidInput, name)
 	}
 
-	account, err := s.repository.CreateAccount(tx, name, req.AccountGroupID, balance, creditLimit)
+	account, err := s.repository.CreateAccount(tx, name, req.AccountGroupID, balance, creditLimit, req.OwnerID)
 	if err != nil {
 		return nil, err
 	}

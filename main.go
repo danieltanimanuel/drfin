@@ -9,9 +9,21 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+
+	"drfin/app/gmail"
+	"flag"
 )
 
 func main() {
+
+	authorize := flag.Int("authorize-owner", 0, "run the Gmail OAuth flow for this owner id and exit")
+	flag.Parse()
+	if *authorize > 0 {
+		if err := gmail.AuthorizeOwner(*authorize); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 
 	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {

@@ -14,15 +14,15 @@ func NewRepository(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }
 
-func (r *Repository) Exists(messageID string) (bool, error) {
+func (r *Repository) Exists(ownerID int, messageID string) (bool, error) {
 	var exists bool
 
 	err := r.db.QueryRow(
 		`SELECT EXISTS (
 			SELECT 1 FROM processed_gmail_messages
-			WHERE gmail_message_id = $1 AND status = 'success'
+			WHERE owner_id = $1 AND gmail_message_id = $2 AND status = 'success''
 		)`,
-		messageID,
+		ownerID, messageID,
 	).Scan(&exists)
 
 	if err != nil {
@@ -33,19 +33,16 @@ func (r *Repository) Exists(messageID string) (bool, error) {
 	return exists, nil
 }
 
-func (r *Repository) RecordSuccess(
-	messageID string,
-	internalDate int64,
-	transactionID int64,
-) error {
+func (r *Repository) RecordSuccess(ownerID int, messageID string, internalDate int64, transactionID int64) error {
 
 	_, err := r.db.Exec(
 		`INSERT INTO processed_gmail_messages
-			(gmail_message_id, internal_date, transaction_id, status)
-		VALUES ($1, $2, $3, 'success')
+			(owner_id, gmail_message_id, internal_date, transaction_id, status)
+		VALUES ($1, $2, $3, $4, 'success')
 		ON CONFLICT (gmail_message_id) DO UPDATE SET
 		status = 'success', error_message = NULL,
 		transaction_id = EXCLUDED.transaction_id, processed_at = NOW()`,
+		ownerID,
 		messageID,
 		internalDate,
 		transactionID,
@@ -59,21 +56,18 @@ func (r *Repository) RecordSuccess(
 	return nil
 }
 
-func (r *Repository) RecordFailure(
-	messageID string,
-	internalDate int64,
-	errMsg string,
-) error {
+func (r *Repository) RecordFailure(ownerID int, messageID string, internalDate int64, errMsg string) error {
 
 	_, err := r.db.Exec(
 		`INSERT INTO processed_gmail_messages
-			(gmail_message_id, internal_date, status, error_message)
-		VALUES ($1, $2, 'failed', $3)
-		ON CONFLICT (gmail_message_id)
+			(owner_id, gmail_message_id, internal_date, status, error_message)
+		VALUES ($1, $2, $3, 'failed', $4)
+		ON CONFLICT (owner_id, gmail_message_id)
 		DO UPDATE SET
 			status = 'failed',
 			error_message = EXCLUDED.error_message,
 			processed_at = NOW()`,
+		ownerID,
 		messageID,
 		internalDate,
 		errMsg,

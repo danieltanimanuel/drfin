@@ -294,3 +294,51 @@ body {
   .recent-item .pill { grid-column: 1 / -1; }
   .modal { min-width: 0; width: calc(100vw - 2rem); }
 }
+
+/* ---- Owner sidebar ---- */
+.app-shell { display: flex; min-height: 100vh; }
+.app-shell > .dash { flex: 1; min-width: 0; }
+
+.sidebar {
+  flex: 0 0 200px;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+}
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+.sidebar-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+.sidebar-link {
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #374151;
+  text-decoration: none;
+}
+.sidebar-link:hover { background: #f3f4f6; }
+.sidebar-link.is-active { background: #eef2ff; color: #3730a3; font-weight: 600; }
+
+@media (max-width: 720px) {
+  .app-shell { flex-direction: column; }
+  .sidebar {
+    position: static;
+    flex: none;
+    width: 100%;
+    height: auto;
+    padding: 8px 16px;
+    border-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .sidebar-nav { flex-direction: row; overflow-x: auto; }
+  .sidebar-label { display: none; }
+  .sidebar-link { white-space: nowrap; }
+}

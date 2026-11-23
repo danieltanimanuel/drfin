@@ -3,6 +3,7 @@ package gmail
 type GmailExtractedData struct {
 	Title             EmailTitle                   `json:"title"`
 	DetailTransaction []GmailDetailTransaction `json:"detail_transaction"`
+	OwnerID int `json:"owner_id"`
 }
 
 type GmailDetailTransaction struct {

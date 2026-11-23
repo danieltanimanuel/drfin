@@ -9,6 +9,7 @@ import (
 	"time"
 	"errors"
 	"github.com/gorilla/mux"
+	"strconv"
 )
 
 type Handler struct {
@@ -63,7 +64,16 @@ func (h *Handler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 // GetTransactionAccountGroups handles GET requests to retrieve all transaction accountgroups
 func (h *Handler) GetAllAcounts(w http.ResponseWriter, r *http.Request) {
-	accounts, err := h.service.GetAllAccounts()
+	var ownerID *int
+	if v := r.URL.Query().Get("owner"); v != "" {
+		id, err := strconv.Atoi(v)
+		if err != nil || id <= 0 {
+			http.Error(w, "invalid owner id", http.StatusBadRequest)
+			return
+		}
+		ownerID = &id
+	}
+	accounts, err := h.service.GetAllAccounts(ownerID)
 	if err != nil {
 		http.Error(w, "Failed to retrieve accounts", http.StatusInternalServerError)
 		return
@@ -115,6 +125,7 @@ func (h *Handler) CreateReceivable(
 ) {
     var payload struct {
         Name string `json:"name"`
+		OwnerID int `json:"owner_id"`
     }
 
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
@@ -134,7 +145,7 @@ func (h *Handler) CreateReceivable(
         return
     }
 
-    account, err := h.service.CreateReceivable(ctx,payload.Name)
+    account, err := h.service.CreateReceivable(ctx,payload.Name, payload.OwnerID)
     if err != nil {
         log.Printf("Error creating receivable: %v", err)
 

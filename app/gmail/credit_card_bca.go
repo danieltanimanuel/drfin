@@ -47,5 +47,5 @@ func (s *Service) handleCreditCardBCA(ctx context.Context, data *GmailExtractedD
 		Status:      "Waiting",
 		Source:      "Email",
 	}
-	return s.saveTransaction(ctx, dto)
+	return s.saveTransaction(ctx, data.OwnerID, dto)
 }

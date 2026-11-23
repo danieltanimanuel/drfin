@@ -38,7 +38,17 @@ func (h *Handler) GetAllTransactions(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
 
-	transactions, err := h.service.GetAllTransactions(ctx)
+	var ownerID *int
+	if v := r.URL.Query().Get("owner"); v != "" {
+		id, err := strconv.Atoi(v)
+		if err != nil || id <= 0 {
+			http.Error(w, "invalid owner id", http.StatusBadRequest)
+			return
+		}
+		ownerID = &id
+	}
+
+	transactions, err := h.service.GetAllTransactions(ctx, ownerID)
 	if err != nil {
 		http.Error(
 			w,

@@ -4,10 +4,8 @@ import (
 	"drfin/app/shared/logdr"
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
-
-	"net/http"
+	"path/filepath"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
@@ -24,21 +22,15 @@ func NewAuth() *Auth {
 }
 
 const (
-	TokenFile        = "token.json"
+	TokenDir         = "tokens"
 	ClientSecretFile = "resources/drfin-secret.json"
 )
 
-// getClient retrieves a token, saves it if needed, and returns an HTTP client.
-func getClient(config *oauth2.Config) *http.Client {
-	tok, err := tokenFromFile(TokenFile)
-	if err != nil {
-		tok = getTokenFromWeb(config)
-		saveToken(TokenFile, tok)
-	}
-	return config.Client(context.Background(), tok)
+// tokenFileFor returns the per-owner token path, e.g. tokens/1.json.
+func tokenFileFor(ownerID int) string {
+	return filepath.Join(TokenDir, fmt.Sprintf("%d.json", ownerID))
 }
 
-// tokenFromFile retrieves a token from a local file.
 func tokenFromFile(file string) (*oauth2.Token, error) {
 	tokJSON, err := os.ReadFile(file)
 	if err != nil {
@@ -51,49 +43,71 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 	return tok, nil
 }
 
-// getTokenFromWeb requests a token from the web, prompting the user.
-func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
-	authURL := config.AuthCodeURL("", oauth2.AccessTypeOffline)
-	fmt.Printf("Go to the following link in your browser:\n%v\n", authURL)
-
-	var code string
-	fmt.Print("Enter the authorization code: ")
-	fmt.Scan(&code)
-
-	tok, err := config.Exchange(context.Background(), code)
-	if err != nil {
-		log.Fatalf("Unable to retrieve token: %v", err)
+func saveToken(file string, token *oauth2.Token) error {
+	if err := os.MkdirAll(filepath.Dir(file), 0700); err != nil {
+		return err
 	}
-	return tok
+	tokJSON, err := json.Marshal(token)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(file, tokJSON, 0600)
 }
 
-// saveToken saves a token to a file path.
-func saveToken(file string, token *oauth2.Token) {
-	fmt.Printf("Saving credential file to: %s\n", file)
-	tokJSON, _ := json.Marshal(token)
-	os.WriteFile(file, tokJSON, 0600)
-}
-
-// authO2 demonstrates the OAuth2 flow and message processing.
-func authO2() (*gmail.Service, error) {
+func loadOAuthConfig() (*oauth2.Config, error) {
 	b, err := os.ReadFile(ClientSecretFile)
 	if err != nil {
 		logdr.Error("Unable to read client secret file: %v", err)
 		return nil, err
 	}
-
 	config, err := google.ConfigFromJSON(b, gmail.GmailReadonlyScope)
 	if err != nil {
 		logdr.Error("Unable to parse client secret file to config: %v", err)
 		return nil, err
 	}
+	return config, nil
+}
 
-	client := getClient(config)
+// AuthorizeOwner runs the interactive OAuth flow for one owner and stores the
+// token. CLI only (see main.go); never called during a sync.
+func AuthorizeOwner(ownerID int) error {
+	config, err := loadOAuthConfig()
+	if err != nil {
+		return err
+	}
+	authURL := config.AuthCodeURL("", oauth2.AccessTypeOffline)
+	fmt.Printf("Sign in with the Gmail account of owner %d and open:\n%v\n", ownerID, authURL)
+	var code string
+	fmt.Print("Enter the authorization code: ")
+	if _, err := fmt.Scan(&code); err != nil {
+		return err
+	}
+	tok, err := config.Exchange(context.Background(), code)
+	if err != nil {
+		return fmt.Errorf("unable to retrieve token: %w", err)
+	}
+	if err := saveToken(tokenFileFor(ownerID), tok); err != nil {
+		return err
+	}
+	fmt.Printf("Saved token to %s\n", tokenFileFor(ownerID))
+	return nil
+}
 
+// authO2 builds a Gmail client from the owner's stored token. It never prompts.
+func authO2(ownerID int) (*gmail.Service, error) {
+	config, err := loadOAuthConfig()
+	if err != nil {
+		return nil, err
+	}
+	tok, err := tokenFromFile(tokenFileFor(ownerID))
+	if err != nil {
+		return nil, fmt.Errorf("owner %d is not authorized (run: go run . -authorize-owner %d): %w", ownerID, ownerID, err)
+	}
+	client := config.Client(context.Background(), tok)
 	srv, err := gmail.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		logdr.Error("Unable to create Gmail service", err)
 		return nil, err
 	}
-	return srv, err
+	return srv, nil
 }

@@ -20,6 +20,7 @@ const (
             accounts ad ON t.account_dest_id = ad.id
         LEFT JOIN 
             categories c ON t.category_id = c.id
+        WHERE ($1::int IS NULL OR a.owner_id = $1)
         ORDER BY 
             t.id DESC
     `

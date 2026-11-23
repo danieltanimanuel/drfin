@@ -37,9 +37,9 @@ func NewService(repository *Repository, accountRepo *accounts.Repository, transa
 	}
 }
 
-func (s *Service) GetAllTransactions(ctx context.Context) ([]DailyTransactionsDTO, error) {
+func (s *Service) GetAllTransactions(ctx context.Context, ownerID *int) ([]DailyTransactionsDTO, error) {
 
-	transactions, err := s.Repository.GetAllTransactions(ctx)
+	transactions, err := s.Repository.GetAllTransactions(ctx, ownerID)
 	if err != nil {
 		log.Printf("Error getting all transactions: %v", err)
 		return nil, fmt.Errorf("could not fetch transactions: %w", err)
@@ -115,6 +115,7 @@ func (s *Service) GetExpenseCategoryAggregates(
 	ctx context.Context,
 	startDate time.Time,
 	endDate time.Time,
+	ownerID *int,
 ) ([]CategoryAggregate, error) {
 
 	return s.Repository.GetCategoryAggregatesByType(
@@ -122,6 +123,7 @@ func (s *Service) GetExpenseCategoryAggregates(
 		startDate,
 		endDate,
 		"Expense",
+		ownerID,
 	)
 }
 
@@ -129,6 +131,7 @@ func (s *Service) GetIncomeCategoryAggregates(
 	ctx context.Context,
 	startDate time.Time,
 	endDate time.Time,
+	ownerID *int,
 ) ([]CategoryAggregate, error) {
 
 	return s.Repository.GetCategoryAggregatesByType(
@@ -136,10 +139,15 @@ func (s *Service) GetIncomeCategoryAggregates(
 		startDate,
 		endDate,
 		"Income",
+		ownerID,
 	)
 }
 
 func (s *Service) CreateTransaction(ctx context.Context, t CreateTransactionDTO) (Transaction, error) {
+
+	if t.OwnerID <= 0 {
+		return Transaction{}, fmt.Errorf("owner is required")
+	}
 
 	// Begin SQL transaction WITH context
 	tx, err := s.Repository.db.BeginTx(ctx, nil)
@@ -166,7 +174,7 @@ func (s *Service) CreateTransaction(ctx context.Context, t CreateTransactionDTO)
 	if txErr != nil {
 		return Transaction{}, fmt.Errorf("could not inquiry category due to error : %v", txErr)
 	}
-	account, txErr := s.AccountRepo.GetAccountByName(t.Account)
+	account, txErr := s.AccountRepo.GetAccountByName(t.Account, t.OwnerID)
 	if txErr != nil {
 		return Transaction{}, fmt.Errorf("could not inquiry account due to error : %v", txErr)
 	}
@@ -175,7 +183,7 @@ func (s *Service) CreateTransaction(ctx context.Context, t CreateTransactionDTO)
 	var accountDestID *int
 	accountDestID = nil
 	if transactiontype.ID != 1 { // not Expense
-		accountDest, txErr := s.AccountRepo.GetAccountByName(t.AccountDest)
+		accountDest, txErr := s.AccountRepo.GetAccountByName(t.AccountDest, t.OwnerID)
 		if txErr != nil {
 			return Transaction{}, fmt.Errorf("could not inquiry account due to error : %v", txErr)
 		}
@@ -335,6 +343,12 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 		txErr = fmt.Errorf("use cancel to cancel a transaction")
 		return Transaction{}, txErr
 	}
+	
+	ownerID, err := s.AccountRepo.GetOwnerID(oldTx.AccountID)
+	if err != nil {
+		txErr = err
+		return Transaction{}, txErr
+	}
 
 	// 2️⃣ Resolve DTO → DB DTO (labels → IDs)
 	dbDTO := UpdateTransactionDBDTO{}
@@ -357,7 +371,7 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 	}
 
 	if dto.Account != nil {
-		acc, err := s.AccountRepo.GetAccountByName(*dto.Account)
+		acc, err := s.AccountRepo.GetAccountByName(*dto.Account, ownerID)
 		if err != nil {
 			return Transaction{}, err
 		}
@@ -389,6 +403,7 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 		account, err := s.AccountRepo.CreateReceivableAccount(
 			tx,
 			accountName,
+			ownerID,
 		)
 		if err != nil {
 			return Transaction{}, err
@@ -398,7 +413,7 @@ func (s *Service) UpdateTransaction(ctx context.Context, id int, dto UpdateTrans
 	}
 
 	if dto.AccountDest != nil && *dto.AccountDest != "" {
-		acc, err := s.AccountRepo.GetAccountByName(*dto.AccountDest)
+		acc, err := s.AccountRepo.GetAccountByName(*dto.AccountDest,ownerID)
 		if err != nil {
 			return Transaction{}, err
 		}

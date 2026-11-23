@@ -17,6 +17,7 @@ import (
 	"drfin/app/shared/renderer"
 	"drfin/app/transactions"
 	"drfin/app/transactiontypes"
+	"drfin/app/owners"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
@@ -99,10 +100,11 @@ func (apis *APIServer) Run() error {
 	processedGmailRepository := processedgmail.NewRepository(apis.db)
 
 	// Initialize Gmail
-	gmailService := gmail.NewService(transactionsService, accountsService, lastEmailRepository, processedGmailRepository)
+	ownersRepository := owners.NewRepository(apis.db)
+	gmailService := gmail.NewService(transactionsService, accountsService, lastEmailRepository, processedGmailRepository, ownersRepository)
 	gmailHandler := gmail.NewHandler(gmailService)
 
-	dashboardHandler := dashboard.NewHandler(accountsService, transactionsService, categoryService, transactiontypesService, rend)
+	dashboardHandler := dashboard.NewHandler(accountsService, transactionsService, categoryService, transactiontypesService, ownersRepository, rend)
 
 	// Register routes with specific methods (GET, POST, PUT, DELETE)
 	categoryHandler.RegisterHandler(router)

@@ -21,13 +21,11 @@ func NewRepository(db *sql.DB) *Repository {
 // READ
 //
 
-func (r *Repository) GetAllTransactions(
-	ctx context.Context, // ADD
-) ([]TransactionDTO, error) {
+func (r *Repository) GetAllTransactions(ctx context.Context, ownerID *int) ([]TransactionDTO, error) {
 
 	// Enhancement:
 	// QueryContext respects request timeout & cancellation
-	rows, err := r.db.QueryContext(ctx, queryGetAllTransaction)
+	rows, err := r.db.QueryContext(ctx, queryGetAllTransaction, ownerID)
 	if err != nil {
 		log.Printf("Error fetching transactions: %v", err)
 		return nil, fmt.Errorf("could not retrieve transactions: %w", err)
@@ -462,6 +460,7 @@ func (r *Repository) GetCategoryAggregatesByType(
 	startDate time.Time,
 	endDate time.Time,
 	typeName string,
+	ownerID *int,
 ) ([]CategoryAggregate, error) {
 
 	query := `
@@ -471,14 +470,16 @@ func (r *Repository) GetCategoryAggregatesByType(
 		FROM transactions t
 		JOIN categories c ON t.category_id = c.id
 		JOIN transaction_types tt ON t.type_id = tt.id
+		JOIN accounts a ON t.account_id = a.id
 		WHERE t.trade_date BETWEEN $1 AND $2
 		  AND tt.name = $3
 		  AND t.status <> 'Cancelled'
+		  AND ($4::int IS NULL OR a.owner_id = $4)
 		GROUP BY c.name
 		ORDER BY total_amount DESC;
 	`
 
-	rows, err := r.db.QueryContext(ctx, query, startDate, endDate, typeName)
+	rows, err := r.db.QueryContext(ctx, query, startDate, endDate, typeName, ownerID)
 	if err != nil {
 		return nil, err
 	}

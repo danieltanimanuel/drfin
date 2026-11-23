@@ -19,7 +19,7 @@ func toMap(details []GmailDetailTransaction) map[string]string {
 func (s *Service) handleTransaksiBlu(ctx context.Context, data *GmailExtractedData) error {
 	logdr.Info("log detail transactions", "detailTransactions", data)
 	mapData := toMap(data.DetailTransaction)
-	account, err := s.accountService.GetAccountByAccountNumber(mapData["Beneficiary"])
+	account, err := s.accountService.GetAccountByAccountNumber(mapData["Beneficiary"],data.OwnerID)
 	var transactionType string
 	switch {
 	case err == sql.ErrNoRows:
@@ -51,7 +51,7 @@ func (s *Service) handleTransaksiBlu(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 	case "BI-FAST":
 		amount, ok := ParseAmount(mapData["Total"], EmailTitleTransaksiBlu)
 		if !ok {
@@ -72,7 +72,7 @@ func (s *Service) handleTransaksiBlu(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 	case "QRIS":
 		amount, ok := ParseAmount(mapData["Nominal Tagihan"], EmailTitleTransaksiBlu)
 		if !ok {
@@ -93,7 +93,7 @@ func (s *Service) handleTransaksiBlu(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 	}
 	return nil
 }

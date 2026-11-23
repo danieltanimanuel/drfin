@@ -79,12 +79,12 @@ func decodeMessageBody(part *gmail.MessagePart) (string, error) {
 }
 
 // parseHTMLTables parses and prints table data from HTML content.
-func parseHTMLTables(htmlContent string, format EmailTitle) ([]GmailDetailTransaction, error) {
+func parseHTMLTables(htmlContent string, format EmailTitle, holderName string) ([]GmailDetailTransaction, error) {
 	switch format {
 	case EmailTitleCreditCardBCA:
 		return parseCCBCAXML(htmlContent)
 	case EmailTitleTransaksiBlu:
-		return parseBLUXML(htmlContent)
+		return parseBLUXML(htmlContent, holderName)
 	case EmailTitleTransaksiBCA:
 		return parseBCAXML(htmlContent)
 	default:
@@ -111,7 +111,8 @@ func isMostNestedDiv(s *goquery.Selection) bool {
 	return s.Find("div").Length() == 0
 }
 
-func parseBLUXML(htmlContent string) ([]GmailDetailTransaction, error) {
+func parseBLUXML(htmlContent string, holderName string) ([]GmailDetailTransaction, error) {
+	holderName = strings.TrimSpace(holderName)
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(htmlContent))
 	if err != nil {
 		logdr.Error("Error loading HTML", err)
@@ -164,7 +165,7 @@ func parseBLUXML(htmlContent string) ([]GmailDetailTransaction, error) {
 					Key:   "Nominal Tagihan",
 					Value: strings.TrimSpace(s.ParentsFilteredUntil("div", "html").Next().Text()),
 				})
-			case text == "Daniel Imanuel Sutanto":
+			case text == holderName:
 				// Step 1: Get the parent <td>
 				td := s.ParentsFiltered("td")
 
@@ -263,7 +264,7 @@ func parseBCAXML(htmlContent string) ([]GmailDetailTransaction, error) {
 	return detailTransactions, nil
 }
 
-func extractMail(message *gmail.Message) (*GmailExtractedData, error) {
+func extractMail(message *gmail.Message, holderName string) (*GmailExtractedData, error) {
 	emailTitle := extractMailTitle(message)
 	for _, part := range message.Payload.Parts {
 		// logdr.Info("","2- ", part.MimeType)
@@ -274,7 +275,7 @@ func extractMail(message *gmail.Message) (*GmailExtractedData, error) {
 				continue
 			}
 			if part.MimeType == "text/html" {
-				detailTransactions, err := parseHTMLTables(body, EmailTitle(emailTitle))
+				detailTransactions, err := parseHTMLTables(body, EmailTitle(emailTitle), holderName)
 				if err != nil {
 					logdr.Error("error parsing HTML tables", err)
 					continue
@@ -296,7 +297,7 @@ func extractMail(message *gmail.Message) (*GmailExtractedData, error) {
 					if err != nil {
 						logdr.Error("Unable to decode message body", err)
 					}
-					detailTransactions, err := parseHTMLTables(html, EmailTitle(emailTitle))
+					detailTransactions, err := parseHTMLTables(html, EmailTitle(emailTitle), holderName)
 					if err != nil {
 						logdr.Error("Unable to parse HTML tables", err)
 					}
@@ -319,7 +320,7 @@ func extractMail(message *gmail.Message) (*GmailExtractedData, error) {
 					continue
 				}
 				if subPart.MimeType == "text/html" {
-					detailTransactions, err := parseHTMLTables(body, EmailTitle(emailTitle))
+					detailTransactions, err := parseHTMLTables(body, EmailTitle(emailTitle), holderName)
 					if err != nil {
 						logdr.Error("error parsing HTML tables", err)
 						continue

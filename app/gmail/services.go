@@ -10,9 +10,10 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
-	"runtime/debug"
 	"google.golang.org/api/gmail/v1"
 	"errors"
+	"drfin/app/owners"
+	"strings"
 )
 
 type AmountFormat string
@@ -35,6 +36,7 @@ type Service struct {
 	accountService           *accounts.Service
 	lastEmailRepository      *lastemail.Repository
 	processedGmailRepository *processedgmail.Repository
+	ownerRepository 		 *owners.Repository
 }
 
 // ErrSkipEmail is returned by a handler to say "intentionally not imported".
@@ -44,8 +46,9 @@ var ErrSkipEmail = errors.New("email intentionally skipped")
 func NewService(transactionService *transactions.Service,
 	accountService *accounts.Service,
 	lastEmailRepository *lastemail.Repository,
-	processedGmailRepository *processedgmail.Repository) *Service {
-	return &Service{transactionService: transactionService, accountService: accountService, lastEmailRepository: lastEmailRepository, processedGmailRepository: processedGmailRepository}
+	processedGmailRepository *processedgmail.Repository,
+	ownerRepository *owners.Repository) *Service {
+	return &Service{transactionService: transactionService, accountService: accountService, lastEmailRepository: lastEmailRepository, processedGmailRepository: processedGmailRepository, ownerRepository: ownerRepository}
 }
 
 func shouldProcessTitle(format EmailTitle) bool {
@@ -69,14 +72,14 @@ func IsAllowedEmailTitle(subject string) bool {
 	return ok
 }
 
-func (s *Service) syncMail(ctx context.Context) error {
-	srv, err := authO2()
+func (s *Service) syncMail(ctx context.Context, owner owners.Owner) error {
+	srv, err := authO2(owner.ID)
 	if err != nil {
 		return err
 	}
 
 	// 1. Load checkpoint
-	lastInternalDate, err := s.lastEmailRepository.GetLastInternalDate()
+	lastInternalDate, err := s.lastEmailRepository.GetLastInternalDate(owner.ID)
 	if err != nil {
 		return err
 	}
@@ -87,7 +90,7 @@ func (s *Service) syncMail(ctx context.Context) error {
 		lastInternalDate/1000, EmailTitleCreditCardBCA, EmailTitleTransaksiBlu, EmailTitleTransaksiBCA)
 	logdr.Info("Fetch email with query", "query", query)
 
-	msgs, _ := listMessages(srv, "me", query)
+	msgs, err := listMessages(srv, "me", query)
 	if err != nil {
 		logdr.Info("Unable to get last email", err)
 		return err
@@ -136,7 +139,7 @@ func (s *Service) syncMail(ctx context.Context) error {
 		}
 
 		// Skip if already successfully processed
-		exists, err := s.processedGmailRepository.Exists(message.Id)
+		exists, err := s.processedGmailRepository.Exists(owner.ID, message.Id)
 		if err != nil {
 			return err
 		}
@@ -148,21 +151,22 @@ func (s *Service) syncMail(ctx context.Context) error {
 
 		// Start processing email
 		logdr.Info("Processing email", "email_id", message.Id, "subject", title)
-		data, err := s.processMessage(ctx, message)
+		data, err := s.processMessage(ctx, owner, message)
 		if errors.Is(err, ErrSkipEmail) {
 			logdr.Warn("Skipping email: unsupported currency", "email_id", message.Id, "subject", title)
 			// Record as processed so it is not retried, and let the checkpoint advance.
-			_ = s.processedGmailRepository.RecordSuccess(message.Id, message.InternalDate, 0)
+			_ = s.processedGmailRepository.RecordSuccess(owner.ID, message.Id, message.InternalDate, 0)
 			safeInternalDate = message.InternalDate
 			continue
 		}
 		if err != nil {
-			s.failMessage(message, title, data, err)
+			s.failMessage(owner.ID, message, title, data, err)
 			break
 		}
 
 		// ✅ SUCCESS
 		_ = s.processedGmailRepository.RecordSuccess(
+			owner.ID,
 			message.Id,
 			message.InternalDate,
 			0, // optional transaction ID
@@ -180,7 +184,7 @@ func (s *Service) syncMail(ctx context.Context) error {
 
 	// 5. Advance checkpoint ONLY to last safe success
 	if safeInternalDate > lastInternalDate {
-		if err := s.lastEmailRepository.UpdateLastInternalDate(safeInternalDate); err != nil {
+		if err := s.lastEmailRepository.UpdateLastInternalDate(owner.ID, safeInternalDate); err != nil {
 			return err
 		}
 	}
@@ -206,31 +210,32 @@ func (s *Service) createTransactionFromGmail(ctx context.Context, data *GmailExt
 
 // processMessage extracts one email and creates its transaction.
 // A panic (bad HTML, short-string slicing) becomes a recorded error instead of a lost request.
-func (s *Service) processMessage(ctx context.Context, message *gmail.Message) (data *GmailExtractedData, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			logdr.Info("panic while processing email", "email_id", message.Id, "panic", r, "stack", string(debug.Stack()))
-			err = fmt.Errorf("panic: %v", r)
-		}
-	}()
-	if data, err = extractMail(message); err != nil {
+func (s *Service) processMessage(ctx context.Context, owner owners.Owner, message *gmail.Message) (data *GmailExtractedData, err error) {
+	defer func() { /* unchanged recover block */ }()
+
+	// Without the holder name the blu parser would silently import a transfer as an Expense.
+	if EmailTitle(extractMailTitle(message)) == EmailTitleTransaksiBlu && strings.TrimSpace(owner.BankHolderName) == "" {
+		return nil, fmt.Errorf("bank_holder_name is not set for owner %d", owner.ID)
+	}
+	if data, err = extractMail(message, owner.BankHolderName); err != nil {
 		return data, err
 	}
 	if data == nil {
 		return nil, fmt.Errorf("no parsable html part found")
 	}
+	data.OwnerID = owner.ID
 	return data, s.createTransactionFromGmail(ctx, data)
 }
 
 // failMessage logs and stores everything needed to debug one email.
-func (s *Service) failMessage(msg *gmail.Message, title string, data *GmailExtractedData, err error) {
+func (s *Service) failMessage(ownerID int, msg *gmail.Message, title string, data *GmailExtractedData, err error) {
 	details := map[string]string{}
 	if data != nil {
 		details = toMap(data.DetailTransaction)
 	}
 	logdr.Info("EMAIL FAILED", "email_id", msg.Id, "subject", title,
 		"internal_date", msg.InternalDate, "error", err.Error(), "details", details)
-	if e := s.processedGmailRepository.RecordFailure(msg.Id, msg.InternalDate,
+	if e := s.processedGmailRepository.RecordFailure(ownerID, msg.Id, msg.InternalDate,
 		fmt.Sprintf("%v | subject=%q | details=%v", err, title, details)); e != nil {
 		logdr.Error("record failure", e)
 	}

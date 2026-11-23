@@ -3,18 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard</title>
+  <title>Dashboard · {{.SelectedName}}</title>
   <link rel="stylesheet" href="/static/style.css" />
   <link rel="stylesheet" href="/static/transaction-grid.css" />
   <link rel="stylesheet" href="/static/dashboard.css" />
   <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
-<body>
+<body data-owner-id="{{.SelectedOwnerID}}">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Owners">
+      <nav class="sidebar-nav">
+        <span class="sidebar-label">Owners</span>
+        {{range .Owners}}
+          <a href="/dashboard?owner={{.ID}}" class="sidebar-link{{if eq .ID $.SelectedOwnerID}} is-active{{end}}"{{if eq .ID $.SelectedOwnerID}} aria-current="page"{{end}}>{{.DisplayName}}</a>
+        {{end}}
+      </nav>
+    </aside>
     <div class="dash">
       <header class="dash-header">
         <div>
           <h1>drfin</h1>
-          <p class="muted">Personal finance overview</p>
+          <p class="muted">Personal finance overview · {{.SelectedName}}</p>
         </div>
         <nav class="quick-actions" aria-label="Quick actions">
           <button type="button" id="add-account-btn" class="btn">+ Add Account</button>
@@ -54,6 +63,7 @@
         <div id="transactions-grid"></div>
       </section>
     </div>
+    </div>
     <div id="modal-overlay" class="modal-overlay" style="display:none;">
       <div class="modal">
         <div id="modal-content"></div>
@@ -61,10 +71,16 @@
     </div>
 
   <script>
+    const OWNER_ID = document.body.dataset.ownerId;
+
+    function withOwner(url) {
+      return url + (url.includes("?") ? "&" : "?") + "owner=" + encodeURIComponent(OWNER_ID);
+    }
+
     async function loadFragment(url, id) {
       const el = document.getElementById(id);
       try {
-        const res = await fetch(url);
+        const res = await fetch(withOwner(url));      // <- was fetch(url)
         el.innerHTML = res.ok
           ? await res.text()
           : '<p class="muted">Could not load this section.</p>';
@@ -466,4 +482,4 @@
     });
   </script>
 </body>
-</html>
+</html>

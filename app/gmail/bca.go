@@ -53,7 +53,7 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 
 	case "QRIS Payment":
 		amount, ok := ParseAmount(mapData["Total Payment"], EmailTitleTransaksiBCA)
@@ -74,7 +74,7 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 
 	case "Credit Card & Paylater - BCA":
 		amount, ok := ParseAmount(mapData["Total Payment"], EmailTitleTransaksiBCA)
@@ -92,7 +92,7 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 	
 	case "Flazz Top Up":
 		amount, ok := ParseAmount(mapData["Top Up Amount"], EmailTitleTransaksiBCA)
@@ -109,14 +109,14 @@ func (s *Service) handleTransaksiBCA(ctx context.Context, data *GmailExtractedDa
 			Status:      "Waiting",
 			Source:      "Email",
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 
 	case "Pocket Transaction":
 		dto, err := buildPocketTransferDTO(mapData, tradeDate)
 		if err != nil {
 			return err
 		}
-		return s.saveTransaction(ctx, dto)
+		return s.saveTransaction(ctx, data.OwnerID, dto)
 	}
 	return nil
 }

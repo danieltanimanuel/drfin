@@ -6,6 +6,7 @@ import (
 	"drfin/app/categories"
 	"drfin/app/transactions"
 	"drfin/app/transactiontypes"
+	"drfin/app/owners"
 	"encoding/json"
 	"errors"
 	"html/template"
@@ -22,6 +23,7 @@ type Handler struct {
 	transactionService *transactions.Service
 	categoryService    *categories.Service
 	transactionTypeService *transactiontypes.Service
+	ownerRepository    *owners.Repository
 	renderer           Renderer
 }
 
@@ -34,6 +36,7 @@ func NewHandler(
     transactionService *transactions.Service,
     categoryService *categories.Service,
     transactionTypeService *transactiontypes.Service,
+	ownerRepository    *owners.Repository,
     r Renderer,
 ) *Handler {
     return &Handler{
@@ -41,6 +44,7 @@ func NewHandler(
         transactionService:      transactionService,
         categoryService:         categoryService,
         transactionTypeService: transactionTypeService,
+		ownerRepository:        ownerRepository,
         renderer:                r,
     }
 }
@@ -74,8 +78,34 @@ func (h *Handler) RegisterHandler(router *mux.Router) {
 // Dashboard shell
 // ----------------------
 func (h *Handler) Dashboard(w http.ResponseWriter, r *http.Request) {
+	ownerID, ok := ownerFromRequest(w, r)
+	if !ok {
+		return
+	}
+
+	list, err := h.ownerRepository.List()
+	if err != nil {
+		log.Printf("Error loading owners: %v", err)
+		http.Error(w, "failed to load owners", http.StatusInternalServerError)
+		return
+	}
+
+	view := ShellView{Owners: list, SelectedOwnerID: ownerID}
+	found := false
+	for _, o := range list {
+		if o.ID == ownerID {
+			view.SelectedName = o.DisplayName()
+			found = true
+			break
+		}
+	}
+	if !found {
+		http.Error(w, "owner not found", http.StatusNotFound)
+		return
+	}
+
 	// Just render the shell (AJAX will load grids)
-	err := h.renderer.Render(w, "dashboard/templates/", "dashboard.html", nil)
+	err = h.renderer.Render(w, "dashboard/templates/", "dashboard.html", view)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -85,7 +115,8 @@ func (h *Handler) Dashboard(w http.ResponseWriter, r *http.Request) {
 // Accounts Grid
 // ----------------------
 func (h *Handler) AccountsGrid(w http.ResponseWriter, r *http.Request) {
-	accountsInq, err := h.accountService.GetAllAccounts()
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
+	accountsInq, err := h.accountService.GetAllAccounts(&ownerID)
 	if err != nil {
 		http.Error(w, "failed to load accounts", http.StatusInternalServerError)
 		return
@@ -101,7 +132,8 @@ func (h *Handler) AccountsGrid(w http.ResponseWriter, r *http.Request) {
 // Pie Grid (JSON only)
 // ----------------------
 func (h *Handler) PieGrid(w http.ResponseWriter, r *http.Request) {
-	accountsInq, err := h.accountService.GetAllAccounts()
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
+	accountsInq, err := h.accountService.GetAllAccounts(&ownerID)
 	if err != nil {
 		http.Error(w, "failed to load pie data", http.StatusInternalServerError)
 		return
@@ -119,7 +151,8 @@ func (h *Handler) TransactionsGrid(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
 	defer cancel()
 
-	transactionInq, err := h.transactionService.GetAllTransactions(ctx)
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
+	transactionInq, err := h.transactionService.GetAllTransactions(ctx, &ownerID)
 	if err != nil {
 		http.Error(w, "failed to load transactions", http.StatusInternalServerError)
 		return
@@ -133,7 +166,8 @@ func (h *Handler) TransactionsGrid(w http.ResponseWriter, r *http.Request) {
 
 // GetTransactionAccountGroups handles GET requests to retrieve all transaction accountgroups
 func (h *Handler) GetAllAcounts(w http.ResponseWriter, r *http.Request) {
-	accountsInq, err := h.accountService.GetAllAccounts()
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
+	accountsInq, err := h.accountService.GetAllAccounts(&ownerID)
 	if err != nil {
 		http.Error(w, "Failed to retrieve accounts", http.StatusInternalServerError)
 		return
@@ -186,13 +220,19 @@ func (h *Handler) EditTransactionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ownerID, err := h.accountService.GetAccountOwnerID(txn.Account.ID)
+	if err != nil {
+		http.Error(w, "Failed to resolve owner", http.StatusInternalServerError)
+		return
+	}
+
 	categories, err := h.categoryService.GetAllCategories()
 	if err != nil {
 		http.Error(w, "Failed to load categories", http.StatusInternalServerError)
 		return
 	}
 
-	accounts, err := h.accountService.GetAllAccounts()
+	accounts, err := h.accountService.GetAllAccounts(&ownerID)
 	if err != nil {
 		http.Error(w, "Failed to load accounts", http.StatusInternalServerError)
 		return
@@ -303,10 +343,12 @@ func (h *Handler) GetExpenseCategoryAggregates(w http.ResponseWriter, r *http.Re
 		}
 	}
 
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
 	expenseTotals, err := h.transactionService.GetExpenseCategoryAggregates(
 		ctx,
 		from,
 		to,
+		&ownerID,
 	)
 	if err != nil {
 		http.Error(w, "Failed to load category summary", 500)
@@ -336,7 +378,8 @@ func (h *Handler) CreateTransactionForm(
 		return
 	}
 
-	accounts, err := h.accountService.GetAllAccounts()
+	ownerID, ok := ownerFromRequest(w, r); if !ok { return }
+	accounts, err := h.accountService.GetAllAccounts(&ownerID)
 	if err != nil {
 		http.Error(w, "failed accounts", 500)
 		return
@@ -388,4 +431,4 @@ func (h *Handler) CancelTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-}
+}

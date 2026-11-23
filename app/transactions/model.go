@@ -68,6 +68,7 @@ type CreateTransactionDTO struct {
 	Description string     `json:"description"`
 	Status      string     `json:"status"`
 	Source      string     `json:"source"`
+	OwnerID     int        `json:"owner_id"`
 }
 
 // ✅ Enhancement:
