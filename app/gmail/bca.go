@@ -18,8 +18,10 @@ func accountFromSourceOfFund(sourceOfFund string) (string, bool) {
 		return "Tahapan Gold", true
 	case strings.Contains(sourceOfFund, "BCA KKI"):
 		return "CC BCA", true
-	case strings.Contains(sourceOfFund, "TAHAPAN - 0840"):
+	case strings.Contains(sourceOfFund, "TAHAPAN -"):
 		return "Tahapan Gold", true
+	case strings.Contains(sourceOfFund, "TAHAPAN XPRESI"):
+    	return "Tahapan Xpresi", true
 	}
 	return "", false
 }

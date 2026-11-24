@@ -20,7 +20,7 @@ func (r *Repository) Exists(ownerID int, messageID string) (bool, error) {
 	err := r.db.QueryRow(
 		`SELECT EXISTS (
 			SELECT 1 FROM processed_gmail_messages
-			WHERE owner_id = $1 AND gmail_message_id = $2 AND status = 'success''
+			WHERE owner_id = $1 AND gmail_message_id = $2 AND status = 'success'
 		)`,
 		ownerID, messageID,
 	).Scan(&exists)
@@ -39,7 +39,7 @@ func (r *Repository) RecordSuccess(ownerID int, messageID string, internalDate i
 		`INSERT INTO processed_gmail_messages
 			(owner_id, gmail_message_id, internal_date, transaction_id, status)
 		VALUES ($1, $2, $3, $4, 'success')
-		ON CONFLICT (gmail_message_id) DO UPDATE SET
+		ON CONFLICT (owner_id, gmail_message_id) DO UPDATE SET
 		status = 'success', error_message = NULL,
 		transaction_id = EXCLUDED.transaction_id, processed_at = NOW()`,
 		ownerID,
