@@ -9,6 +9,7 @@ A personal finance web application for tracking accounts and transactions, with 
 - Maintain account balances when transactions are created or updated.
 - Render a web dashboard with account summaries, transaction history, and expense-category summaries.
 - Trigger Gmail synchronization through `POST /scan-email`.
+- Support multiple owners (rows in `users`), each with their own Gmail mailbox, accounts, transactions and sync state; account groups, categories and transaction types are shared. `POST /scan-email?owner=<id>` syncs one owner, no parameter syncs all. The dashboard has a sidebar to switch owners (`/dashboard?owner=<id>`, default 1). See [docs/MULTI_OWNER.md](docs/MULTI_OWNER.md).
 - Parse selected BCA, blu, and BCA credit-card notification formats.
 - Post BCA QRIS payments to `CC BCA` or `Tahapan Gold` based on the email's `Source of Fund` field (empty falls back to `Tahapan Gold`).
 - Import BCA MyBCA pocket transfers as `Transfer` transactions: `Tahapan Gold` → pocket, pocket → pocket, and pocket → `Tahapan Gold`. Pocket accounts must exist as `MyBCAPocket <pocket name>` (for example `MyBCAPocket Mam`).
@@ -42,6 +43,7 @@ The exact dependencies are listed in `go.mod`.
 │   ├── db/              # PostgreSQL connection setup
 │   ├── gmail/           # Gmail OAuth, sync, extraction, and bank parsers
 │   ├── lastemail/       # Gmail sync checkpoint persistence
+│   ├── owners/          # Owner registry (users table)
 │   ├── processedgmail/  # Processed/failed Gmail message tracking
 │   ├── shared/          # Logging and HTML rendering helpers
 │   ├── transactions/    # Transaction logic and persistence
@@ -64,7 +66,7 @@ The current database connection is hard-coded in `app/db/db.go` to a local Postg
    - `initial_table.sql`
    - `initial_table_config.sql`
    - `populate_table.sql`
-3. Provide Gmail OAuth client credentials locally (see the security note below).
+3. Provide Gmail OAuth client credentials locally (see the security note below), then authorize each owner's mailbox: `go run . -authorize-owner <id>`. Add owners and their `last_email` rows first (see [docs/MULTI_OWNER.md](docs/MULTI_OWNER.md)).
 4. Run:
 
 ```bash
@@ -78,14 +80,15 @@ The current entry point starts the HTTP server on `localhost:8080`.
 **Do not commit OAuth client secrets or user OAuth tokens.** The repository has historically contained `token.json` and `resources/drfin-secret.json`. Treat any credentials that have ever been committed to this public repository as exposed: revoke/rotate them, remove the files, and consider cleaning Git history. Keep local credential files out of Git and deploy secrets through an appropriate secret store or environment-based configuration.
 
 The current implementation expects:
-- `token.json`
+- `tokens/<owner_id>.json` (one per owner; the folder must be git-ignored)
 - `resources/drfin-secret.json`
 
+Do not commit personal data in SQL seed files: set `users.bank_holder_name` locally with an `UPDATE`.
 Those paths are legacy implementation details, not a recommended secrets-management design. Never upload these files to an AI coding assistant.
 
 ## Known limitations
 
-This is documentation of the current repository, not a claim that the future product roadmap is implemented. Gmail account-to-account configuration, reconciliation, robust transfer matching, and multi-Gmail-account support are not established by the current code inspected. See [docs/FEATURES.md](docs/FEATURES.md).
+This is documentation of the current repository, not a claim that the future product roadmap is implemented. Gmail account-to-account configuration, reconciliation, and robust transfer matching are not established by the current code inspected. Multiple Gmail accounts are supported through owners, but there is no combined view and no cross-owner transfers (see [docs/MULTI_OWNER.md](docs/MULTI_OWNER.md)).
 
 ## Development checks
 

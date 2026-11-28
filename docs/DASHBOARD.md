@@ -16,7 +16,13 @@
 
 `/dashboard/pie` still exists but the dashboard no longer uses it.
 
-Handlers are in `app/dashboard/handlers.go` (existing) and `app/dashboard/overview_handlers.go` (new fragments). View models and pure builders are in `app/dashboard/overview_view.go`. Styles: `app/static/dashboard.css` (loaded after `style.css` and `transaction-grid.css`).
+## Owner selection
+
+- `/dashboard?owner=<id>` selects the owner (default 1; unknown id → 404). The sidebar lists every row of `users`. The shell renders the id into `<body data-owner-id>` and the JavaScript adds `owner=<id>` to every fragment and create request.
+- Every fragment route above accepts `?owner=<id>`. The transaction edit form takes its owner from the transaction being edited, not from the URL.
+- Account groups are shared across owners. Overview blocks, month totals and breakdowns are per owner.
+
+Handlers are in `app/dashboard/handlers.go` (existing) and `app/dashboard/overview_handlers.go` (new fragments). Owner parsing and the shell view are in `app/dashboard/owner.go`. View models and pure builders are in `app/dashboard/overview_view.go`. Styles: `app/static/dashboard.css` (loaded after `style.css` and `transaction-grid.css`).
 
 ## Calculation rules
 
@@ -52,7 +58,8 @@ Blocks are never added together. Available credit on a Credit account = `credit_
 - The accounts grid, Add Account form, and group classification depend on fixed group IDs 1–8.
 - Adjust balance still uses `prompt()`; after create/adjust/cancel the page reloads or reloads every section.
 - Closed accounts (`status`) are not filtered out.
+- No combined view across owners yet (see `docs/MULTI_OWNER.md`).
 
 ## Untested behavior
 
-No `*_test.go` files exist for the dashboard (test pause in `CLAUDE.md`). Untested: month totals, the 6-month series, group subtotals and block classification, available credit, category percentages, recent-transaction flattening and the `formatNumber` negative-number fix.
+No `*_test.go` files exist for the dashboard (test pause in `CLAUDE.md`). Untested: owner scoping and the owner sidebar, month totals, the 6-month series, group subtotals and block classification, available credit, category percentages, recent-transaction flattening and the `formatNumber` negative-number fix.

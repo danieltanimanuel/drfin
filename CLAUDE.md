@@ -36,6 +36,7 @@ Read these only when relevant to the task:
 - `docs/DATABASE.md` — PostgreSQL schema.
 - `docs/DEVELOPMENT.md` — setup, commands, and safety notes.
 - `docs/GMAIL_SETUP.md` — Gmail OAuth credential setup (only for auth/credential problems).
+- `docs/MULTI_OWNER.md` — owner model, owner-scoped tables, per-owner Gmail sync and tokens, dashboard owner selection. Read when touching accounts, transactions, Gmail sync, or dashboard queries.
 - `docs/todo/` — one file per unimplemented feature design. Read only the file for the task at hand.
 
 ## Token Efficiency

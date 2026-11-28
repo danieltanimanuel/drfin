@@ -20,7 +20,7 @@ Create the database/schema expected by the SQL scripts, then run:
 go run .
 ```
 
-The server address is currently `localhost:8080`.
+Gmail sync is per owner. Authorize each mailbox once with `go run . -authorize-owner <id>`; the token is stored in `tokens/<id>.json`. Add owners and their `last_email` rows first (see `docs/MULTI_OWNER.md`). Then sync with `POST /scan-email?owner=<id>`, or without `owner` for all owners.
 
 ## Useful checks
 
@@ -35,13 +35,15 @@ Tests exist but coverage is minimal: `app/shared/logdr` (stack-frame helper) and
 ## Secrets and local files
 
 Never commit:
-- `token.json`
+- `tokens/` (per-owner OAuth tokens)
+- `token.json` (legacy; move it to `tokens/1.json`)
 - `resources/drfin-secret.json`
 - `.env` or `.env.*`
 - local database dumps
 - real bank email samples or exports containing personal data
+- real names in SQL seed files (set `users.bank_holder_name` locally with an `UPDATE`)
 
-The existing code reads OAuth files from fixed paths. For local development, keep those files untracked and provision them manually. A later task can move configuration to environment variables or a secret manager.
+The existing code reads the client secret from a fixed path and each owner's token from `tokens/<owner_id>.json`. For local development, keep those files untracked and provision them manually. A later task can move configuration to environment variables or a secret manager.
 
 ## Task workflow
 
