@@ -2,4 +2,5 @@ app.log
 /drfin
 token.json
 resources/drfin-secret.json
+resources/sample_eml/*
 tokens/*
