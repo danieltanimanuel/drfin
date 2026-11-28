@@ -250,7 +250,9 @@
           amount: form.amount.value,
           description: form.description.value,
           status: "CONFIRMED",
-          source: "MANUAL"
+          source: "MANUAL",
+          owner_id: parseInt(OWNER_ID, 10)
+
         };
 
         const response = await fetch("/transactions", {
@@ -447,7 +449,8 @@
           name: form.elements["name"].value,
           account_group_id: parseInt(form.elements["account_group_id"].value, 10),
           initial_balance: form.elements["initial_balance"].value,
-          credit_limit: form.elements["credit_limit"].value
+          credit_limit: form.elements["credit_limit"].value,
+          owner_id: parseInt(OWNER_ID, 10)
         });
         location.reload(); // refreshes every section
       } catch (err) {

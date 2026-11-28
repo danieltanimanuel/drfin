@@ -52,24 +52,16 @@ Read these only when relevant to the task:
 
 ### File Output Efficiency
 
-Classify files by size:
-
-- **Small:** ≤150 lines.
-- **Medium:** 151–400 lines.
-- **Large:** 401–800 lines.
-- **Very large:** >800 lines.
-- Treat files exceeding 20 KB as large, regardless of line count.
-
-Output rules:
-
-- Small files: Full-file output is acceptable when necessary.
-- Medium files: Show only modified sections, with enough surrounding context to identify their location.
-- Large files: Show only changed lines or a minimal diff/patch. Never reproduce the entire file.
-- Very large files: Use minimal diffs or patches exclusively.
-- For unchanged sections, reference their function, heading, or location instead of reproducing their contents.
-- Never repeat an entire file just to demonstrate a small modification.
-- When editing files directly, make the changes in place and report only the affected files and a concise change summary.
-- If asked to provide code for manual application, provide only the updated lines or relevant code blocks unless the full file is explicitly requested.
+1. Never output an entire file if only part of it changed, regardless of file size.
+   - If 1 line of a 1,000-line file changes, output only that line with minimal anchor context.
+   - Never re-print unchanged imports, unchanged functions, or large boilerplate blocks.
+2. Use anchor-based snippets:
+   - Always state the target file path and the function/type/handler name.
+   - Mark unchanged areas with `// ... existing code ...`.
+   - Never use unified diff format or `+` / `-` line markers. Show the changed lines exactly as they should appear in the file, so they can be copied and pasted directly.
+   - To flag a changed line, use a trailing comment such as `// UPDATED: <what changed>`. When a line is removed, say so in prose instead of showing it.
+3. Full-file output is allowed only for a brand-new file that does not exist yet, and even then keep boilerplate minimal and relevant to the request. (New `*_test.go` files remain blocked by the test pause in "Testing".)
+4. When editing files directly, make the changes in place and report only the affected files and a concise change summary.
 
 ### Documentation Organization
 
